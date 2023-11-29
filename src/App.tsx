@@ -1,9 +1,12 @@
+import { useEffect, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Layout from './components/layout.tsx';
+import auth from './firebase.ts';
 import Home from './routes/home.tsx';
 import Profile from './routes/profile.tsx';
 import Login from './routes/login.tsx';
 import CreateAccount from './routes/create-account.tsx';
+import Layout from './components/layout.tsx';
+import LoadingScreen from './components/loading-screen.tsx';
 import GlobalStyles from './styles/GlobalStyle.ts';
 
 const router = createBrowserRouter([
@@ -32,10 +35,18 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  const init = async () => {
+    await auth.authStateReady();
+    setIsLoading(false);
+  };
+  useEffect(() => {
+    init();
+  }, []);
   return (
     <>
       <GlobalStyles />
-      <RouterProvider router={router} />
+      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
     </>
   );
 }
