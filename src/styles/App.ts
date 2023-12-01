@@ -1,6 +1,11 @@
 import { createGlobalStyle, styled } from 'styled-components';
 import reset from 'styled-reset';
 
+export const primaryColor = '#FF7AB2';
+export const grayColor = '#A7A7A7';
+export const blackColor = '#070707';
+export const whiteColor = '#FAFAFA';
+
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -8,13 +13,24 @@ export const Wrapper = styled.div`
 `;
 
 export const GlobalStyles = createGlobalStyle`
+  @import url("https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css");
+  @font-face {
+    font-family: 'Ycomputer-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/Ycomputer-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
   ${reset};
   * {
     box-sizing: border-box;
+    font-family: 'Galmuri11', sans-serif;
+    color: ${blackColor};
   }
   body {
-    background-color: black;
-    color:white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: ${whiteColor};
+    font-family: 'Galmuri11', sans-serif;
+  }
+  h1, h2 {
+    font-family: 'Ycomputer-Regular', sans-serif;
   }
 `;

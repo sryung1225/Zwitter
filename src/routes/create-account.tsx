@@ -74,7 +74,9 @@ export default function CreateAccount() {
           type="password"
           required
         />
-        <S.Input type="submit" value={isLoading ? '로딩...' : '회원가입'} />
+        <S.SubmitButton type="submit">
+          {isLoading ? '로딩...' : '회원가입'}
+        </S.SubmitButton>
       </S.Form>
       {error !== '' ? <S.Error>{error}</S.Error> : null}
     </S.Wrapper>

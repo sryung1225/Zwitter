@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { grayColor, primaryColor, whiteColor } from '../App.ts';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -25,13 +26,23 @@ export const Input = styled.input`
   width: 100%;
   padding: 10px 20px;
   border-radius: 50px;
-  border: none;
+  border: 1px solid ${grayColor};
   font-size: 16px;
-  &[type='submit'] {
-    cursor: pointer;
-    &:hover {
-      opacity: 0.8;
-    }
+  &::placeholder {
+    color: ${grayColor};
+  }
+`;
+
+export const SubmitButton = styled.button`
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: none;
+  color: ${whiteColor};
+  font-size: 16px;
+  background-color: ${primaryColor};
+  &:hover {
+    opacity: 0.8;
   }
 `;
 
