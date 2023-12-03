@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import auth from './firebase.ts';
+import ProtectedRoute from './components/protected-route.tsx';
 import Home from './routes/home.tsx';
 import Profile from './routes/profile.tsx';
 import Login from './routes/login.tsx';
@@ -12,7 +13,11 @@ import * as S from './styles/App.ts';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: '',
