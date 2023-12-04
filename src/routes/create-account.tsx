@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import auth from '../firebase.ts';
-import * as S from '../styles/routes/create-account.ts';
+import * as S from '../styles/auth-components.ts';
 
 const errors: { [key: string]: string } = {
   'auth/email-already-in-use': '해당 이메일은 이미 사용 중 입니다.',
@@ -89,6 +89,9 @@ export default function CreateAccount() {
         </S.SubmitButton>
       </S.Form>
       {firebaseError !== '' ? <S.Error>{firebaseError}</S.Error> : null}
+      <S.Switcher>
+        계정이 있으세요? <Link to="/login">로그인</Link>
+      </S.Switcher>
     </S.Wrapper>
   );
 }

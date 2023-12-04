@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { grayColor, primaryColor, whiteColor } from '../App.ts';
+import { grayColor, primaryColor, whiteColor } from './App.ts';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -49,4 +49,11 @@ export const SubmitButton = styled.button`
 export const Error = styled.span`
   color: tomato;
   font-weight: 600;
+`;
+
+export const Switcher = styled.span`
+  margin-top: 20px;
+  a {
+    color: #1d9bf0;
+  }
 `;
