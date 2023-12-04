@@ -13,22 +13,21 @@ export const Wrapper = styled.div`
 `;
 
 export const GlobalStyles = createGlobalStyle`
-  @import url("https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css");
+  ${reset};
   @font-face {
     font-family: 'Ycomputer-Regular';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/Ycomputer-Regular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
   }
-  ${reset};
   * {
     box-sizing: border-box;
-    font-family: 'Galmuri11', sans-serif;
+    font-family: Galmuri11, sans-serif;
     color: ${blackColor};
   }
   body {
     background-color: ${whiteColor};
-    font-family: 'Galmuri11', sans-serif;
+    font-family: Galmuri11, sans-serif;
   }
   h1, h2 {
     font-family: 'Ycomputer-Regular', sans-serif;
