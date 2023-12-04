@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FirebaseError } from 'firebase/app';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import auth from '../firebase.ts';
 import * as S from '../styles/routes/create-account.ts';
+
+const errors: { [key: string]: string } = {
+  'auth/email-already-in-use': '해당 이메일은 이미 사용 중 입니다.',
+  'auth/invalid-email': '유효하지 않은 이메일 형식입니다.',
+  'auth/weak-password': '비밀번호가 보안상 약해 사용할 수 없습니다.',
+};
 
 export default function CreateAccount() {
   const navigate = useNavigate();
@@ -10,7 +17,7 @@ export default function CreateAccount() {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const [error, setError] = useState('');
+  const [firebaseError, setFirebaseError] = useState('');
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
@@ -25,6 +32,7 @@ export default function CreateAccount() {
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setFirebaseError('');
     if (isLoading || userName === '' || userEmail === '' || userPassword === '')
       return;
     try {
@@ -39,9 +47,10 @@ export default function CreateAccount() {
         displayName: userName,
       });
       navigate('/');
-      // eslint-disable-next-line no-shadow
-    } catch (e) {
-      setError('');
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        setFirebaseError(errors[error.code]);
+      }
     } finally {
       setLoading(false);
     }
@@ -78,7 +87,7 @@ export default function CreateAccount() {
           {isLoading ? '로딩...' : '회원가입'}
         </S.SubmitButton>
       </S.Form>
-      {error !== '' ? <S.Error>{error}</S.Error> : null}
+      {firebaseError !== '' ? <S.Error>{firebaseError}</S.Error> : null}
     </S.Wrapper>
   );
 }

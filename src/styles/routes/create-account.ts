@@ -19,7 +19,7 @@ export const Form = styled.form`
   flex-direction: column;
   gap: 10px;
   width: 100%;
-  margin-top: 50px;
+  margin: 50px 0 10px;
 `;
 
 export const Input = styled.input`
