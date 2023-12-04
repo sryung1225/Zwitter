@@ -9,6 +9,7 @@ const errors: { [key: string]: string } = {
   'auth/email-already-in-use': '해당 이메일은 이미 사용 중 입니다.',
   'auth/invalid-email': '유효하지 않은 이메일 형식입니다.',
   'auth/weak-password': '비밀번호가 보안상 약해 사용할 수 없습니다.',
+  'auth/too-many-requests': '잠시 후 다시 시도해주세요.',
 };
 
 export default function CreateAccount() {
@@ -49,7 +50,7 @@ export default function CreateAccount() {
       navigate('/');
     } catch (error) {
       if (error instanceof FirebaseError) {
-        setFirebaseError(errors[error.code]);
+        setFirebaseError(errors[error.code] || error.message);
       }
     } finally {
       setLoading(false);
