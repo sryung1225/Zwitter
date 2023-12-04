@@ -32,4 +32,10 @@ export const GlobalStyles = createGlobalStyle`
   h1, h2 {
     font-family: 'Ycomputer-Regular', sans-serif;
   }
+  button {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
 `;

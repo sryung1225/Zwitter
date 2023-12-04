@@ -1,0 +1,37 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FirebaseError } from 'firebase/app';
+import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
+import auth from '../firebase.ts';
+import * as S from '../styles/social-login-btn.ts';
+
+const errors: { [key: string]: string } = {
+  'auth/account-exists-with-different-credential':
+    '이미 다른 수단의 계정을 갖고 있습니다.',
+};
+
+export default function GithubButton() {
+  const navigate = useNavigate();
+  const [firebaseError, setFirebaseError] = useState('');
+  const onClick = async () => {
+    setFirebaseError('');
+    try {
+      const provider = new GithubAuthProvider();
+      await signInWithPopup(auth, provider);
+      navigate('/');
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        setFirebaseError(errors[error.code] || error.message);
+      }
+    }
+  };
+  return (
+    <>
+      <S.Button onClick={onClick}>
+        <S.Logo src="/github-logo.svg" />
+        GitHub 계정으로 로그인하기
+      </S.Button>
+      {firebaseError !== '' ? <S.Error>{firebaseError}</S.Error> : null}
+    </>
+  );
+}

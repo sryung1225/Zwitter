@@ -48,7 +48,7 @@ export const SubmitButton = styled.button`
 
 export const Error = styled.span`
   color: tomato;
-  font-weight: 600;
+  font-size: 10px;
 `;
 
 export const Switcher = styled.span`
@@ -56,4 +56,9 @@ export const Switcher = styled.span`
   a {
     color: #1d9bf0;
   }
+`;
+
+export const SocialLogin = styled.div`
+  width: 100%;
+  margin: 20px 0 -20px;
 `;

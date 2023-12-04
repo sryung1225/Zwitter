@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import auth from '../firebase.ts';
+import GithubButton from '../components/github-btn.tsx';
 import * as S from '../styles/auth-components.ts';
 
 const errors: { [key: string]: string } = {
@@ -46,6 +47,10 @@ export default function Login() {
   return (
     <S.Wrapper>
       <S.Title>로그인</S.Title>
+      <S.SocialLogin>
+        <GithubButton />
+      </S.SocialLogin>
+
       <S.Form onSubmit={onSubmit}>
         <S.Input
           onChange={onChange}
