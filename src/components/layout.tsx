@@ -1,10 +1,12 @@
 import { Outlet } from 'react-router-dom';
+import Menu from './menu.tsx';
+import Wrapper from '../styles/layout.ts';
 
 export default function Layout() {
   return (
-    <>
-      <h2>layout</h2>
+    <Wrapper>
+      <Menu />
       <Outlet />
-    </>
+    </Wrapper>
   );
 }
