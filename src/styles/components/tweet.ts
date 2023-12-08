@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { grayColor } from '../App.ts';
+import { grayColor, primaryColor, whiteColor } from '../App.ts';
 
 interface IWrapperProps {
   hasPhoto: boolean;
@@ -33,4 +33,13 @@ export const Date = styled.span`
 export const Payload = styled.p`
   margin: 10px 0px;
   font-size: 18px;
+`;
+
+export const DeleteButton = styled.button`
+  padding: 5px 10px;
+  background-color: ${primaryColor};
+  border: 0;
+  border-radius: 5px;
+  color: ${whiteColor};
+  font-size: 12px;
 `;
