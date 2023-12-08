@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import auth from './firebase.ts';
+import { auth } from './firebase.ts';
 import ProtectedRoute from './components/protected-route.tsx';
 import Home from './routes/home.tsx';
 import Profile from './routes/profile.tsx';

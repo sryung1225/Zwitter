@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import auth from '../firebase.ts';
+import { auth } from '../firebase.ts';
 import * as S from '../styles/components/menu.ts';
 import { ReactComponent as IconUser } from '../assets/i-user.svg';
 import { ReactComponent as IconHome } from '../assets/i-home.svg';

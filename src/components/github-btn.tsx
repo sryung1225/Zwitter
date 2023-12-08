@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
-import auth from '../firebase.ts';
+import { auth } from '../firebase.ts';
 import * as S from '../styles/social-login-btn.ts';
 
 const errors: { [key: string]: string } = {

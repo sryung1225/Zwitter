@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { addDoc, collection } from 'firebase/firestore';
+import { auth, db } from '../firebase.ts';
 import * as S from '../styles/components/post-tweet-form.ts';
 
 export default function PostTweetForm() {
@@ -14,8 +16,26 @@ export default function PostTweetForm() {
       setFile(files[0]);
     }
   };
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const user = auth.currentUser;
+    if (!user || isLoading || tweet === '' || tweet.length > 180) return;
+    try {
+      setLoading(true);
+      await addDoc(collection(db, 'tweets'), {
+        tweet,
+        createdAt: Date.now(),
+        username: user.displayName || 'Anonymous',
+        userId: user.uid,
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
-    <S.Form>
+    <S.Form onSubmit={onSubmit}>
       <S.TextArea
         onChange={onChange}
         value={tweet}

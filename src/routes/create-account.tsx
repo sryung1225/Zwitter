@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import auth from '../firebase.ts';
+import { auth } from '../firebase.ts';
 import * as S from '../styles/auth-components.ts';
 
 const errors: { [key: string]: string } = {
