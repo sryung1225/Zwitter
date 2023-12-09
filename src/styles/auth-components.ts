@@ -1,17 +1,74 @@
 import { styled } from 'styled-components';
-import { grayColor, primaryColor, whiteColor } from './App.ts';
+import { blackColor, grayColor, primaryColor, whiteColor } from './App.ts';
+import { LineButton, SolidButton } from './button.ts';
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 420px;
-  height: 100%;
-  padding: 50px 0px;
+  height: 100vh;
 `;
 
-export const Title = styled.h1`
-  font-size: 42px;
+export const Title = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-width: 800px;
+  margin-bottom: 20px;
+`;
+
+export const Image = styled.img`
+  display: inline-block;
+  width: 360px;
+  padding: 30px;
+`;
+
+export const Intro = styled.h2`
+  font-size: 64px;
+  color: ${whiteColor};
+  text-shadow:
+    -3px 0px ${blackColor},
+    0px 3px ${blackColor},
+    3px 0px ${blackColor},
+    0px -3px ${blackColor};
+  span {
+    color: ${primaryColor};
+  }
+`;
+
+export const AuthWrapper = styled.div`
+  width: 100%;
+  max-width: 400px;
+`;
+
+export const Boundary = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+  span {
+    flex-shrink: 0;
+    margin: 0 10px;
+    color: ${blackColor};
+    font-size: 20px;
+    font-family: 'Ycomputer-Regular', sans-serif;
+  }
+  &::before,
+  &::after {
+    flex: 1;
+    content: '';
+    display: inline-block;
+    height: 1px;
+    background-color: ${blackColor};
+  }
+`;
+
+export const SignUpButton = styled(SolidButton)``;
+
+export const SignInButton = styled(LineButton)`
+  color: ${primaryColor};
 `;
 
 export const Form = styled.form`
@@ -56,9 +113,4 @@ export const Switcher = styled.span`
   a {
     color: #1d9bf0;
   }
-`;
-
-export const SocialLogin = styled.div`
-  width: 100%;
-  margin: 20px 0 -20px;
 `;

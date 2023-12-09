@@ -39,4 +39,14 @@ export const GlobalStyles = createGlobalStyle`
       opacity: 0.8;
     }
   }
+  .a11yHidden {
+    display: inline-block;
+    overflow: hidden;
+    clip: rect(0px, 0px, 0px, 0px);
+    clip-path: inset(50%);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    position: absolute !important;
+  }
 `;

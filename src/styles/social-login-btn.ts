@@ -1,18 +1,12 @@
 import styled from 'styled-components';
-import { whiteColor } from './App.ts';
+import { LineButton } from './button.ts';
 
-export const Button = styled.button`
-  width: 100%;
-  padding: 10px 20px;
-  background-color: ${whiteColor};
-  border-radius: 50px;
-  border: 1px solid #a7a7a7;
-  font-size: 16px;
-`;
-
-export const Logo = styled.img`
-  height: 16px;
-  margin-right: 10px;
+export const Button = styled(LineButton)`
+  svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+  }
 `;
 
 export const Error = styled.span`

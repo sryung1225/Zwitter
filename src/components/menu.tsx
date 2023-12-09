@@ -1,9 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../firebase.ts';
 import * as S from '../styles/components/menu.ts';
-import { ReactComponent as IconUser } from '../assets/i-user.svg';
-import { ReactComponent as IconHome } from '../assets/i-home.svg';
-import { ReactComponent as IconLogout } from '../assets/i-arrowleft.svg';
+import { ReactComponent as IconUser } from '../assets/images/i-user.svg';
+import { ReactComponent as IconHome } from '../assets/images/i-home.svg';
+import { ReactComponent as IconLogout } from '../assets/images/i-arrowleft.svg';
 
 export default function Menu() {
   const navigate = useNavigate();
