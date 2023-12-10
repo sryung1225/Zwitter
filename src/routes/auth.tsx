@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import GithubButton from '../components/github-btn.tsx';
+import GoogleButton from '../components/google-btn.tsx';
 import SignUp from '../components/signUp.tsx';
 import SignIn from '../components/signIn.tsx';
 import * as S from '../styles/auth.ts';
@@ -23,7 +24,7 @@ export default function Auth() {
       </S.Title>
       <S.AuthWrapper>
         <GithubButton />
-        <GithubButton /> {/* 구글로 대체 필요 */}
+        <GoogleButton />
         <S.Boundary>
           <span>또는</span>
         </S.Boundary>
