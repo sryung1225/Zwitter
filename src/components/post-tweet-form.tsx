@@ -3,19 +3,28 @@ import { addDoc, collection, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { auth, db, storage } from '../firebase.ts';
 import * as S from '../styles/components/post-tweet-form.ts';
+import { ReactComponent as IconPhoto } from '../assets/images/i-photo.svg';
 
 export default function PostTweetForm() {
   const [isLoading, setLoading] = useState(false);
   const [tweet, setTweet] = useState('');
-  const [file, setFile] = useState<File | null>(null);
+  const [image, setImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState('');
+
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTweet(e.target.value);
   };
-  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
-    if (files && files.length === 1) {
-      setFile(files[0]);
+  const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const images = e.target.files;
+    if (images && images.length === 1) {
+      setImage(images[0]);
+      const previewUrl = URL.createObjectURL(images[0]);
+      setImagePreview(previewUrl);
     }
+  };
+  const onImageDelete = () => {
+    setImage(null);
+    setImagePreview('');
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,16 +38,16 @@ export default function PostTweetForm() {
         userName: user.displayName || 'Anonymous',
         userId: user.uid,
       });
-      if (file) {
+      if (image) {
         const locationRef = ref(storage, `tweets/${user.uid}/${doc.id}`);
-        const result = await uploadBytes(locationRef, file);
+        const result = await uploadBytes(locationRef, image);
         const url = await getDownloadURL(result.ref);
         await updateDoc(doc, {
           photo: url,
         });
       }
       setTweet('');
-      setFile(null);
+      setImage(null);
     } catch (error) {
       console.log(error);
     } finally {
@@ -54,13 +63,20 @@ export default function PostTweetForm() {
         maxLength={180}
         placeholder="지금 무슨 일이 일어나고 있나요?"
       />
-      <S.AttachFileButton htmlFor="file">
-        {file ? '사진 첨부 ✔' : '사진 추가'}
-      </S.AttachFileButton>
-      <S.AttachFileInput
-        onChange={onFileChange}
+      {imagePreview ? (
+        <>
+          <S.AttachImagePreview src={imagePreview} alt="첨부이미지 미리보기" />
+          <S.AttachImageDelete type="button" onClick={onImageDelete} />
+        </>
+      ) : (
+        <S.AttachImageButton htmlFor="image">
+          <IconPhoto />
+        </S.AttachImageButton>
+      )}
+      <S.AttachImageInput
+        onChange={onImageChange}
         type="file"
-        id="file"
+        id="image"
         accept="image/*"
       />
       <S.SubmitButton type="submit">

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr;
   gap: 20px;
@@ -10,4 +10,13 @@ const Wrapper = styled.div`
   padding: 50px 0px;
 `;
 
-export default Wrapper;
+export const HomeCenterWrapper = styled.div`
+  position: relative;
+`;
+
+export const TimeLineWrapper = styled.ul`
+  display: block;
+  height: calc(100vh - 350px);
+  margin-top: 250px;
+  overflow-y: auto;
+`;

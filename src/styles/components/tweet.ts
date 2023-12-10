@@ -5,10 +5,11 @@ interface IWrapperProps {
   hasPhoto: boolean;
 }
 
-export const Wrapper = styled.div<IWrapperProps>`
+export const Wrapper = styled.li<IWrapperProps>`
   display: grid;
   grid-template-columns: ${({ hasPhoto }) => (hasPhoto ? '3fr 1fr' : '1fr')};
   padding: 20px;
+  margin: 20px 0;
 `;
 
 export const Column = styled.div``;

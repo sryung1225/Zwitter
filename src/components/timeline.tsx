@@ -9,6 +9,7 @@ import {
 import { Unsubscribe } from 'firebase/auth';
 import { db } from '../firebase.ts';
 import Tweet from './tweet.tsx';
+import * as S from '../styles/layout.ts';
 
 export interface ITweet {
   id: string;
@@ -52,10 +53,10 @@ export default function Timeline() {
     };
   }, []);
   return (
-    <>
+    <S.TimeLineWrapper>
       {tweets.map((tweet) => (
         <Tweet key={tweet.id} {...tweet} />
       ))}
-    </>
+    </S.TimeLineWrapper>
   );
 }
