@@ -4,8 +4,7 @@ import { auth } from './firebase.ts';
 import ProtectedRoute from './components/protected-route.tsx';
 import Home from './routes/home.tsx';
 import Profile from './routes/profile.tsx';
-import Login from './routes/login.tsx';
-import CreateAccount from './routes/create-account.tsx';
+import Auth from './routes/auth.tsx';
 import Layout from './components/layout.tsx';
 import LoadingScreen from './components/loading-screen.tsx';
 import * as S from './styles/App.ts';
@@ -30,12 +29,8 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/create-account',
-    element: <CreateAccount />,
+    path: '/auth',
+    element: <Auth />,
   },
 ]);
 

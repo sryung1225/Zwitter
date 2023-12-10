@@ -15,6 +15,7 @@ export default function Tweet({
 }: ITweet) {
   const user = auth.currentUser;
   const onDelete = async () => {
+    // eslint-disable-next-line no-restricted-globals
     const ok = confirm('정말로 포스트를 삭제하겠습니까?');
     if (!ok || user?.uid !== userId) return;
     try {

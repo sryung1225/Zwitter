@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import { blackColor, grayColor, primaryColor, whiteColor } from './App.ts';
-import { LineButton, SolidButton } from './button.ts';
+import { blackColor, primaryColor, whiteColor } from './App.ts';
+import { LineButton, SolidButton, Input } from './button.ts';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -65,6 +65,14 @@ export const Boundary = styled.div`
   }
 `;
 
+export const SocialSignIn = styled(LineButton)`
+  svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+  }
+`;
+
 export const SignUpButton = styled(SolidButton)``;
 
 export const SignInButton = styled(LineButton)`
@@ -76,41 +84,16 @@ export const Form = styled.form`
   flex-direction: column;
   gap: 10px;
   width: 100%;
-  margin: 50px 0 10px;
+  max-width: 500px;
 `;
 
-export const Input = styled.input`
-  width: 100%;
-  padding: 10px 20px;
-  border-radius: 50px;
-  border: 1px solid ${grayColor};
-  font-size: 16px;
-  &::placeholder {
-    color: ${grayColor};
-  }
-`;
+export const FormInput = styled(Input)``;
 
-export const SubmitButton = styled.button`
-  width: 100%;
-  padding: 10px 20px;
-  border-radius: 50px;
-  border: none;
-  color: ${whiteColor};
-  font-size: 16px;
-  background-color: ${primaryColor};
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
-export const Error = styled.span`
-  color: tomato;
-  font-size: 10px;
-`;
-
-export const Switcher = styled.span`
+export const SubmitButton = styled(SolidButton)`
   margin-top: 20px;
-  a {
-    color: #1d9bf0;
-  }
+`;
+
+export const Error = styled.p`
+  color: tomato;
+  font-size: 14px;
 `;

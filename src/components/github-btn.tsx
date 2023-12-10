@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import { GithubAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase.ts';
-import * as S from '../styles/social-login-btn.ts';
+import * as S from '../styles/auth.ts';
 import { ReactComponent as IconGithub } from '../assets/images/i-github.svg';
 
 const errors: { [key: string]: string } = {
@@ -28,10 +28,10 @@ export default function GithubButton() {
   };
   return (
     <>
-      <S.Button onClick={onClick}>
+      <S.SocialSignIn onClick={onClick}>
         <IconGithub />
         GitHub 계정으로 로그인하기
-      </S.Button>
+      </S.SocialSignIn>
       {firebaseError !== '' ? <S.Error>{firebaseError}</S.Error> : null}
     </>
   );

@@ -21,4 +21,13 @@ export const SolidButton = styled(Button)`
   color: ${whiteColor};
 `;
 
-export const Input = styled.input``;
+export const Input = styled.input`
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid #a7a7a7;
+  font-size: 16px;
+  &::placeholder {
+    color: ${grayColor};
+  }
+`;
