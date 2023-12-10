@@ -96,4 +96,5 @@ export const SubmitButton = styled(SolidButton)`
 export const Error = styled.p`
   color: tomato;
   font-size: 14px;
+  text-align: center;
 `;

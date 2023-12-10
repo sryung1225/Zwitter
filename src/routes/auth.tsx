@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import GithubButton from '../components/github-btn.tsx';
-import GoogleButton from '../components/google-btn.tsx';
+import { GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
 import SignUp from '../components/signUp.tsx';
 import SignIn from '../components/signIn.tsx';
 import * as S from '../styles/auth.ts';
+import SocialSignIn from '../components/socialSignIn.tsx';
 import ImageComputer from '../assets/images/logo-big.png';
+import { ReactComponent as IconGoogle } from '../assets/images/i-google.svg';
+import { ReactComponent as IconGithub } from '../assets/images/i-github.svg';
 
 export default function Auth() {
   const [signUpPopup, setSignUpPopup] = useState(false);
@@ -23,8 +25,16 @@ export default function Auth() {
         </S.Intro>
       </S.Title>
       <S.AuthWrapper>
-        <GithubButton />
-        <GoogleButton />
+        <SocialSignIn
+          provider={new GoogleAuthProvider()}
+          icon={<IconGoogle />}
+          text="Google 계정으로 로그인하기"
+        />
+        <SocialSignIn
+          provider={new GithubAuthProvider()}
+          icon={<IconGithub />}
+          text="Github 계정으로 로그인하기"
+        />
         <S.Boundary>
           <span>또는</span>
         </S.Boundary>
