@@ -48,6 +48,7 @@ export default function PostTweetForm() {
       }
       setTweet('');
       setImage(null);
+      setImagePreview('');
     } catch (error) {
       console.log(error);
     } finally {
