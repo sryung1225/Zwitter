@@ -20,3 +20,7 @@ export const TimeLineWrapper = styled.ul`
   margin-top: 250px;
   overflow-y: auto;
 `;
+
+export const UserTimeLineWrapper = styled.ul`
+  display: block;
+`;

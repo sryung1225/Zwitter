@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { updateProfile } from 'firebase/auth';
 import { auth, storage } from '../firebase.ts';
+import UserTimeline from '../components/user-timeline.tsx';
 import * as S from '../styles/profile.ts';
 import { ReactComponent as IconUser } from '../assets/images/i-user.svg';
 
@@ -34,6 +35,7 @@ export default function Profile() {
         accept="image/*"
       />
       <S.Name>{user?.displayName ?? 'Anonymous'}</S.Name>
+      <UserTimeline />
     </S.Wrapper>
   );
 }

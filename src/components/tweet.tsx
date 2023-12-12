@@ -1,7 +1,7 @@
 import { deleteDoc, doc } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
 import { auth, db, storage } from '../firebase.ts';
-import { ITweet } from './timeline.tsx';
+import ITweet from '../interfaces/ITweet.ts';
 import FormattedDate from '../utils/formattedDate.tsx';
 import * as S from '../styles/components/tweet.ts';
 

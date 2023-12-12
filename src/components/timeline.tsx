@@ -10,15 +10,7 @@ import { Unsubscribe } from 'firebase/auth';
 import { db } from '../firebase.ts';
 import Tweet from './tweet.tsx';
 import * as S from '../styles/layout.ts';
-
-export interface ITweet {
-  id: string;
-  userId: string;
-  userName: string;
-  tweet: string;
-  createdAt: number;
-  photo: string;
-}
+import ITweet from '../interfaces/ITweet.ts';
 
 export default function Timeline() {
   const [tweets, setTweets] = useState<ITweet[]>([]);

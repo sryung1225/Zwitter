@@ -22,7 +22,8 @@ export const Popup = styled.div`
   justify-content: center;
   width: calc(100vw - 100px);
   max-width: 757px;
-  height: 728px;
+  height: calc(100vh - 100px);
+  max-height: 728px;
   padding: 30px;
   background-color: ${whiteColor};
   border-radius: 10px;
