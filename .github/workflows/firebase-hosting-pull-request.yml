@@ -8,9 +8,16 @@ jobs:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - run: npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Install Dependencies
+        run: npm install
+      - name: Echo Env
+        run: echo "VITE_FIREBASE_API_KEY=${{secrets.VITE_FIREBASE_API_KEY}}" >> .env
+      - name: Cat Env
+        run: cat .env
+      - name: Build
+        run: npm run build
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_XWITTER_C64EF }}'

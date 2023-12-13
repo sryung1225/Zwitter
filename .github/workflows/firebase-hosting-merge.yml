@@ -13,6 +13,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Dependencies
         run: npm install
+      - name: Echo Env
+        run: echo "VITE_FIREBASE_API_KEY=${{secrets.VITE_FIREBASE_API_KEY}}" >> .env
+      - name: Cat Env
+        run: cat .env
       - name: Build
         run: npm run build
       - name: Deploy to Firebase Hosting
