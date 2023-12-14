@@ -1,11 +1,13 @@
 import { styled } from 'styled-components';
-import { grayColor } from './App.ts';
+import { grayColor } from './app.ts';
 
-export const Wrapper = styled.div`
+export const Avatar = styled.div`
   display: flex;
-  align-items: center;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 20px;
+  margin: 50px 0;
 `;
 
 export const AvatarUpload = styled.label`

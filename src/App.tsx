@@ -7,7 +7,7 @@ import Profile from './routes/profile.tsx';
 import Auth from './routes/auth.tsx';
 import Layout from './components/layout.tsx';
 import LoadingScreen from './components/loading-screen.tsx';
-import * as S from './styles/App.ts';
+import * as S from './styles/app.ts';
 
 const router = createBrowserRouter([
   {
@@ -44,10 +44,10 @@ function App() {
     init();
   }, []);
   return (
-    <S.Wrapper>
+    <>
       <S.GlobalStyles />
       {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
-    </S.Wrapper>
+    </>
   );
 }
 

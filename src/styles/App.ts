@@ -1,4 +1,4 @@
-import { createGlobalStyle, styled } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
 export const primaryColor = '#FF7AB2';
@@ -6,11 +6,8 @@ export const grayColor = '#A7A7A7';
 export const blackColor = '#070707';
 export const whiteColor = '#FAFAFA';
 
-export const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  height: 100vh;
-`;
+export const LogoTextShadow = (offset: number) =>
+  `${-offset}px 0px ${blackColor}, 0px ${offset}px ${blackColor}, ${offset}px 0px ${blackColor}, 0px ${-offset}px ${blackColor}`;
 
 export const GlobalStyles = createGlobalStyle`
   ${reset};
@@ -34,6 +31,7 @@ export const GlobalStyles = createGlobalStyle`
   }
   button {
     cursor: pointer;
+    transition: all 0.5s ease;
     &:hover,
     &:active {
       opacity: 0.8;

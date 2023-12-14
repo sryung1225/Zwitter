@@ -9,7 +9,7 @@ import {
 } from 'firebase/firestore';
 import { auth, db } from '../firebase.ts';
 import Tweet from './tweet.tsx';
-import * as S from '../styles/layout.ts';
+import TimelineWrapper from '../styles/timeline.ts';
 import ITweet from '../interfaces/ITweet.ts';
 
 export default function UserTimeline() {
@@ -40,10 +40,10 @@ export default function UserTimeline() {
     fetchTweets();
   }, []);
   return (
-    <S.UserTimeLineWrapper>
+    <TimelineWrapper>
       {tweets.map((tweet) => (
         <Tweet key={tweet.id} {...tweet} />
       ))}
-    </S.UserTimeLineWrapper>
+    </TimelineWrapper>
   );
 }

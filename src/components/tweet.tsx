@@ -3,7 +3,7 @@ import { deleteObject, ref } from 'firebase/storage';
 import { auth, db, storage } from '../firebase.ts';
 import ITweet from '../interfaces/ITweet.ts';
 import FormattedDate from '../utils/formattedDate.tsx';
-import * as S from '../styles/components/tweet.ts';
+import * as S from '../styles/tweet.ts';
 
 export default function Tweet({
   id,

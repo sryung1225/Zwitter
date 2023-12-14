@@ -1,15 +1,24 @@
 import styled from 'styled-components';
-import { blackColor, grayColor, primaryColor, whiteColor } from '../App.ts';
+import { blackColor, grayColor, primaryColor, whiteColor } from './app.ts';
 
 export const Form = styled.form`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  position: relative;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   gap: 10px;
   width: 100%;
+  padding-bottom: 10px;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -10px;
+    right: -10px;
+    width: calc(100% + 20px);
+    height: 2px;
+    background-color: ${blackColor};
+  }
 `;
 
 export const TextArea = styled.textarea`

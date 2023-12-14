@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
-import { blackColor, grayColor, primaryColor, whiteColor } from './App.ts';
+import { LogoTextShadow, blackColor, primaryColor, whiteColor } from './app.ts';
+import { SolidButton } from './button.ts';
 
 export const PopupWrapper = styled.div`
   z-index: 100;
@@ -27,6 +28,21 @@ export const Popup = styled.div`
   padding: 30px;
   background-color: ${whiteColor};
   border-radius: 10px;
+`;
+
+export const MiniPopup = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: calc(100vw - 100px);
+  max-width: 400px;
+  height: auto;
+  padding: 30px;
+  background-color: ${whiteColor};
+  border-radius: 6px;
+  border: 3px solid ${blackColor};
 `;
 
 export const CloseButton = styled.button`
@@ -60,11 +76,7 @@ export const Logo = styled.h2`
   color: ${whiteColor};
   font-size: 40px;
   line-height: 48px;
-  text-shadow:
-    -2px 0px ${blackColor},
-    0px 2px ${blackColor},
-    2px 0px ${blackColor},
-    0px -2px ${blackColor};
+  text-shadow: ${LogoTextShadow(2)};
   span {
     color: ${primaryColor};
   }
@@ -82,23 +94,16 @@ export const Title = styled.h3`
 `;
 
 export const Text = styled.p`
-  text-align: center;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 30px;
   padding: 20px 0;
+  font-size: 18px;
+  line-height: 30px;
+  text-align: center;
 `;
 
-export const Button = styled.button`
-  display: block;
-  border: none;
-  border-top: 1px solid ${grayColor};
-  background-color: white;
-  text-align: center;
-  color: ${primaryColor};
+export const ButtonWrapper = styled.div`
+  display: flex;
+  gap: 10px;
   width: 100%;
-  line-height: 30px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  padding-top: 10px;
 `;
+
+export const Button = styled(SolidButton)``;

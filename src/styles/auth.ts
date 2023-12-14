@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { blackColor, primaryColor, whiteColor } from './App.ts';
+import { LogoTextShadow, blackColor, primaryColor, whiteColor } from './app.ts';
 import { LineButton, SolidButton, Input } from './button.ts';
 
 export const Wrapper = styled.div`
@@ -28,11 +28,7 @@ export const Image = styled.img`
 export const Intro = styled.h2`
   font-size: 64px;
   color: ${whiteColor};
-  text-shadow:
-    -3px 0px ${blackColor},
-    0px 3px ${blackColor},
-    3px 0px ${blackColor},
-    0px -3px ${blackColor};
+  text-shadow: ${LogoTextShadow(3)};
   span {
     color: ${primaryColor};
   }

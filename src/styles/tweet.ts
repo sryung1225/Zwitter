@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { grayColor, primaryColor, whiteColor } from '../App.ts';
+import { grayColor, primaryColor, whiteColor } from './app.ts';
 
 interface IWrapperProps {
   hasPhoto: boolean;
@@ -10,6 +10,9 @@ export const Wrapper = styled.li<IWrapperProps>`
   grid-template-columns: ${({ hasPhoto }) => (hasPhoto ? '3fr 1fr' : '1fr')};
   padding: 20px;
   margin: 20px 0;
+  &:not(:last-child) {
+    border-bottom: 1px dashed ${grayColor};
+  }
 `;
 
 export const Column = styled.div``;

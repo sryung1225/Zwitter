@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { addDoc, collection, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { auth, db, storage } from '../firebase.ts';
-import * as S from '../styles/components/post-tweet-form.ts';
+import * as S from '../styles/post-tweet-form.ts';
 import { ReactComponent as IconPhoto } from '../assets/images/i-photo.svg';
 
 export default function PostTweetForm() {

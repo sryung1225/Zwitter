@@ -1,12 +1,14 @@
+import WindowTop from '../components/window-top.tsx';
 import PostTweetForm from '../components/post-tweet-form.tsx';
 import Timeline from '../components/timeline.tsx';
-import * as S from '../styles/layout.ts';
+import * as W from '../styles/window.ts';
 
 export default function Home() {
   return (
-    <S.HomeCenterWrapper>
+    <W.Window>
+      <WindowTop />
       <PostTweetForm />
       <Timeline />
-    </S.HomeCenterWrapper>
+    </W.Window>
   );
 }
