@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
-const TimelineWrapper = styled.ul`
+export const TimelineWrapper = styled.ul`
   display: block;
   overflow-y: auto;
 `;
 
-export default TimelineWrapper;
+export const Text = styled.p`
+  margin: 20px 0;
+  text-align: center;
+`;

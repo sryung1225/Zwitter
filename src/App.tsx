@@ -4,6 +4,7 @@ import { auth } from './firebase.ts';
 import ProtectedRoute from './components/protected-route.tsx';
 import Home from './routes/home.tsx';
 import Profile from './routes/profile.tsx';
+import SearchResult from './routes/search-result.tsx';
 import Auth from './routes/auth.tsx';
 import Layout from './components/layout.tsx';
 import LoadingScreen from './components/loading-screen.tsx';
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <Profile />,
+      },
+      {
+        path: `/search/:searchKeyword`,
+        element: <SearchResult />,
       },
     ],
   },
