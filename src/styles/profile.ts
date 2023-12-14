@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { grayColor } from './app.ts';
+import { grayColor } from './global.ts';
 
 export const Avatar = styled.div`
   display: flex;

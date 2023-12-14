@@ -7,7 +7,7 @@ import Profile from './routes/profile.tsx';
 import Auth from './routes/auth.tsx';
 import Layout from './components/layout.tsx';
 import LoadingScreen from './components/loading-screen.tsx';
-import * as S from './styles/app.ts';
+import * as S from './styles/global.ts';
 
 const router = createBrowserRouter([
   {

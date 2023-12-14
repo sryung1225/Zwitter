@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { blackColor, grayColor, primaryColor, whiteColor } from './app.ts';
+import { blackColor, grayColor, primaryColor, whiteColor } from './global.ts';
 
 const Button = styled.button`
   width: 100%;

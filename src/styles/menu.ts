@@ -1,5 +1,10 @@
 import styled from 'styled-components';
-import { LogoTextShadow, blackColor, primaryColor, whiteColor } from './app.ts';
+import {
+  LogoTextShadow,
+  blackColor,
+  primaryColor,
+  whiteColor,
+} from './global.ts';
 
 export const Logo = styled.div`
   display: flex;

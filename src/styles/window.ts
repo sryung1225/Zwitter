@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { blackColor, grayColor, primaryColor } from './app.ts';
+import { blackColor, grayColor, primaryColor } from './global.ts';
 
 export const Window = styled.section`
   position: relative;

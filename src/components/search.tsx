@@ -2,18 +2,13 @@ import React, { useState } from 'react';
 import WindowTop from './window-top.tsx';
 import * as W from '../styles/window.ts';
 import * as S from '../styles/search.ts';
-import LoadingScreen from './loading-screen.tsx';
 
 export default function Search() {
-  const [error, setError] = useState('');
-  const [isLoading, setLoading] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchKeyword(e.target.value);
   };
-  return isLoading ? (
-    <LoadingScreen />
-  ) : (
+  return (
     <W.Window>
       <WindowTop />
       <S.Form>
@@ -26,7 +21,6 @@ export default function Search() {
           required
         ></S.FormInput>
         <button type="submit">검색</button>
-        {error ? <p>{error}</p> : null}
       </S.Form>
     </W.Window>
   );

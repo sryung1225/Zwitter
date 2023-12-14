@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { grayColor, primaryColor, whiteColor } from './app.ts';
+import { grayColor, primaryColor, whiteColor } from './global.ts';
 
 interface IWrapperProps {
   hasPhoto: boolean;

@@ -1,5 +1,10 @@
 import { styled } from 'styled-components';
-import { LogoTextShadow, blackColor, primaryColor, whiteColor } from './app.ts';
+import {
+  LogoTextShadow,
+  blackColor,
+  primaryColor,
+  whiteColor,
+} from './global.ts';
 import { SolidButton } from './button.ts';
 
 export const PopupWrapper = styled.div`
