@@ -8,7 +8,7 @@ export const Form = styled.form`
   flex-shrink: 0;
   gap: 10px;
   width: 100%;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   &::after {
     content: '';
     position: absolute;

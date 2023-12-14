@@ -20,34 +20,29 @@ export const PopupWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
 `;
 
-export const Popup = styled.div`
+export const PopupBox = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: calc(100vw - 100px);
+  padding: 30px;
+  background-color: ${whiteColor};
+  border: 3px solid ${blackColor};
+`;
+
+export const Popup = styled(PopupBox)`
   max-width: 757px;
   height: calc(100vh - 100px);
   max-height: 728px;
-  padding: 30px;
-  background-color: ${whiteColor};
   border-radius: 10px;
 `;
 
-export const MiniPopup = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: calc(100vw - 100px);
+export const MiniPopup = styled(PopupBox)`
   max-width: 400px;
   height: auto;
-  padding: 30px;
-  background-color: ${whiteColor};
   border-radius: 6px;
-  border: 3px solid ${blackColor};
 `;
 
 export const CloseButton = styled.button`

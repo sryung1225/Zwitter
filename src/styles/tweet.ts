@@ -1,26 +1,53 @@
 import { styled } from 'styled-components';
-import { grayColor, primaryColor, whiteColor } from './global.ts';
+import { grayColor, primaryColor } from './global.ts';
 
-interface IWrapperProps {
-  hasPhoto: boolean;
-}
-
-export const Wrapper = styled.li<IWrapperProps>`
-  display: grid;
-  grid-template-columns: ${({ hasPhoto }) => (hasPhoto ? '3fr 1fr' : '1fr')};
-  padding: 20px;
-  margin: 20px 0;
+export const Wrapper = styled.li`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 20px 60px;
   &:not(:last-child) {
     border-bottom: 1px dashed ${grayColor};
   }
 `;
 
-export const Column = styled.div``;
+export const Row = styled.div``;
 
-export const Photo = styled.img`
-  width: 100px;
-  height: 100px;
-  border-radius: 15px;
+export const Avatar = styled.div`
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    border: 2px dashed ${grayColor};
+    border-radius: 50%;
+  }
+  svg {
+    width: 26px;
+    height: 26px;
+    stroke: ${grayColor};
+  }
+`;
+
+export const AvatarImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 10;
 `;
 
 export const Username = styled.span`
@@ -39,11 +66,49 @@ export const Payload = styled.p`
   font-size: 18px;
 `;
 
+export const Photo = styled.img`
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
+`;
+
 export const DeleteButton = styled.button`
-  padding: 5px 10px;
-  background-color: ${primaryColor};
-  border: 0;
-  border-radius: 5px;
-  color: ${whiteColor};
-  font-size: 12px;
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  width: 25px;
+  height: 25px;
+  background-color: transparent;
+  border: none;
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 11px;
+    left: 6px;
+    width: 13px;
+    height: 2px;
+    background-color: ${primaryColor};
+  }
+  &::before {
+    transform: rotate(45deg);
+  }
+  &::after {
+    transform: rotate(135deg);
+  }
+`;
+
+export const EditButton = styled.button`
+  position: absolute;
+  top: 16px;
+  right: 50px;
+  width: 25px;
+  height: 25px;
+  background-color: transparent;
+  border: none;
+  svg {
+    width: 16px;
+    height: 16px;
+    stroke: ${primaryColor};
+  }
 `;

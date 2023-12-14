@@ -16,7 +16,7 @@ export const Logo = styled.div`
 
 export const LogoTitle = styled.h1`
   color: ${whiteColor};
-  font-size: 30px;
+  font-size: 34px;
   text-shadow: ${LogoTextShadow(2)};
   span {
     color: ${primaryColor};

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { auth } from '../firebase.ts';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase.ts';
 import * as S from '../styles/auth.ts';
 import * as P from '../styles/popup.ts';
 import ImageComputer from '../assets/images/logo-small.png';
@@ -62,6 +63,12 @@ export default function SignUp({ onClose }: ISignUpProps) {
       );
       await updateProfile(credentials.user, {
         displayName: userName,
+      });
+      const userRef = doc(db, 'users', credentials.user.uid);
+      await setDoc(userRef, {
+        userName: userName || 'Anonymous',
+        userId: credentials.user.uid,
+        userAvatar: credentials.user.photoURL || null,
       });
       navigate('/');
     } catch (error) {

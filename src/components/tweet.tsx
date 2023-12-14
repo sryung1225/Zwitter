@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import { deleteDoc, doc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
 import { auth, db, storage } from '../firebase.ts';
 import ITweet from '../interfaces/ITweet.ts';
 import FormattedDate from '../utils/formattedDate.tsx';
 import * as S from '../styles/tweet.ts';
 import * as P from '../styles/popup.ts';
+import { ReactComponent as IconUser } from '../assets/images/i-user.svg';
 
 export default function Tweet({
   id,
@@ -16,6 +17,12 @@ export default function Tweet({
   tweet,
 }: ITweet) {
   const user = auth.currentUser;
+  const [userAvatar, setUserAvatar] = useState<string | null>(null);
+  const fetchUserAvatar = async () => {
+    const userDoc = await getDoc(doc(db, 'users', userId));
+    const userData = userDoc.data();
+    setUserAvatar(userData?.userAvatar || null);
+  };
   const [deletePopup, setDeletePopup] = useState(false);
   const toggleDeletePopup = () => {
     setDeletePopup(!deletePopup);
@@ -34,20 +41,26 @@ export default function Tweet({
       //
     }
   };
+  useEffect(() => {
+    fetchUserAvatar();
+  }, [userId, userAvatar]);
   return (
-    <S.Wrapper hasPhoto={!!photo}>
-      <S.Column>
+    <S.Wrapper>
+      <S.Avatar>
+        {userAvatar ? <S.AvatarImage src={userAvatar} /> : <IconUser />}
+      </S.Avatar>
+      <S.Row>
         <S.Username>{userName}</S.Username>
         <S.Date>{FormattedDate(createdAt)}</S.Date>
-        <S.Payload>{tweet}</S.Payload>
-        {user?.uid === userId ? (
-          <S.DeleteButton onClick={toggleDeletePopup}>삭제</S.DeleteButton>
-        ) : null}
-      </S.Column>
-      {photo ? (
-        <S.Column>
-          <S.Photo src={photo} />
-        </S.Column>
+      </S.Row>
+      <S.Payload>{tweet}</S.Payload>
+      {photo ? <S.Photo src={photo} /> : null}
+      {user?.uid === userId ? (
+        <>
+          <S.DeleteButton onClick={toggleDeletePopup} type="button">
+            <span className="a11yHidden">포스팅 삭제하기</span>
+          </S.DeleteButton>
+        </>
       ) : null}
       {deletePopup ? (
         <P.PopupWrapper>

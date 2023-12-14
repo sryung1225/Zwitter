@@ -2,12 +2,23 @@ import { styled } from 'styled-components';
 import { grayColor } from './global.ts';
 
 export const Avatar = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
-  margin: 50px 0;
+  padding: 50px 0;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -10px;
+    right: -10px;
+    width: calc(100% + 20px);
+    height: 2px;
+    background-color: #070707;
+  }
 `;
 
 export const AvatarUpload = styled.label`

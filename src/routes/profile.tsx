@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { updateProfile } from 'firebase/auth';
-import { auth, storage } from '../firebase.ts';
+import { doc, updateDoc } from 'firebase/firestore';
+import { auth, db, storage } from '../firebase.ts';
 import WindowTop from '../components/window-top.tsx';
 import UserTimeline from '../components/user-timeline.tsx';
 import * as W from '../styles/window.ts';
@@ -11,6 +12,12 @@ import { ReactComponent as IconUser } from '../assets/images/i-user.svg';
 export default function Profile() {
   const user = auth.currentUser;
   const [avatar, setAvatar] = useState(user?.photoURL);
+  const updateUserAvatar = async (uid: string, newAvatarUrl: string) => {
+    const userDocRef = doc(db, 'users', uid);
+    await updateDoc(userDocRef, {
+      userAvatar: newAvatarUrl,
+    });
+  };
   const onAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
     if (!user) return;
@@ -23,6 +30,7 @@ export default function Profile() {
       await updateProfile(user, {
         photoURL: avatarUrl,
       });
+      await updateUserAvatar(user.uid, avatarUrl);
     }
   };
   return (
