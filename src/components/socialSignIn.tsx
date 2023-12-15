@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import { AuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth } from '../firebase.ts';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase.ts';
 import * as S from '../styles/auth.ts';
 
 interface ISocialButton {
@@ -22,7 +23,13 @@ export default function SocialSignIn({ provider, icon, text }: ISocialButton) {
   const onClick = async () => {
     setFirebaseError('');
     try {
-      await signInWithPopup(auth, provider);
+      const credentials = await signInWithPopup(auth, provider);
+      const userRef = doc(db, 'users', credentials.user.uid);
+      await setDoc(userRef, {
+        userName: credentials.user.displayName || 'Anonymous',
+        userId: credentials.user.uid,
+        userAvatar: credentials.user.photoURL || null,
+      });
       navigate('/');
     } catch (error) {
       if (error instanceof FirebaseError) {
