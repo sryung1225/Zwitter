@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
-import SignUp from '../components/signUp.tsx';
-import SignIn from '../components/signIn.tsx';
+import SignUp from '../components/sign-up.tsx';
+import SignIn from '../components/sign-in.tsx';
 import * as S from '../styles/auth.ts';
-import SocialSignIn from '../components/socialSignIn.tsx';
+import SocialSignIn from '../components/social-sign-in.tsx';
 import ImageComputer from '../assets/images/logo-big.png';
 import { ReactComponent as IconGoogle } from '../assets/images/i-google.svg';
 import { ReactComponent as IconGithub } from '../assets/images/i-github.svg';
