@@ -7,7 +7,7 @@ import Profile from './routes/profile.tsx';
 import SearchResult from './routes/search-result.tsx';
 import Auth from './routes/auth.tsx';
 import Layout from './components/layout.tsx';
-import LoadingScreen from './components/loading-screen.tsx';
+import LoadingSpinner from './components/loading-spinner.tsx';
 import * as S from './styles/global.ts';
 
 const router = createBrowserRouter([
@@ -51,7 +51,7 @@ function App() {
   return (
     <>
       <S.GlobalStyles />
-      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+      {isLoading ? <LoadingSpinner /> : <RouterProvider router={router} />}
     </>
   );
 }
