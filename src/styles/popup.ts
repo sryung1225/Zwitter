@@ -27,15 +27,14 @@ export const PopupBox = styled.div`
   align-items: center;
   justify-content: center;
   width: calc(100vw - 100px);
-  padding: 30px;
+  padding: 50px 30px 30px 30px;
   background-color: ${whiteColor};
   border: 3px solid ${blackColor};
 `;
 
 export const Popup = styled(PopupBox)`
-  max-width: 757px;
-  height: calc(100vh - 100px);
-  max-height: 728px;
+  max-width: 600px;
+  max-height: calc(100vh - 100px);
   border-radius: 10px;
 `;
 

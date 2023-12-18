@@ -4,9 +4,11 @@ import { deleteObject, ref } from 'firebase/storage';
 import { auth, db, storage } from '../firebase.ts';
 import ITweet from '../interfaces/ITweet.ts';
 import FormattedDate from '../utils/formattedDate.tsx';
+import EditTweetForm from './edit-tweet-form.tsx';
 import * as S from '../styles/tweet.ts';
 import * as P from '../styles/popup.ts';
 import { ReactComponent as IconUser } from '../assets/images/i-user.svg';
+import { ReactComponent as IconEdit } from '../assets/images/i-edit.svg';
 
 export default function Tweet({
   id,
@@ -22,6 +24,10 @@ export default function Tweet({
     const userDoc = await getDoc(doc(db, 'users', userId));
     const userData = userDoc.data();
     setUserAvatar(userData?.userAvatar || null);
+  };
+  const [editPopup, setEditPopup] = useState(false);
+  const toggleEditPopup = () => {
+    setEditPopup(!editPopup);
   };
   const [deletePopup, setDeletePopup] = useState(false);
   const toggleDeletePopup = () => {
@@ -43,7 +49,7 @@ export default function Tweet({
   };
   useEffect(() => {
     fetchUserAvatar();
-  }, [userId, userAvatar]);
+  }, [userName, userAvatar]);
   return (
     <S.Wrapper>
       <S.Avatar>
@@ -57,10 +63,27 @@ export default function Tweet({
       {photo ? <S.Photo src={photo} /> : null}
       {user?.uid === userId ? (
         <>
+          <S.EditButton onClick={toggleEditPopup} type="button">
+            <span className="a11yHidden">포스팅 수정하기</span>
+            <IconEdit />
+          </S.EditButton>
           <S.DeleteButton onClick={toggleDeletePopup} type="button">
             <span className="a11yHidden">포스팅 삭제하기</span>
           </S.DeleteButton>
         </>
+      ) : null}
+      {editPopup ? (
+        <P.PopupWrapper>
+          <P.Popup>
+            <P.CloseButton onClick={toggleEditPopup} type="button" />
+            <EditTweetForm
+              id={id}
+              tweet={tweet}
+              photo={photo}
+              onClose={() => setEditPopup(false)}
+            />
+          </P.Popup>
+        </P.PopupWrapper>
       ) : null}
       {deletePopup ? (
         <P.PopupWrapper>

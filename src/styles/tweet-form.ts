@@ -9,6 +9,9 @@ export const Form = styled.form`
   gap: 10px;
   width: 100%;
   padding-bottom: 20px;
+`;
+
+export const PostForm = styled(Form)`
   &::after {
     content: '';
     position: absolute;
@@ -20,6 +23,8 @@ export const Form = styled.form`
     background-color: ${blackColor};
   }
 `;
+
+export const EditForm = styled(Form)``;
 
 export const TextArea = styled.textarea`
   width: calc(100% - 120px);
