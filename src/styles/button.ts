@@ -4,9 +4,14 @@ import { blackColor, grayColor, primaryColor, whiteColor } from './global.ts';
 const Button = styled.button`
   width: 100%;
   margin: 8px 0;
-  padding: 10px 20px;
+  padding: 0 20px;
   border-radius: 50px;
   font-size: 16px;
+  line-height: 36px;
+  svg {
+    width: 36px;
+    height: 36px;
+  }
 `;
 
 export const LineButton = styled(Button)`

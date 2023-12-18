@@ -110,5 +110,6 @@ export const EditButton = styled.button`
     width: 16px;
     height: 16px;
     stroke: ${primaryColor};
+    stroke-width: 2;
   }
 `;

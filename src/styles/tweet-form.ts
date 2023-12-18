@@ -9,6 +9,9 @@ export const Form = styled.form`
   gap: 10px;
   width: 100%;
   padding-bottom: 20px;
+`;
+
+export const PostForm = styled(Form)`
   &::after {
     content: '';
     position: absolute;
@@ -20,6 +23,8 @@ export const Form = styled.form`
     background-color: ${blackColor};
   }
 `;
+
+export const EditForm = styled(Form)``;
 
 export const TextArea = styled.textarea`
   width: calc(100% - 120px);
@@ -108,10 +113,14 @@ export const AttachImageInput = styled.input`
 `;
 
 export const SubmitButton = styled.button`
-  padding: 10px 0px;
   background-color: ${primaryColor};
   border: none;
   border-radius: 20px;
   color: white;
   font-size: 16px;
+  line-height: 36px;
+  svg {
+    width: 36px;
+    height: 36px;
+  }
 `;
