@@ -10,6 +10,7 @@ import { auth, db, storage } from '../firebase.ts';
 import ITweet from '../interfaces/ITweet.ts';
 import * as S from '../styles/tweet-form.ts';
 import { ReactComponent as IconPhoto } from '../assets/images/i-photo.svg';
+import { ReactComponent as LoadingSpinner } from '../assets/images/loading-spinner-mini.svg';
 
 interface IEditTweetForm extends Pick<ITweet, 'id' | 'tweet' | 'photo'> {
   onClose: () => void;
@@ -102,7 +103,7 @@ export default function EditTweetForm({
         accept="image/*"
       />
       <S.SubmitButton type="submit">
-        {isLoading ? '수정중...' : '수정'}
+        {isLoading ? <LoadingSpinner /> : '수정'}
       </S.SubmitButton>
     </S.EditForm>
   );

@@ -6,6 +6,7 @@ import { auth } from '../firebase.ts';
 import * as S from '../styles/auth.ts';
 import * as P from '../styles/popup.ts';
 import ImageComputer from '../assets/images/logo-small.png';
+import { ReactComponent as LoadingSpinner } from '../assets/images/loading-spinner-mini.svg';
 
 interface ISignInProps {
   onClose: () => void;
@@ -90,7 +91,7 @@ export default function SignIn({ onClose }: ISignInProps) {
             required
           />
           <S.SubmitButton type="submit">
-            {isLoading ? '로딩...' : '로그인하기'}
+            {isLoading ? <LoadingSpinner /> : '로그인하기'}
           </S.SubmitButton>
         </S.Form>
         {firebaseError !== '' ? <S.Error>{firebaseError}</S.Error> : null}

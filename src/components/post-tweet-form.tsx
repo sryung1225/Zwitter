@@ -4,6 +4,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { auth, db, storage } from '../firebase.ts';
 import * as S from '../styles/tweet-form.ts';
 import { ReactComponent as IconPhoto } from '../assets/images/i-photo.svg';
+import { ReactComponent as LoadingSpinner } from '../assets/images/loading-spinner-mini.svg';
 
 export default function PostTweetForm() {
   const [isLoading, setLoading] = useState(false);
@@ -81,7 +82,7 @@ export default function PostTweetForm() {
         accept="image/*"
       />
       <S.SubmitButton type="submit">
-        {isLoading ? '포스팅 중...' : '포스팅'}
+        {isLoading ? <LoadingSpinner /> : '포스팅'}
       </S.SubmitButton>
     </S.PostForm>
   );

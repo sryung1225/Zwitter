@@ -113,10 +113,14 @@ export const AttachImageInput = styled.input`
 `;
 
 export const SubmitButton = styled.button`
-  padding: 10px 0px;
   background-color: ${primaryColor};
   border: none;
   border-radius: 20px;
   color: white;
   font-size: 16px;
+  line-height: 36px;
+  svg {
+    width: 36px;
+    height: 36px;
+  }
 `;
