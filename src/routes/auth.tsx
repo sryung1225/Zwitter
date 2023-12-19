@@ -15,7 +15,12 @@ export default function Auth() {
     <S.Wrapper>
       <h1 className="a11yHidden">로그인</h1>
       <S.Title>
-        <S.Image src={ImageComputer} alt="로고 이미지"></S.Image>
+        <S.Image
+          src={ImageComputer}
+          alt="로고 이미지"
+          width="360"
+          height="360"
+        />
         <S.Intro>
           쉿-
           <br />

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { addDoc, collection, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { auth, db, storage } from '../firebase.ts';
+import CompressImage from '../utils/compress-image.tsx';
 import * as S from '../styles/tweet-form.ts';
 import { ReactComponent as IconPhoto } from '../assets/images/i-photo.svg';
 import { ReactComponent as LoadingSpinner } from '../assets/images/loading-spinner-mini.svg';
@@ -15,11 +16,18 @@ export default function PostTweetForm() {
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTweet(e.target.value);
   };
-  const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const images = e.target.files;
     if (images && images.length === 1) {
-      setImage(images[0]);
-      const previewUrl = URL.createObjectURL(images[0]);
+      const selectedImage = images[0];
+      const compressedImage = await CompressImage({
+        imageFile: selectedImage,
+        size: 300,
+      });
+      setImage(compressedImage);
+      const previewUrl = compressedImage
+        ? URL.createObjectURL(compressedImage)
+        : '';
       setImagePreview(previewUrl);
     }
   };
@@ -67,7 +75,12 @@ export default function PostTweetForm() {
       />
       {imagePreview ? (
         <>
-          <S.AttachImagePreview src={imagePreview} alt="첨부이미지 미리보기" />
+          <S.AttachImagePreview
+            src={imagePreview}
+            alt="첨부이미지 미리보기"
+            width="120"
+            height="120"
+          />
           <S.AttachImageDelete type="button" onClick={onImageDelete} />
         </>
       ) : (

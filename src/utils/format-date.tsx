@@ -1,4 +1,4 @@
-export default function FormattedDate(date: number) {
+export default function FormatDate(date: number) {
   const milliSeconds = new Date(date);
   const year = milliSeconds.getFullYear();
   const month = milliSeconds.getMonth() + 1;

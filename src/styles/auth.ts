@@ -27,6 +27,7 @@ export const Title = styled.div`
 export const Image = styled.img`
   display: inline-block;
   width: 360px;
+  height: 360px;
   padding: 30px;
 `;
 

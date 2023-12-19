@@ -3,6 +3,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { updateProfile } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
 import { auth, db, storage } from '../firebase.ts';
+import CompressImage from '../utils/compress-image.tsx';
 import WindowTop from '../components/window-top.tsx';
 import UserTimeline from '../components/user-timeline.tsx';
 import * as W from '../styles/window.ts';
@@ -19,18 +20,24 @@ export default function Profile() {
     });
   };
   const onAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
+    const images = e.target.files;
     if (!user) return;
-    if (files && files.length === 1) {
-      const file = files[0];
-      const locationRef = ref(storage, `avatars/${user?.uid}`);
-      const result = await uploadBytes(locationRef, file);
-      const avatarUrl = await getDownloadURL(result.ref);
-      setAvatar(avatarUrl);
-      await updateProfile(user, {
-        photoURL: avatarUrl,
+    if (images && images.length === 1) {
+      const selectedImage = images[0];
+      const compressedImage = await CompressImage({
+        imageFile: selectedImage,
+        size: 120,
       });
-      await updateUserAvatar(user.uid, avatarUrl);
+      const locationRef = ref(storage, `avatars/${user?.uid}`);
+      if (compressedImage) {
+        const result = await uploadBytes(locationRef, compressedImage);
+        const avatarUrl = await getDownloadURL(result.ref);
+        setAvatar(avatarUrl);
+        await updateProfile(user, {
+          photoURL: avatarUrl,
+        });
+        await updateUserAvatar(user.uid, avatarUrl);
+      }
     }
   };
   return (
@@ -38,7 +45,16 @@ export default function Profile() {
       <WindowTop />
       <S.Avatar>
         <S.AvatarUpload htmlFor="avatar">
-          {avatar ? <S.AvatarImage src={avatar} /> : <IconUser />}
+          {avatar ? (
+            <S.AvatarImage
+              src={avatar}
+              alt="프로필 이미지"
+              width="120"
+              height="120"
+            />
+          ) : (
+            <IconUser />
+          )}
         </S.AvatarUpload>
         <S.AvatarInput
           onChange={onAvatarChange}
