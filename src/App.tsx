@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { auth } from './firebase.ts';
-import ProtectedRoute from './components/protected-route.tsx';
-import Home from './routes/home.tsx';
-import Profile from './routes/profile.tsx';
-import SearchResult from './routes/search-result.tsx';
-import Auth from './routes/auth.tsx';
-import Layout from './components/layout.tsx';
-import LoadingSpinner from './components/loading-spinner.tsx';
 import * as S from './styles/global.ts';
+
+const ProtectedRoute = lazy(() => import('./components/protected-route.tsx'));
+const Home = lazy(() => import('./routes/home.tsx'));
+const Profile = lazy(() => import('./routes/profile.tsx'));
+const SearchResult = lazy(() => import('./routes/search-result.tsx'));
+const Auth = lazy(() => import('./routes/auth.tsx'));
+const Layout = lazy(() => import('./components/layout.tsx'));
+const LoadingSpinner = lazy(() => import('./components/loading-spinner.tsx'));
 
 const router = createBrowserRouter([
   {
@@ -51,7 +52,9 @@ function App() {
   return (
     <>
       <S.GlobalStyles />
-      {isLoading ? <LoadingSpinner /> : <RouterProvider router={router} />}
+      <Suspense fallback={<LoadingSpinner />}>
+        {isLoading ? <LoadingSpinner /> : <RouterProvider router={router} />}
+      </Suspense>
     </>
   );
 }
