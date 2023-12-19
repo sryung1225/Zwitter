@@ -3,7 +3,7 @@ import { deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
 import { auth, db, storage } from '../firebase.ts';
 import ITweet from '../interfaces/ITweet.ts';
-import FormattedDate from '../utils/formatted-date.tsx';
+import FormatDate from '../utils/format-date.tsx';
 import EditTweetForm from './edit-tweet-form.tsx';
 import * as S from '../styles/tweet.ts';
 import * as P from '../styles/popup.ts';
@@ -66,7 +66,7 @@ export default function Tweet({
       </S.Avatar>
       <S.Row>
         <S.Username>{userName}</S.Username>
-        <S.Date>{FormattedDate(createdAt)}</S.Date>
+        <S.Date>{FormatDate(createdAt)}</S.Date>
       </S.Row>
       <S.Payload>{tweet}</S.Payload>
       {photo ? (
