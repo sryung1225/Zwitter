@@ -73,16 +73,16 @@ export const CloseButton = styled.button`
 
 export const Logo = styled.h2`
   color: ${whiteColor};
-  font-size: 40px;
-  line-height: 48px;
+  font-size: 34px;
+  line-height: 40px;
   text-shadow: ${LogoTextShadow(2)};
   span {
     color: ${primaryColor};
   }
   img {
     display: inline-block;
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     vertical-align: sub;
   }
 `;

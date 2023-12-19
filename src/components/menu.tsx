@@ -38,7 +38,7 @@ export default function Menu() {
         <S.LogoTitle>
           <span>Z</span>witter
         </S.LogoTitle>
-        <S.LogoImage src={ImageComputer}></S.LogoImage>
+        <S.LogoImage src={ImageComputer} alt="Zwitter" width="40" height="40" />
       </S.Logo>
       <S.MenuList>
         <S.MenuItem>

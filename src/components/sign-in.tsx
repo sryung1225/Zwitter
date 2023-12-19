@@ -70,7 +70,7 @@ export default function SignIn({ onClose }: ISignInProps) {
         </P.CloseButton>
         <P.Logo>
           <span>Z</span>witter
-          <img src={ImageComputer} alt="로고 아이콘" />
+          <img src={ImageComputer} alt="로고 아이콘" width="40" height="40" />
         </P.Logo>
         <P.Title>로그인</P.Title>
         <S.Form onSubmit={onSubmit}>

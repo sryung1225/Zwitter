@@ -53,14 +53,25 @@ export default function Tweet({
   return (
     <S.Wrapper>
       <S.Avatar>
-        {userAvatar ? <S.AvatarImage src={userAvatar} /> : <IconUser />}
+        {userAvatar ? (
+          <S.AvatarImage
+            src={userAvatar}
+            alt={userName}
+            width="40"
+            height="40"
+          />
+        ) : (
+          <IconUser />
+        )}
       </S.Avatar>
       <S.Row>
         <S.Username>{userName}</S.Username>
         <S.Date>{FormattedDate(createdAt)}</S.Date>
       </S.Row>
       <S.Payload>{tweet}</S.Payload>
-      {photo ? <S.Photo src={photo} /> : null}
+      {photo ? (
+        <S.Photo src={photo} alt={tweet} width="300" height="300" />
+      ) : null}
       {user?.uid === userId ? (
         <>
           <S.EditButton onClick={toggleEditPopup} type="button">

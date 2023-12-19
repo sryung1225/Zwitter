@@ -67,7 +67,12 @@ export default function PostTweetForm() {
       />
       {imagePreview ? (
         <>
-          <S.AttachImagePreview src={imagePreview} alt="첨부이미지 미리보기" />
+          <S.AttachImagePreview
+            src={imagePreview}
+            alt="첨부이미지 미리보기"
+            width="120"
+            height="120"
+          />
           <S.AttachImageDelete type="button" onClick={onImageDelete} />
         </>
       ) : (

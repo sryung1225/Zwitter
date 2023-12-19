@@ -38,7 +38,16 @@ export default function Profile() {
       <WindowTop />
       <S.Avatar>
         <S.AvatarUpload htmlFor="avatar">
-          {avatar ? <S.AvatarImage src={avatar} /> : <IconUser />}
+          {avatar ? (
+            <S.AvatarImage
+              src={avatar}
+              alt="프로필 이미지"
+              width="120"
+              height="120"
+            />
+          ) : (
+            <IconUser />
+          )}
         </S.AvatarUpload>
         <S.AvatarInput
           onChange={onAvatarChange}
