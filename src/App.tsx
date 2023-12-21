@@ -1,6 +1,7 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { auth } from './firebase.ts';
+import LoadingSpinner from './components/loading-spinner.tsx';
 import * as S from './styles/global.ts';
 
 const ProtectedRoute = lazy(() => import('./components/protected-route.tsx'));
@@ -9,7 +10,6 @@ const Profile = lazy(() => import('./routes/profile.tsx'));
 const SearchResult = lazy(() => import('./routes/search-result.tsx'));
 const Auth = lazy(() => import('./routes/auth.tsx'));
 const Layout = lazy(() => import('./components/layout.tsx'));
-const LoadingSpinner = lazy(() => import('./components/loading-spinner.tsx'));
 
 const router = createBrowserRouter([
   {
