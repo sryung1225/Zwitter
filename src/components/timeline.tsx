@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Unsubscribe } from 'firebase/auth';
 import {
   collection,
   limit,
@@ -6,7 +7,6 @@ import {
   orderBy,
   query,
 } from 'firebase/firestore';
-import { Unsubscribe } from 'firebase/auth';
 import { db } from '../firebase.ts';
 import Tweet from './tweet.tsx';
 import * as S from '../styles/timeline.ts';
