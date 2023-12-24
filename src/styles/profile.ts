@@ -1,7 +1,9 @@
 import { styled } from 'styled-components';
+import React from 'react';
 import { grayColor } from './global.ts';
+import { LineButton } from './button.ts';
 
-export const Avatar = styled.div`
+export const Profile = styled.article`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -21,7 +23,7 @@ export const Avatar = styled.div`
   }
 `;
 
-export const AvatarUpload = styled.label`
+export const Avatar = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
@@ -30,7 +32,6 @@ export const AvatarUpload = styled.label`
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  cursor: pointer;
   svg {
     width: 40px;
     stroke: ${grayColor};
@@ -49,6 +50,14 @@ export const AvatarUpload = styled.label`
   }
 `;
 
+export const AvatarUpload: React.ComponentType<
+  React.HTMLProps<HTMLLabelElement>
+> = styled(Avatar).attrs(() => ({
+  as: 'label',
+}))`
+  cursor: pointer;
+`;
+
 export const AvatarImage = styled.img`
   width: 100%;
   height: 100%;
@@ -62,4 +71,9 @@ export const AvatarInput = styled.input`
 
 export const Name = styled.h2`
   font-size: 30px;
+`;
+
+export const EditButton = styled(LineButton)`
+  width: auto;
+  margin: 0;
 `;
