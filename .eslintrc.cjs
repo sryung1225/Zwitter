@@ -18,4 +18,9 @@ module.exports = {
     ],
     'no-console': 'off',
   },
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
+  },
 };

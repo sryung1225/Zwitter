@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import svgr from '@svgr/rollup';
 import viteImagemin from 'vite-plugin-imagemin';
+import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -36,4 +37,21 @@ export default defineConfig({
       },
     }),
   ],
+  resolve: {
+    alias: [
+      { find: '@', replacement: path.resolve(__dirname, 'src') },
+      { find: '@page', replacement: path.resolve(__dirname, 'src/routes') },
+      {
+        find: '@compo',
+        replacement: path.resolve(__dirname, 'src/components'),
+      },
+      { find: '@type', replacement: path.resolve(__dirname, 'src/interfaces') },
+      { find: '@util', replacement: path.resolve(__dirname, 'src/utils') },
+      { find: '@style', replacement: path.resolve(__dirname, 'src/styles') },
+      {
+        find: '@img',
+        replacement: path.resolve(__dirname, 'src/assets/images'),
+      },
+    ],
+  },
 });
