@@ -10,6 +10,7 @@ import {
 import { auth, db, storage } from '../firebase.ts';
 import IUser from '../interfaces/IUser.ts';
 import CompressImage from '../utils/compress-image.tsx';
+import useEscClose from '../utils/use-esc-close.tsx';
 import * as S from '../styles/profile-form.ts';
 import { ReactComponent as IconUser } from '../assets/images/i-user.svg';
 import { ReactComponent as LoadingSpinner } from '../assets/images/loading-spinner-mini.svg';
@@ -92,6 +93,7 @@ export default function EditProfileForm({
       onClose();
     }
   };
+  useEscClose(onClose);
   return (
     <S.Form onSubmit={onSubmit}>
       {avatarPreview ? (

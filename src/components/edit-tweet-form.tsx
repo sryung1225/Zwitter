@@ -9,6 +9,7 @@ import {
 import { auth, db, storage } from '../firebase.ts';
 import ITweet from '../interfaces/ITweet.ts';
 import CompressImage from '../utils/compress-image.tsx';
+import useEscClose from '../utils/use-esc-close.tsx';
 import * as S from '../styles/tweet-form.ts';
 import { ReactComponent as IconPhoto } from '../assets/images/i-photo.svg';
 import { ReactComponent as LoadingSpinner } from '../assets/images/loading-spinner-mini.svg';
@@ -24,7 +25,6 @@ export default function EditTweetForm({
   onClose,
 }: IEditTweetForm) {
   const [isLoading, setLoading] = useState(false);
-
   const [tweet, setTweet] = useState(initialTweet);
   const onTweetChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTweet(e.target.value);
@@ -87,6 +87,7 @@ export default function EditTweetForm({
       onClose();
     }
   };
+  useEscClose(onClose);
   return (
     <S.EditForm onSubmit={onSubmit}>
       <S.TextArea
