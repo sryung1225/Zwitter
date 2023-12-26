@@ -44,11 +44,13 @@ export default function Timeline() {
       }
     };
   }, []);
-  return (
+  return tweets.length !== 0 ? (
     <S.TimelineWrapper>
       {tweets.map((tweet) => (
         <Tweet key={tweet.id} {...tweet} />
       ))}
     </S.TimelineWrapper>
+  ) : (
+    <S.Text>작성된 글이 없습니다.</S.Text>
   );
 }

@@ -1,14 +1,15 @@
 import { styled } from 'styled-components';
 import { grayColor } from './global.ts';
+import { LineButton } from './button.ts';
 
-export const Avatar = styled.div`
+export const Profile = styled.article`
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
-  padding: 50px 0;
+  padding: 50px 0 60px;
   &::after {
     content: '';
     position: absolute;
@@ -21,7 +22,7 @@ export const Avatar = styled.div`
   }
 `;
 
-export const AvatarUpload = styled.label`
+export const Avatar = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
@@ -30,7 +31,6 @@ export const AvatarUpload = styled.label`
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  cursor: pointer;
   svg {
     width: 40px;
     stroke: ${grayColor};
@@ -56,10 +56,11 @@ export const AvatarImage = styled.img`
   z-index: 10;
 `;
 
-export const AvatarInput = styled.input`
-  display: none;
-`;
-
 export const Name = styled.h2`
   font-size: 30px;
+`;
+
+export const EditButton = styled(LineButton)`
+  width: auto;
+  margin: 0;
 `;

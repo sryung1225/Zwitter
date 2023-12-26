@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase.ts';
+import useEscClose from '../utils/use-esc-close.tsx';
 import * as S from '../styles/auth.ts';
 import * as P from '../styles/popup.ts';
 import ImageComputer from '../assets/images/logo-small.png';
@@ -25,17 +26,6 @@ export default function SignIn({ onClose }: ISignInProps) {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [firebaseError, setFirebaseError] = useState('');
-  useEffect(() => {
-    const handleEscKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
-    };
-    document.addEventListener('keydown', handleEscKey);
-    return () => {
-      document.removeEventListener('keydown', handleEscKey);
-    };
-  }, [onClose]);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
@@ -62,6 +52,7 @@ export default function SignIn({ onClose }: ISignInProps) {
       setLoading(false);
     }
   };
+  useEscClose(onClose);
   return (
     <P.PopupWrapper>
       <P.Popup>
