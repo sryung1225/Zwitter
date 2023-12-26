@@ -6,13 +6,13 @@ import {
   ref,
   uploadBytes,
 } from 'firebase/storage';
-import { auth, db, storage } from '../firebase.ts';
-import ITweet from '../interfaces/ITweet.ts';
-import CompressImage from '../utils/compress-image.tsx';
-import useEscClose from '../utils/use-esc-close.tsx';
-import * as S from '../styles/tweet-form.ts';
-import { ReactComponent as IconPhoto } from '../assets/images/i-photo.svg';
-import { ReactComponent as LoadingSpinner } from '../assets/images/loading-spinner-mini.svg';
+import { auth, db, storage } from '@/firebase.ts';
+import ITweet from '@type/ITweet.ts';
+import CompressImage from '@util/compress-image.tsx';
+import useEscClose from '@util/use-esc-close.tsx';
+import * as S from '@style/tweet-form.ts';
+import { ReactComponent as IconPhoto } from '@img/i-photo.svg';
+import { ReactComponent as LoadingSpinner } from '@img/loading-spinner-mini.svg';
 
 interface IEditTweetForm extends Pick<ITweet, 'id' | 'tweet' | 'photo'> {
   onClose: () => void;

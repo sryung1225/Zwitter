@@ -7,13 +7,13 @@ import {
   ref,
   uploadBytes,
 } from 'firebase/storage';
-import { auth, db, storage } from '../firebase.ts';
-import IUser from '../interfaces/IUser.ts';
-import CompressImage from '../utils/compress-image.tsx';
-import useEscClose from '../utils/use-esc-close.tsx';
-import * as S from '../styles/profile-form.ts';
-import { ReactComponent as IconUser } from '../assets/images/i-user.svg';
-import { ReactComponent as LoadingSpinner } from '../assets/images/loading-spinner-mini.svg';
+import { auth, db, storage } from '@/firebase.ts';
+import IUser from '@type/IUser.ts';
+import CompressImage from '@util/compress-image.tsx';
+import useEscClose from '@util/use-esc-close.tsx';
+import * as S from '@style/profile-form.ts';
+import { ReactComponent as IconUser } from '@img/i-user.svg';
+import { ReactComponent as LoadingSpinner } from '@img/loading-spinner-mini.svg';
 
 interface IEditProfileForm extends Pick<IUser, 'userAvatar' | 'userName'> {
   onClose: () => void;

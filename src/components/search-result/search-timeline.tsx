@@ -8,11 +8,11 @@ import {
   where,
 } from 'firebase/firestore';
 import { useRecoilValue } from 'recoil';
-import { db } from '../firebase.ts';
-import { searchKeywordAtom } from '../atoms.tsx';
-import Tweet from './tweet.tsx';
-import * as S from '../styles/timeline.ts';
-import ITweet from '../interfaces/ITweet.ts';
+import { db } from '@/firebase.ts';
+import { searchKeywordAtom } from '@/atoms.tsx';
+import Tweet from '@compo/home/tweet.tsx';
+import ITweet from '@type/ITweet.ts';
+import * as S from '@style/timeline.ts';
 
 export default function SearchTimeline() {
   const [tweets, setTweets] = useState<ITweet[]>([]);

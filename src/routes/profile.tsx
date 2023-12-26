@@ -1,7 +1,7 @@
-import WindowTop from '../components/window-top.tsx';
-import UserTimeline from '../components/user-timeline.tsx';
-import * as W from '../styles/window.ts';
-import UserProfile from '../components/user-profile.tsx';
+import WindowTop from '@compo/window-top.tsx';
+import UserProfile from '@compo/profile/user-profile.tsx';
+import UserTimeline from '@compo/profile/user-timeline.tsx';
+import * as W from '@style/window.ts';
 
 export default function Profile() {
   return (

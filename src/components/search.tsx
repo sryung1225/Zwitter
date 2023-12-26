@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
-import { searchKeywordAtom } from '../atoms.tsx';
-import WindowTop from './window-top.tsx';
-import * as W from '../styles/window.ts';
-import * as S from '../styles/search.ts';
-import { ReactComponent as IconSearch } from '../assets/images/i-search.svg';
+import { searchKeywordAtom } from '@/atoms.tsx';
+import WindowTop from '@compo/window-top.tsx';
+import * as W from '@style/window.ts';
+import * as S from '@style/search.ts';
+import { ReactComponent as IconSearch } from '@img/i-search.svg';
 
 export default function Search() {
   const navigate = useNavigate();

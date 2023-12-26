@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { grayColor, primaryColor } from './global.ts';
+import { grayColor, primaryColor } from '@style/global.ts';
 
 export const Wrapper = styled.li`
   position: relative;

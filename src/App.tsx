@@ -1,15 +1,15 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { auth } from './firebase.ts';
-import LoadingSpinner from './components/loading-spinner.tsx';
-import * as S from './styles/global.ts';
+import { auth } from '@/firebase.ts';
+import LoadingSpinner from '@compo/loading-spinner.tsx';
+import * as S from '@style/global.ts';
 
-const ProtectedRoute = lazy(() => import('./components/protected-route.tsx'));
-const Home = lazy(() => import('./routes/home.tsx'));
-const Profile = lazy(() => import('./routes/profile.tsx'));
-const SearchResult = lazy(() => import('./routes/search-result.tsx'));
-const Auth = lazy(() => import('./routes/auth.tsx'));
-const Layout = lazy(() => import('./components/layout.tsx'));
+const ProtectedRoute = lazy(() => import('@compo/protected-route.tsx'));
+const Home = lazy(() => import('@page/home.tsx'));
+const Profile = lazy(() => import('@page/profile.tsx'));
+const SearchResult = lazy(() => import('@page/search-result.tsx'));
+const Auth = lazy(() => import('@page/auth.tsx'));
+const Layout = lazy(() => import('@compo/layout.tsx'));
 
 const router = createBrowserRouter([
   {

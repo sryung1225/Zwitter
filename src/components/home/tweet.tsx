@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
-import { auth, db, storage } from '../firebase.ts';
-import ITweet from '../interfaces/ITweet.ts';
-import FormatDate from '../utils/format-date.tsx';
-import EditTweetForm from './edit-tweet-form.tsx';
-import * as S from '../styles/tweet.ts';
-import * as P from '../styles/popup.ts';
-import { ReactComponent as IconUser } from '../assets/images/i-user.svg';
-import { ReactComponent as IconEdit } from '../assets/images/i-edit.svg';
+import { auth, db, storage } from '@/firebase.ts';
+import ITweet from '@type/ITweet.ts';
+import FormatDate from '@util/format-date.tsx';
+import EditTweetForm from '@compo/home/edit-tweet-form.tsx';
+import * as S from '@style/tweet.ts';
+import * as P from '@style/popup.ts';
+import { ReactComponent as IconUser } from '@img/i-user.svg';
+import { ReactComponent as IconEdit } from '@img/i-edit.svg';
 
 export default function Tweet({
   id,

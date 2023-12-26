@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase.ts';
-import useEscClose from '../utils/use-esc-close.tsx';
-import * as S from '../styles/auth.ts';
-import * as P from '../styles/popup.ts';
-import ImageComputer from '../assets/images/logo-small.png';
-import { ReactComponent as LoadingSpinner } from '../assets/images/loading-spinner-mini.svg';
+import { auth, db } from '@/firebase.ts';
+import useEscClose from '@util/use-esc-close.tsx';
+import * as S from '@style/auth.ts';
+import * as P from '@style/popup.ts';
+import ImageComputer from '@img/logo-small.png';
+import { ReactComponent as LoadingSpinner } from '@img/loading-spinner-mini.svg';
 
 interface ISignUpProps {
   onClose: () => void;

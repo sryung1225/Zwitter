@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import { grayColor } from './global.ts';
-import { LineButton } from './button.ts';
+import { grayColor } from '@style/global.ts';
+import { LineButton } from '@style/button.ts';
 
 export const Profile = styled.article`
   position: relative;

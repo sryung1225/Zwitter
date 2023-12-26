@@ -4,8 +4,8 @@ import {
   blackColor,
   primaryColor,
   whiteColor,
-} from './global.ts';
-import { LineButton, SolidButton, Input } from './button.ts';
+} from '@style/global.ts';
+import { LineButton, SolidButton, Input } from '@style/button.ts';
 
 export const Wrapper = styled.div`
   display: flex;

@@ -4,7 +4,7 @@ import {
   blackColor,
   primaryColor,
   whiteColor,
-} from './global.ts';
+} from '@style/global.ts';
 
 export const Logo = styled.div`
   display: flex;

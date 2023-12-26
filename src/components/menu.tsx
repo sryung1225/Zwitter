@@ -1,14 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { auth } from '../firebase.ts';
-import WindowTop from './window-top.tsx';
-import * as W from '../styles/window.ts';
-import * as S from '../styles/menu.ts';
-import * as P from '../styles/popup.ts';
-import ImageComputer from '../assets/images/logo-small.png';
-import { ReactComponent as IconUser } from '../assets/images/i-user.svg';
-import { ReactComponent as IconHome } from '../assets/images/i-home.svg';
-import { ReactComponent as IconLogout } from '../assets/images/i-arrowleft.svg';
+import { auth } from '@/firebase.ts';
+import WindowTop from '@compo/window-top.tsx';
+import * as W from '@style/window.ts';
+import * as S from '@style/menu.ts';
+import * as P from '@style/popup.ts';
+import ImageComputer from '@img/logo-small.png';
+import { ReactComponent as IconUser } from '@img/i-user.svg';
+import { ReactComponent as IconHome } from '@img/i-home.svg';
+import { ReactComponent as IconLogout } from '@img/i-arrowleft.svg';
 
 export default function Menu() {
   const navigate = useNavigate();
