@@ -91,7 +91,7 @@ export default function Tweet({
               id={id}
               tweet={tweet}
               photo={photo}
-              onClose={() => setEditPopup(false)}
+              onClose={toggleEditPopup}
             />
           </P.Popup>
         </P.PopupWrapper>

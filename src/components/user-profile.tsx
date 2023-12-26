@@ -48,7 +48,11 @@ export default function UserProfile() {
         <P.PopupWrapper>
           <P.Popup>
             <P.CloseButton onClick={toggleEditPopup} type="button" />
-            <EditProfileForm />
+            <EditProfileForm
+              userAvatar={userAvatar}
+              userName={userName}
+              onClose={toggleEditPopup}
+            />
           </P.Popup>
         </P.PopupWrapper>
       ) : null}

@@ -1,5 +1,4 @@
 import { styled } from 'styled-components';
-import React from 'react';
 import { grayColor } from './global.ts';
 import { LineButton } from './button.ts';
 
@@ -10,7 +9,7 @@ export const Profile = styled.article`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  padding: 50px 0;
+  padding: 50px 0 60px;
   &::after {
     content: '';
     position: absolute;
@@ -50,23 +49,11 @@ export const Avatar = styled.div`
   }
 `;
 
-export const AvatarUpload: React.ComponentType<
-  React.HTMLProps<HTMLLabelElement>
-> = styled(Avatar).attrs(() => ({
-  as: 'label',
-}))`
-  cursor: pointer;
-`;
-
 export const AvatarImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
   z-index: 10;
-`;
-
-export const AvatarInput = styled.input`
-  display: none;
 `;
 
 export const Name = styled.h2`

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { blackColor, grayColor, primaryColor, whiteColor } from './global.ts';
+import { SolidButton } from './button.ts';
 
 export const Form = styled.form`
   position: relative;
@@ -8,10 +9,10 @@ export const Form = styled.form`
   flex-shrink: 0;
   gap: 10px;
   width: 100%;
-  padding-bottom: 20px;
 `;
 
 export const PostForm = styled(Form)`
+  padding-bottom: 10px;
   &::after {
     content: '';
     position: absolute;
@@ -97,7 +98,7 @@ export const AttachImageButton = styled.label`
     width: 30px;
     height: 30px;
     stroke: ${grayColor};
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
   }
   &:hover,
   &:active {
@@ -112,15 +113,4 @@ export const AttachImageInput = styled.input`
   display: none;
 `;
 
-export const SubmitButton = styled.button`
-  background-color: ${primaryColor};
-  border: none;
-  border-radius: 20px;
-  color: white;
-  font-size: 16px;
-  line-height: 36px;
-  svg {
-    width: 36px;
-    height: 36px;
-  }
-`;
+export const SubmitButton = styled(SolidButton)``;

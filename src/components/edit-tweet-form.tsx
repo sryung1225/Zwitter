@@ -24,13 +24,14 @@ export default function EditTweetForm({
   onClose,
 }: IEditTweetForm) {
   const [isLoading, setLoading] = useState(false);
-  const [tweet, setTweet] = useState(initialTweet);
-  const [image, setImage] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState(initialPhoto);
 
-  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const [tweet, setTweet] = useState(initialTweet);
+  const onTweetChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTweet(e.target.value);
   };
+
+  const [image, setImage] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState(initialPhoto);
   const onImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const images = e.target.files;
     if (images && images.length === 1) {
@@ -50,6 +51,7 @@ export default function EditTweetForm({
     setImage(null);
     setImagePreview('');
   };
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const user = auth.currentUser;
@@ -88,15 +90,21 @@ export default function EditTweetForm({
   return (
     <S.EditForm onSubmit={onSubmit}>
       <S.TextArea
-        onChange={onChange}
+        onChange={onTweetChange}
         value={tweet}
         rows={5}
         maxLength={180}
         placeholder="지금 무슨 일이 일어나고 있나요?"
+        required
       />
       {imagePreview ? (
         <>
-          <S.AttachImagePreview src={imagePreview} alt="첨부이미지 미리보기" />
+          <S.AttachImagePreview
+            src={imagePreview}
+            alt="첨부이미지 미리보기"
+            width="120"
+            height="120"
+          />
           <S.AttachImageDelete type="button" onClick={onImageDelete} />
         </>
       ) : (
@@ -106,8 +114,8 @@ export default function EditTweetForm({
       )}
       <S.AttachImageInput
         onChange={onImageChange}
-        type="file"
         id="image_edit"
+        type="file"
         accept="image/*"
       />
       <S.SubmitButton type="submit">
