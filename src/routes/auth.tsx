@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { GoogleAuthProvider, GithubAuthProvider } from 'firebase/auth';
-import SignUp from '../components/sign-up.tsx';
-import SignIn from '../components/sign-in.tsx';
-import * as S from '../styles/auth.ts';
-import SocialSignIn from '../components/social-sign-in.tsx';
-import ImageComputer from '../assets/images/logo-big.png';
-import { ReactComponent as IconGoogle } from '../assets/images/i-google.svg';
-import { ReactComponent as IconGithub } from '../assets/images/i-github.svg';
+import SignUp from '@compo/auth/sign-up.tsx';
+import SignIn from '@compo/auth/sign-in.tsx';
+import SocialSignIn from '@compo/auth/social-sign-in.tsx';
+import * as S from '@style/auth.ts';
+import ImageComputer from '@img/logo-big.png';
+import { ReactComponent as IconGoogle } from '@img/i-google.svg';
+import { ReactComponent as IconGithub } from '@img/i-github.svg';
 
 export default function Auth() {
   const [signUpPopup, setSignUpPopup] = useState(false);

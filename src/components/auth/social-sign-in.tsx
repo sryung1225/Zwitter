@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
 import { AuthProvider, signInWithPopup } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase.ts';
-import * as S from '../styles/auth.ts';
+import { auth, db } from '@/firebase.ts';
+import * as S from '@style/auth.ts';
 
 interface ISocialButton {
   provider: AuthProvider;

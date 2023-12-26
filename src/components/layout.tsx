@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import Wrapper from '../styles/layout.ts';
-import Menu from './menu.tsx';
-import Search from './search.tsx';
+import Wrapper from '@style/layout.ts';
+import Menu from '@compo/menu.tsx';
+import Search from '@compo/search.tsx';
 
 export default function Layout() {
   return (

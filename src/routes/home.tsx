@@ -1,7 +1,7 @@
-import WindowTop from '../components/window-top.tsx';
-import PostTweetForm from '../components/post-tweet-form.tsx';
-import Timeline from '../components/timeline.tsx';
-import * as W from '../styles/window.ts';
+import WindowTop from '@compo/window-top.tsx';
+import PostTweetForm from '@compo/home/post-tweet-form.tsx';
+import Timeline from '@compo/home/timeline.tsx';
+import * as W from '@style/window.ts';
 
 export default function Home() {
   return (

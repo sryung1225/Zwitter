@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { addDoc, collection, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { auth, db, storage } from '../firebase.ts';
-import CompressImage from '../utils/compress-image.tsx';
-import * as S from '../styles/tweet-form.ts';
-import { ReactComponent as IconPhoto } from '../assets/images/i-photo.svg';
-import { ReactComponent as LoadingSpinner } from '../assets/images/loading-spinner-mini.svg';
+import { auth, db, storage } from '@/firebase.ts';
+import CompressImage from '@util/compress-image.tsx';
+import * as S from '@style/tweet-form.ts';
+import { ReactComponent as IconPhoto } from '@img/i-photo.svg';
+import { ReactComponent as LoadingSpinner } from '@img/loading-spinner-mini.svg';
 
 export default function PostTweetForm() {
   const [isLoading, setLoading] = useState(false);

@@ -1,8 +1,8 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { primaryColor, whiteColor } from './global.ts';
-import { Input, SolidButton } from './button.ts';
-import { Avatar } from './profile.ts';
+import { primaryColor, whiteColor } from '@style/global.ts';
+import { Input, SolidButton } from '@style/button.ts';
+import { Avatar } from '@style/profile.ts';
 
 export const Form = styled.form`
   position: relative;

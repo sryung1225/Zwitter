@@ -6,22 +6,19 @@ import {
   onSnapshot,
   orderBy,
   query,
-  where,
 } from 'firebase/firestore';
-import { auth, db } from '../firebase.ts';
-import ITweet from '../interfaces/ITweet.ts';
-import Tweet from './tweet.tsx';
-import * as S from '../styles/timeline.ts';
+import { db } from '@/firebase.ts';
+import Tweet from '@compo/home/tweet.tsx';
+import * as S from '@style/timeline.ts';
+import ITweet from '@type/ITweet.ts';
 
-export default function UserTimeline() {
-  const user = auth.currentUser;
+export default function Timeline() {
   const [tweets, setTweets] = useState<ITweet[]>([]);
   useEffect(() => {
     let unsubscribe: Unsubscribe | null = null;
     const fetchTweets = async () => {
       const tweetsQuery = query(
         collection(db, 'tweets'),
-        where('userId', '==', user?.uid),
         orderBy('createdAt', 'desc'),
         limit(25),
       );

@@ -1,6 +1,11 @@
 import styled from 'styled-components';
-import { blackColor, grayColor, primaryColor, whiteColor } from './global.ts';
-import { SolidButton } from './button.ts';
+import {
+  blackColor,
+  grayColor,
+  primaryColor,
+  whiteColor,
+} from '@style/global.ts';
+import { SolidButton } from '@style/button.ts';
 
 export const Form = styled.form`
   position: relative;

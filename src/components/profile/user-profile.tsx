@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase.ts';
-import * as S from '../styles/profile.ts';
-import * as P from '../styles/popup.ts';
-import { ReactComponent as IconUser } from '../assets/images/i-user.svg';
-import EditProfileForm from './edit-profile-form.tsx';
+import { auth, db } from '@/firebase.ts';
+import EditProfileForm from '@compo/profile/edit-profile-form.tsx';
+import * as S from '@style/profile.ts';
+import * as P from '@style/popup.ts';
+import { ReactComponent as IconUser } from '@img/i-user.svg';
 
 export default function UserProfile() {
   const user = auth.currentUser;

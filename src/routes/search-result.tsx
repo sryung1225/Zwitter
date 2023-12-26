@@ -1,6 +1,6 @@
-import SearchTimeline from '../components/search-timeline.tsx';
-import WindowTop from '../components/window-top.tsx';
-import * as W from '../styles/window.ts';
+import SearchTimeline from '@compo/search-result/search-timeline.tsx';
+import WindowTop from '@compo/window-top.tsx';
+import * as W from '@style/window.ts';
 
 export default function SearchResult() {
   return (

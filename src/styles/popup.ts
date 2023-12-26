@@ -4,8 +4,8 @@ import {
   blackColor,
   primaryColor,
   whiteColor,
-} from './global.ts';
-import { SolidButton } from './button.ts';
+} from '@style/global.ts';
+import { SolidButton } from '@style/button.ts';
 
 export const PopupWrapper = styled.div`
   z-index: 100;
