@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import React, { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { searchKeywordAtom } from '@/atoms.tsx';
 import WindowTop from '@compo/window-top.tsx';
@@ -10,22 +10,16 @@ import { ReactComponent as IconSearch } from '@img/i-search.svg';
 export default function Search() {
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
-  const [searchKeyword, setSearchKeyword] = useRecoilState(searchKeywordAtom);
+  const setSearchKeyword = useSetRecoilState(searchKeywordAtom);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (searchValue === '') return;
     setSearchKeyword(searchValue);
     setSearchValue('');
-    navigate(`/search/searchKeyword=${searchKeyword}`);
+    navigate(`/search?query=${searchValue}`);
   };
-  useEffect(() => {
-    if (searchKeyword) {
-      navigate(`/search/searchKeyword=${searchKeyword}`);
-    }
-  }, [searchKeyword, navigate]);
   return (
     <W.Window>
       <WindowTop />

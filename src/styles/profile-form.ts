@@ -12,23 +12,33 @@ export const Form = styled.form`
   align-items: center;
 `;
 
-export const AttachAvatarPreview = styled.img`
+export const AttachAvatar = styled.div`
+  position: relative;
   width: 120px;
   height: 120px;
   margin-bottom: 20px;
+`;
+
+export const AttachAvatarPreview = styled.img`
+  width: 120px;
+  height: 120px;
   object-fit: cover;
   border-radius: 50%;
 `;
 
-export const AttachAvatarDelete = styled.button`
+export const AttachAvatarButton = styled.button`
   position: absolute;
   top: 0;
-  right: 70px;
+
   width: 25px;
   height: 25px;
   background-color: ${primaryColor};
   border: 2px solid ${whiteColor};
   border-radius: 50%;
+`;
+
+export const AttachAvatarDelete = styled(AttachAvatarButton)`
+  left: 10px;
   &::before,
   &::after {
     content: '';
@@ -47,7 +57,23 @@ export const AttachAvatarDelete = styled.button`
   }
 `;
 
-export const AttachAvatarButton: React.ComponentType<
+export const AttachAvatarChange: React.ComponentType<
+  React.HTMLProps<HTMLLabelElement>
+> = styled(AttachAvatarButton).attrs(() => ({ as: 'label' }))`
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  svg {
+    width: 15px;
+    height: 15px;
+    stroke: ${whiteColor};
+    stroke-width: 3px;
+  }
+`;
+
+export const AttachAvatarLabel: React.ComponentType<
   React.HTMLProps<HTMLLabelElement>
 > = styled(Avatar).attrs(() => ({
   as: 'label',
