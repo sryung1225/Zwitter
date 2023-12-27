@@ -13,6 +13,7 @@ import CompressImage from '@util/compress-image.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
 import * as S from '@style/profile-form.ts';
 import { ReactComponent as IconUser } from '@img/i-user.svg';
+import { ReactComponent as IconChange } from '@img/i-change.svg';
 import { ReactComponent as LoadingSpinner } from '@img/loading-spinner-mini.svg';
 
 interface IEditProfileForm extends Pick<IUser, 'userAvatar' | 'userName'> {
@@ -97,7 +98,7 @@ export default function EditProfileForm({
   return (
     <S.Form onSubmit={onSubmit}>
       {avatarPreview ? (
-        <>
+        <S.AttachAvatar>
           <S.AttachAvatarPreview
             src={avatarPreview}
             alt="프로필이미지 미리보기"
@@ -105,11 +106,14 @@ export default function EditProfileForm({
             height="120"
           />
           <S.AttachAvatarDelete type="button" onClick={onAvatarDelete} />
-        </>
+          <S.AttachAvatarChange htmlFor="avatar_edit">
+            <IconChange />
+          </S.AttachAvatarChange>
+        </S.AttachAvatar>
       ) : (
-        <S.AttachAvatarButton htmlFor="avatar_edit">
+        <S.AttachAvatarLabel htmlFor="avatar_edit">
           <IconUser />
-        </S.AttachAvatarButton>
+        </S.AttachAvatarLabel>
       )}
       <S.AttachAvatarInput
         onChange={onAvatarChange}
