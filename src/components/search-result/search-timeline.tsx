@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   collection,
   getDocs,
@@ -7,16 +8,21 @@ import {
   query,
   where,
 } from 'firebase/firestore';
-import { useRecoilValue } from 'recoil';
 import { db } from '@/firebase.ts';
+import { useRecoilValue } from 'recoil';
 import { searchKeywordAtom } from '@/atoms.tsx';
 import Tweet from '@compo/home/tweet.tsx';
 import ITweet from '@type/ITweet.ts';
 import * as S from '@style/timeline.ts';
 
 export default function SearchTimeline() {
+  const location = useLocation();
   const [tweets, setTweets] = useState<ITweet[]>([]);
-  const searchKeyword = useRecoilValue(searchKeywordAtom);
+  const searchKeywordFromLocation = decodeURIComponent(
+    location.search.slice(7),
+  );
+  const searchKeywordAtomValue = useRecoilValue(searchKeywordAtom);
+  const searchKeyword = searchKeywordFromLocation || searchKeywordAtomValue;
   const fetchTweets = async () => {
     const tweetsQuery = query(
       collection(db, 'tweets'),
@@ -50,6 +56,8 @@ export default function SearchTimeline() {
       ))}
     </S.TimelineWrapper>
   ) : (
-    <S.Text>검색 결과가 없습니다.</S.Text>
+    <S.Text>
+      [<span>{searchKeyword}</span>] 에 대한 검색 결과가 없습니다.
+    </S.Text>
   );
 }
