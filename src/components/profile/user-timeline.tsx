@@ -14,9 +14,9 @@ import Tweet from '@compo/home/tweet.tsx';
 import * as S from '@style/timeline.ts';
 
 export default function UserTimeline() {
-  const user = auth.currentUser;
   const [tweets, setTweets] = useState<ITweet[]>([]);
   useEffect(() => {
+    const user = auth.currentUser;
     let unsubscribe: Unsubscribe | null = null;
     const fetchTweets = async () => {
       const tweetsQuery = query(

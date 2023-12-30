@@ -7,10 +7,10 @@ import * as P from '@style/popup.ts';
 import { ReactComponent as IconUser } from '@img/i-user.svg';
 
 export default function UserProfile() {
-  const user = auth.currentUser;
   const [userAvatar, setUserAvatar] = useState('');
   const [userName, setUserName] = useState('');
   useEffect(() => {
+    const user = auth.currentUser;
     const fetchUserData = async () => {
       if (!user) return;
       const userDoc = await getDoc(doc(db, 'users', user?.uid));

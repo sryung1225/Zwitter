@@ -20,11 +20,6 @@ export default function Tweet({
 }: ITweet) {
   const user = auth.currentUser;
   const [userAvatar, setUserAvatar] = useState<string | null>(null);
-  const fetchUserAvatar = async () => {
-    const userDoc = await getDoc(doc(db, 'users', userId));
-    const userData = userDoc.data();
-    setUserAvatar(userData?.userAvatar || null);
-  };
   const [editPopup, setEditPopup] = useState(false);
   const toggleEditPopup = () => {
     setEditPopup(!editPopup);
@@ -43,13 +38,16 @@ export default function Tweet({
       }
     } catch (e) {
       console.log(e);
-    } finally {
-      //
     }
   };
   useEffect(() => {
+    const fetchUserAvatar = async () => {
+      const userDoc = await getDoc(doc(db, 'users', userId));
+      const userData = userDoc.data();
+      setUserAvatar(userData?.userAvatar || null);
+    };
     fetchUserAvatar();
-  }, [userName, userAvatar]);
+  }, [userId]);
   return (
     <S.Wrapper>
       <S.Avatar>
