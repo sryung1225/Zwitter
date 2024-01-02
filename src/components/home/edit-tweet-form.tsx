@@ -38,7 +38,7 @@ export default function EditTweetForm({
       const selectedImage = images[0];
       const compressedImage = await CompressImage({
         imageFile: selectedImage,
-        size: 300,
+        size: 500,
       });
       setImage(compressedImage);
       const previewUrl = compressedImage
