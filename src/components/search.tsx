@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
-import { searchKeywordAtom } from '@/atoms.tsx';
 import WindowTop from '@compo/window-top.tsx';
+import searchKeywordAtom from '@atom/search-keyword.tsx';
 import * as W from '@style/window.ts';
 import * as S from '@style/search.ts';
 import { ReactComponent as IconSearch } from '@img/i-search.svg';

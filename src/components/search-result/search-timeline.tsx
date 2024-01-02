@@ -10,8 +10,8 @@ import {
 } from 'firebase/firestore';
 import { db } from '@/firebase.ts';
 import { useRecoilValue } from 'recoil';
-import { searchKeywordAtom } from '@/atoms.tsx';
 import Tweet from '@compo/home/tweet.tsx';
+import searchKeywordAtom from '@atom/search-keyword.tsx';
 import ITweet from '@type/ITweet.ts';
 import * as S from '@style/timeline.ts';
 
