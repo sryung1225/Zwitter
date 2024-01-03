@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import { FirebaseError } from 'firebase/app';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import ImageComputer from '@img/logo-small.png';
-import { ReactComponent as LoadingSpinner } from '@img/loading-spinner-mini.svg';
-import { auth } from '@/firebase.ts';
+import { doc, getDoc } from 'firebase/firestore';
+import { auth, db } from '@/firebase.ts';
+import { currentUserAtom, currentUserInfoAtom } from '@atom/current-user.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
 import * as S from '@style/auth.ts';
 import * as P from '@style/popup.ts';
+import ImageComputer from '@img/logo-small.png';
+import { ReactComponent as LoadingSpinner } from '@img/loading-spinner-mini.svg';
 
 interface ISignInProps {
   onClose: () => void;
@@ -26,6 +29,8 @@ export default function SignIn({ onClose }: ISignInProps) {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [firebaseError, setFirebaseError] = useState('');
+  const setCurrentUser = useSetRecoilState(currentUserAtom);
+  const setCurrentUserInfo = useSetRecoilState(currentUserInfoAtom);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
@@ -42,7 +47,22 @@ export default function SignIn({ onClose }: ISignInProps) {
     if (isLoading || userEmail === '' || userPassword === '') return;
     try {
       setLoading(true);
-      await signInWithEmailAndPassword(auth, userEmail, userPassword);
+      const { user } = await signInWithEmailAndPassword(
+        auth,
+        userEmail,
+        userPassword,
+      );
+      const userRef = doc(db, 'users', user.uid);
+      const snapshot = await getDoc(userRef);
+      if (snapshot.exists()) {
+        const userInfo = snapshot.data();
+        setCurrentUser(user);
+        setCurrentUserInfo({
+          userId: userInfo.userId,
+          userAvatar: userInfo.userAvatar,
+          userName: userInfo.userName,
+        });
+      }
       navigate('/');
     } catch (error) {
       if (error instanceof FirebaseError) {
