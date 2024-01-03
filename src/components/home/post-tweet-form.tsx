@@ -3,6 +3,7 @@ import { addDoc, collection, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { auth, db, storage } from '@/firebase.ts';
 import CompressImage from '@util/compress-image.tsx';
+import ScrollTop from '@util/scroll-top.tsx';
 import * as S from '@style/tweet-form.ts';
 import { ReactComponent as IconPhoto } from '@img/i-photo.svg';
 import { ReactComponent as LoadingSpinner } from '@img/loading-spinner-mini.svg';
@@ -62,6 +63,7 @@ export default function PostTweetForm() {
       console.log(error);
     } finally {
       setLoading(false);
+      ScrollTop('timeline');
     }
   };
   return (

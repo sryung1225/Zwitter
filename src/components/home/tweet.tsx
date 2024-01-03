@@ -5,6 +5,7 @@ import { auth, db, storage } from '@/firebase.ts';
 import ITweet from '@type/ITweet.ts';
 import FormatDate from '@util/format-date.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
+import ScrollTop from '@util/scroll-top.tsx';
 import EditTweetForm from '@compo/home/edit-tweet-form.tsx';
 import * as S from '@style/tweet.ts';
 import * as P from '@style/popup.ts';
@@ -39,6 +40,8 @@ export default function Tweet({
       }
     } catch (e) {
       console.log(e);
+    } finally {
+      ScrollTop('timeline');
     }
   };
   useEscClose(() => setDeletePopup(false));

@@ -45,7 +45,7 @@ export default function Timeline() {
     };
   }, []);
   return tweets.length !== 0 ? (
-    <S.TimelineWrapper>
+    <S.TimelineWrapper id="timeline">
       {tweets.map((tweet) => (
         <Tweet key={tweet.id} {...tweet} />
       ))}
