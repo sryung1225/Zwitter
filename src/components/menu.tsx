@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { auth } from '@/firebase.ts';
 import WindowTop from '@compo/window-top.tsx';
-import { currentUserAtom, currentUserInfoAtom } from '@atom/current-user.tsx';
+import currentUserInfoAtom from '@atom/current-user.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
 import * as W from '@style/window.ts';
 import * as S from '@style/menu.ts';
@@ -15,7 +15,6 @@ import { ReactComponent as IconLogout } from '@img/i-arrowleft.svg';
 
 export default function Menu() {
   const navigate = useNavigate();
-  const setCurrentUser = useSetRecoilState(currentUserAtom);
   const setCurrentUserInfo = useSetRecoilState(currentUserInfoAtom);
   const [logoutPopup, setLogoutPopup] = useState(false);
   const toggleLogoutPopup = () => {
@@ -28,7 +27,6 @@ export default function Menu() {
     } catch (error) {
       console.error('Error during sign out:', error);
     } finally {
-      setCurrentUser(null);
       setCurrentUserInfo({
         userId: '',
         userAvatar: '',

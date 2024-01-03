@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import { FirebaseError } from 'firebase/app';
 import { AuthProvider, signInWithPopup } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/firebase.ts';
+import currentUserAtom from '@atom/current-user.tsx';
+import FetchCurrentUser from '@util/fetch-current-user.tsx';
 import * as S from '@style/auth.ts';
 
 interface ISocialButton {
@@ -19,6 +22,7 @@ const errors: { [key: string]: string } = {
 
 export default function SocialSignIn({ provider, icon, text }: ISocialButton) {
   const navigate = useNavigate();
+  const setCurrentUser = useSetRecoilState(currentUserAtom);
   const [firebaseError, setFirebaseError] = useState('');
   const onClick = async () => {
     setFirebaseError('');
@@ -29,6 +33,10 @@ export default function SocialSignIn({ provider, icon, text }: ISocialButton) {
         userName: credentials.user.displayName || 'Anonymous',
         userId: credentials.user.uid,
         userAvatar: credentials.user.photoURL || null,
+      });
+      await FetchCurrentUser({
+        userId: credentials.user.uid || '',
+        setCurrentUser,
       });
       navigate('/');
     } catch (error) {

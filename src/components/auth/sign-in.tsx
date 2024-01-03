@@ -51,14 +51,10 @@ export default function SignIn({ onClose }: ISignInProps) {
         userEmail,
         userPassword,
       );
-      try {
-        await FetchCurrentUser({
-          userId: user?.uid || '',
-          setCurrentUser,
-        });
-      } catch (error) {
-        console.error('안된다', error);
-      }
+      await FetchCurrentUser({
+        userId: user?.uid || '',
+        setCurrentUser,
+      });
       navigate('/');
     } catch (error) {
       if (error instanceof FirebaseError) {
