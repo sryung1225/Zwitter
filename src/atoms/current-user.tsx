@@ -3,18 +3,15 @@ import { recoilPersist } from 'recoil-persist';
 
 const { persistAtom } = recoilPersist();
 
-export const currentUserAtom = atom({
+const currentUserAtom = atom({
   key: 'currentUser',
-  default: null,
-  effects: [persistAtom],
-});
-
-export const currentUserInfoAtom = atom({
-  key: 'currentUserInfo',
   default: {
     userId: '',
     userName: '',
     userAvatar: '',
   },
+  dangerouslyAllowMutability: true,
   effects: [persistAtom],
 });
+
+export default currentUserAtom;

@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { FirebaseError } from 'firebase/app';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '@/firebase.ts';
-import { currentUserAtom, currentUserInfoAtom } from '@atom/current-user.tsx';
+import { auth } from '@/firebase.ts';
+import currentUserAtom from '@atom/current-user.tsx';
+import FetchCurrentUser from '@util/fetch-current-user.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
 import * as S from '@style/auth.ts';
 import * as P from '@style/popup.ts';
@@ -28,9 +28,8 @@ export default function SignIn({ onClose }: ISignInProps) {
   const [isLoading, setLoading] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const [firebaseError, setFirebaseError] = useState('');
   const setCurrentUser = useSetRecoilState(currentUserAtom);
-  const setCurrentUserInfo = useSetRecoilState(currentUserInfoAtom);
+  const [firebaseError, setFirebaseError] = useState('');
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
@@ -52,16 +51,13 @@ export default function SignIn({ onClose }: ISignInProps) {
         userEmail,
         userPassword,
       );
-      const userRef = doc(db, 'users', user.uid);
-      const snapshot = await getDoc(userRef);
-      if (snapshot.exists()) {
-        const userInfo = snapshot.data();
-        setCurrentUser(user);
-        setCurrentUserInfo({
-          userId: userInfo.userId,
-          userAvatar: userInfo.userAvatar,
-          userName: userInfo.userName,
+      try {
+        await FetchCurrentUser({
+          userId: user?.uid || '',
+          setCurrentUser,
         });
+      } catch (error) {
+        console.error('안된다', error);
       }
       navigate('/');
     } catch (error) {
