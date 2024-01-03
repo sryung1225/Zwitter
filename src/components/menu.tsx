@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { auth } from '@/firebase.ts';
 import WindowTop from '@compo/window-top.tsx';
+import useEscClose from '@util/use-esc-close.tsx';
 import * as W from '@style/window.ts';
 import * as S from '@style/menu.ts';
 import * as P from '@style/popup.ts';
@@ -16,17 +17,7 @@ export default function Menu() {
   const toggleLogoutPopup = () => {
     setLogoutPopup(!logoutPopup);
   };
-  useEffect(() => {
-    const handleEscKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setLogoutPopup(false);
-      }
-    };
-    document.addEventListener('keydown', handleEscKey);
-    return () => {
-      document.removeEventListener('keydown', handleEscKey);
-    };
-  }, [logoutPopup]);
+  useEscClose(() => setLogoutPopup(false));
   const onLogout = async () => {
     await auth.signOut();
     navigate('/auth');

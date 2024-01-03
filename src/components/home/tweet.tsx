@@ -4,6 +4,7 @@ import { deleteObject, ref } from 'firebase/storage';
 import { auth, db, storage } from '@/firebase.ts';
 import ITweet from '@type/ITweet.ts';
 import FormatDate from '@util/format-date.tsx';
+import useEscClose from '@util/use-esc-close.tsx';
 import EditTweetForm from '@compo/home/edit-tweet-form.tsx';
 import * as S from '@style/tweet.ts';
 import * as P from '@style/popup.ts';
@@ -40,6 +41,7 @@ export default function Tweet({
       console.log(e);
     }
   };
+  useEscClose(() => setDeletePopup(false));
   useEffect(() => {
     const fetchUserAvatar = async () => {
       const userDoc = await getDoc(doc(db, 'users', userId));
