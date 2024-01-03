@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
+import { Unsubscribe } from 'firebase/auth';
+import { doc, onSnapshot } from 'firebase/firestore';
 import { auth, db } from '@/firebase.ts';
 import EditProfileForm from '@compo/profile/edit-profile-form.tsx';
 import * as S from '@style/profile.ts';
@@ -9,23 +10,31 @@ import { ReactComponent as IconUser } from '@img/i-user.svg';
 export default function UserProfile() {
   const [userAvatar, setUserAvatar] = useState('');
   const [userName, setUserName] = useState('');
-  useEffect(() => {
-    const user = auth.currentUser;
-    const fetchUserData = async () => {
-      if (!user) return;
-      const userDoc = await getDoc(doc(db, 'users', user?.uid));
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-        setUserAvatar(userData.userAvatar);
-        setUserName(userData.userName);
-      }
-    };
-    fetchUserData();
-  }, []);
   const [editPopup, setEditPopup] = useState(false);
   const toggleEditPopup = () => {
     setEditPopup(!editPopup);
   };
+  useEffect(() => {
+    const user = auth.currentUser;
+    let unsubscribe: Unsubscribe | null = null;
+    const fetchUserData = async () => {
+      if (!user) return;
+      const userRef = doc(db, 'users', user?.uid);
+      unsubscribe = await onSnapshot(userRef, (snapshot) => {
+        if (snapshot.exists()) {
+          const userData = snapshot.data();
+          setUserAvatar(userData.userAvatar);
+          setUserName(userData.userName);
+        }
+      });
+    };
+    fetchUserData();
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, []);
   return (
     <S.Profile>
       <S.Avatar>
