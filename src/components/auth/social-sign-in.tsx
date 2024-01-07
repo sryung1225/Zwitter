@@ -6,6 +6,7 @@ import { AuthProvider, signInWithPopup } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
+import AUTH_ERRORS from '@const/auth-errors.tsx';
 import FetchCurrentUser from '@util/fetch-current-user.tsx';
 import * as S from '@style/auth.ts';
 
@@ -14,11 +15,6 @@ interface ISocialButton {
   icon: React.ReactNode;
   text: string;
 }
-
-const errors: { [key: string]: string } = {
-  'auth/account-exists-with-different-credential':
-    '이미 다른 수단의 계정을 갖고 있습니다.',
-};
 
 export default function SocialSignIn({ provider, icon, text }: ISocialButton) {
   const navigate = useNavigate();
@@ -41,7 +37,7 @@ export default function SocialSignIn({ provider, icon, text }: ISocialButton) {
       navigate('/');
     } catch (error) {
       if (error instanceof FirebaseError) {
-        setFirebaseError(errors[error.code] || error.message);
+        setFirebaseError(AUTH_ERRORS[error.code] || error.message);
       }
     }
   };

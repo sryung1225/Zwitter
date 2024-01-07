@@ -5,6 +5,7 @@ import { FirebaseError } from 'firebase/app';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
+import AUTH_ERRORS from '@const/auth-errors.tsx';
 import FetchCurrentUser from '@util/fetch-current-user.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
 import * as S from '@style/auth.ts';
@@ -15,13 +16,6 @@ import { ReactComponent as LoadingSpinner } from '@img/loading-spinner-mini.svg'
 interface ISignInProps {
   onClose: () => void;
 }
-
-const errors: { [key: string]: string } = {
-  'auth/invalid-login-credentials': '유효하지 않은 사용자입니다.',
-  'auth/user-not-found': '가입한 적 없는 사용자입니다.',
-  'auth/wrong-password': '잘못된 비밀번호입니다.',
-  'auth/too-many-requests': '잠시 후 다시 시도해주세요.',
-};
 
 export default function SignIn({ onClose }: ISignInProps) {
   const navigate = useNavigate();
@@ -58,7 +52,7 @@ export default function SignIn({ onClose }: ISignInProps) {
       navigate('/');
     } catch (error) {
       if (error instanceof FirebaseError) {
-        setFirebaseError(errors[error.code] || error.message);
+        setFirebaseError(AUTH_ERRORS[error.code] || error.message);
       }
     } finally {
       setLoading(false);
