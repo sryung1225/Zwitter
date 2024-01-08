@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
-import { auth, db, storage } from '@/firebase.ts';
+import { db, storage } from '@/firebase.ts';
+import currentUserAtom from '@atom/current-user.tsx';
 import ITweet from '@type/ITweet.ts';
 import FormatDate from '@util/format-date.tsx';
+import useEscClose from '@util/use-esc-close.tsx';
+import ScrollTop from '@util/scroll-top.tsx';
 import EditTweetForm from '@compo/home/edit-tweet-form.tsx';
 import * as S from '@style/tweet.ts';
 import * as P from '@style/popup.ts';
@@ -18,14 +22,9 @@ export default function Tweet({
   photo,
   tweet,
 }: ITweet) {
-  const user = auth.currentUser;
   const [userAvatar, setUserAvatar] = useState<string | null>(null);
-  const fetchUserAvatar = async () => {
-    const userDoc = await getDoc(doc(db, 'users', userId));
-    const userData = userDoc.data();
-    setUserAvatar(userData?.userAvatar || null);
-  };
   const [editPopup, setEditPopup] = useState(false);
+  const currentUser = useRecoilValue(currentUserAtom);
   const toggleEditPopup = () => {
     setEditPopup(!editPopup);
   };
@@ -34,22 +33,28 @@ export default function Tweet({
     setDeletePopup(!deletePopup);
   };
   const onDelete = async () => {
-    if (user?.uid !== userId) return;
+    if (currentUser.userId !== userId) return;
     try {
       await deleteDoc(doc(db, 'tweets', id));
       if (photo) {
-        const photoRef = ref(storage, `tweets/${user.uid}/${id}`);
+        const photoRef = ref(storage, `tweets/${currentUser.userId}/${id}`);
         await deleteObject(photoRef);
       }
     } catch (e) {
       console.log(e);
     } finally {
-      //
+      ScrollTop('timeline');
     }
   };
+  useEscClose(() => setDeletePopup(false));
   useEffect(() => {
+    const fetchUserAvatar = async () => {
+      const userDoc = await getDoc(doc(db, 'users', userId));
+      const userData = userDoc.data();
+      setUserAvatar(userData?.userAvatar || null);
+    };
     fetchUserAvatar();
-  }, [userName, userAvatar]);
+  }, [userId]);
   return (
     <S.Wrapper>
       <S.Avatar>
@@ -72,7 +77,7 @@ export default function Tweet({
       {photo ? (
         <S.Photo src={photo} alt={tweet} width="300" height="300" />
       ) : null}
-      {user?.uid === userId ? (
+      {currentUser.userId === userId ? (
         <>
           <S.EditButton onClick={toggleEditPopup} type="button">
             <span className="a11yHidden">포스팅 수정하기</span>

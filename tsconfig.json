@@ -12,7 +12,9 @@
       "@/*": ["*"],
       "@page/*": ["routes/*"],
       "@compo/*": ["components/*"],
+      "@atom/*": ["atoms/*"],
       "@type/*": ["interfaces/*"],
+      "@const/*": ["constants/*"],
       "@util/*": ["utils/*"],
       "@style/*": ["styles/*"],
       "@img/*": ["assets/images/*"]

@@ -1,38 +1,24 @@
-import { useEffect, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '@/firebase.ts';
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import currentUserAtom from '@atom/current-user.tsx';
 import EditProfileForm from '@compo/profile/edit-profile-form.tsx';
 import * as S from '@style/profile.ts';
 import * as P from '@style/popup.ts';
 import { ReactComponent as IconUser } from '@img/i-user.svg';
 
 export default function UserProfile() {
-  const user = auth.currentUser;
-  const [userAvatar, setUserAvatar] = useState('');
-  const [userName, setUserName] = useState('');
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (!user) return;
-      const userDoc = await getDoc(doc(db, 'users', user?.uid));
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-        setUserAvatar(userData.userAvatar);
-        setUserName(userData.userName);
-      }
-    };
-    fetchUserData();
-  }, []);
   const [editPopup, setEditPopup] = useState(false);
+  const currentUser = useRecoilValue(currentUserAtom);
   const toggleEditPopup = () => {
     setEditPopup(!editPopup);
   };
   return (
     <S.Profile>
       <S.Avatar>
-        {userAvatar ? (
+        {currentUser.userAvatar ? (
           <S.AvatarImage
-            src={userAvatar}
-            alt="프로필 이미지"
+            src={currentUser.userAvatar}
+            alt={`${currentUser.userName}의 프로필 사진`}
             width="120"
             height="120"
           />
@@ -40,7 +26,7 @@ export default function UserProfile() {
           <IconUser />
         )}
       </S.Avatar>
-      <S.Name>{userName}</S.Name>
+      <S.Name>{currentUser.userName}</S.Name>
       <S.EditButton onClick={toggleEditPopup} type="button">
         프로필 수정
       </S.EditButton>
@@ -48,11 +34,7 @@ export default function UserProfile() {
         <P.PopupWrapper>
           <P.Popup>
             <P.CloseButton onClick={toggleEditPopup} type="button" />
-            <EditProfileForm
-              userAvatar={userAvatar}
-              userName={userName}
-              onClose={toggleEditPopup}
-            />
+            <EditProfileForm onClose={toggleEditPopup} />
           </P.Popup>
         </P.PopupWrapper>
       ) : null}

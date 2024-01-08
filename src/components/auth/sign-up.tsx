@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import { FirebaseError } from 'firebase/app';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/firebase.ts';
+import currentUserAtom from '@atom/current-user.tsx';
+import FetchCurrentUser from '@util/fetch-current-user.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
 import * as S from '@style/auth.ts';
 import * as P from '@style/popup.ts';
@@ -27,6 +30,7 @@ export default function SignUp({ onClose }: ISignUpProps) {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const setCurrentUser = useSetRecoilState(currentUserAtom);
   const [firebaseError, setFirebaseError] = useState('');
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -52,14 +56,15 @@ export default function SignUp({ onClose }: ISignUpProps) {
         userEmail,
         userPassword,
       );
-      await updateProfile(credentials.user, {
-        displayName: userName,
-      });
       const userRef = doc(db, 'users', credentials.user.uid);
       await setDoc(userRef, {
         userName: userName || 'Anonymous',
         userId: credentials.user.uid,
         userAvatar: credentials.user.photoURL || null,
+      });
+      await FetchCurrentUser({
+        userId: credentials.user.uid || '',
+        setCurrentUser,
       });
       navigate('/');
     } catch (error) {

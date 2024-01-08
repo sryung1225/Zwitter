@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { updateProfile } from 'firebase/auth';
+import { useRecoilState } from 'recoil';
 import { doc, updateDoc } from 'firebase/firestore';
 import {
   deleteObject,
@@ -7,7 +7,8 @@ import {
   ref,
   uploadBytes,
 } from 'firebase/storage';
-import { auth, db, storage } from '@/firebase.ts';
+import { db, storage } from '@/firebase.ts';
+import currentUserAtom from '@atom/current-user.tsx';
 import IUser from '@type/IUser.ts';
 import CompressImage from '@util/compress-image.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
@@ -16,19 +17,16 @@ import { ReactComponent as IconUser } from '@img/i-user.svg';
 import { ReactComponent as IconChange } from '@img/i-change.svg';
 import { ReactComponent as LoadingSpinner } from '@img/loading-spinner-mini.svg';
 
-interface IEditProfileForm extends Pick<IUser, 'userAvatar' | 'userName'> {
+interface IEditProfileForm {
   onClose: () => void;
 }
 
-export default function EditProfileForm({
-  userAvatar: initialAvatar,
-  userName: initialName,
-  onClose,
-}: IEditProfileForm) {
-  const user = auth.currentUser;
+export default function EditProfileForm({ onClose }: IEditProfileForm) {
   const [isLoading, setLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
   const [avatar, setAvatar] = useState<File | null>(null);
-  const [avatarPreview, setAvatarPreview] = useState(user?.photoURL);
+  const [avatarPreview, setAvatarPreview] = useState(currentUser.userAvatar);
+  const [name, setName] = useState(currentUser.userName);
   const onAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const images = e.target.files;
     if (images && images.length === 1) {
@@ -48,42 +46,46 @@ export default function EditProfileForm({
     setAvatar(null);
     setAvatarPreview(null);
   };
-
-  const [name, setName] = useState(initialName);
   const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!user || isLoading || name === '') return;
+    if (!currentUser || isLoading || name === '') return;
     try {
       setLoading(true);
-      const userDocRef = doc(db, 'users', user.uid);
+      const userDocRef = doc(db, 'users', currentUser.userId);
       await updateDoc(userDocRef, {
         userName: name,
       });
-      await updateProfile(user, {
-        displayName: name,
-      });
-      const locationRef = ref(storage, `avatars/${user?.uid}`);
+      setCurrentUser((prevUser: IUser) => ({
+        ...prevUser,
+        userName: name,
+      }));
+      const locationRef = ref(storage, `avatars/${currentUser.userId}`);
       if (avatar) {
         const result = await uploadBytes(locationRef, avatar);
         const url = await getDownloadURL(result.ref);
         await updateDoc(userDocRef, {
           userAvatar: url,
         });
-        await updateProfile(user, {
-          photoURL: url,
-        });
-      } else if (!avatar && initialAvatar && initialAvatar !== avatarPreview) {
-        await updateProfile(user, {
-          photoURL: '',
-        });
+        setCurrentUser((prevUser: IUser) => ({
+          ...prevUser,
+          userAvatar: url,
+        }));
+      } else if (
+        !avatar &&
+        currentUser.userAvatar &&
+        currentUser.userAvatar !== avatarPreview
+      ) {
         await deleteObject(locationRef);
         await updateDoc(userDocRef, {
           userAvatar: null,
         });
+        setCurrentUser((prevUser: IUser) => ({
+          ...prevUser,
+          userAvatar: '',
+        }));
       }
       setAvatarPreview(null);
       setAvatar(null);

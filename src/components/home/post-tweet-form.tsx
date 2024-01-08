@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { addDoc, collection, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { auth, db, storage } from '@/firebase.ts';
+import { db, storage } from '@/firebase.ts';
+import currentUserAtom from '@atom/current-user.tsx';
 import CompressImage from '@util/compress-image.tsx';
+import ScrollTop from '@util/scroll-top.tsx';
 import * as S from '@style/tweet-form.ts';
 import { ReactComponent as IconPhoto } from '@img/i-photo.svg';
 import { ReactComponent as LoadingSpinner } from '@img/loading-spinner-mini.svg';
@@ -12,7 +15,7 @@ export default function PostTweetForm() {
   const [tweet, setTweet] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState('');
-
+  const currentUser = useRecoilValue(currentUserAtom);
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTweet(e.target.value);
   };
@@ -22,7 +25,7 @@ export default function PostTweetForm() {
       const selectedImage = images[0];
       const compressedImage = await CompressImage({
         imageFile: selectedImage,
-        size: 300,
+        size: 500,
       });
       setImage(compressedImage);
       const previewUrl = compressedImage
@@ -37,18 +40,20 @@ export default function PostTweetForm() {
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const user = auth.currentUser;
-    if (!user || isLoading || tweet === '' || tweet.length > 180) return;
+    if (!currentUser || isLoading || tweet === '' || tweet.length > 180) return;
     try {
       setLoading(true);
       const doc = await addDoc(collection(db, 'tweets'), {
         tweet,
         createdAt: Date.now(),
-        userName: user.displayName || 'Anonymous',
-        userId: user.uid,
+        userName: currentUser.userName,
+        userId: currentUser.userId,
       });
       if (image) {
-        const locationRef = ref(storage, `tweets/${user.uid}/${doc.id}`);
+        const locationRef = ref(
+          storage,
+          `tweets/${currentUser.userId}/${doc.id}`,
+        );
         const result = await uploadBytes(locationRef, image);
         const url = await getDownloadURL(result.ref);
         await updateDoc(doc, {
@@ -62,6 +67,7 @@ export default function PostTweetForm() {
       console.log(error);
     } finally {
       setLoading(false);
+      ScrollTop('timeline');
     }
   };
   return (

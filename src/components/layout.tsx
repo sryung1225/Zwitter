@@ -1,14 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import Wrapper from '@style/layout.ts';
-import Menu from '@compo/menu.tsx';
-import Search from '@compo/search.tsx';
+import LeftSideMenu from '@compo/left-side-menu.tsx';
+import RightSideMenu from '@compo/right-side-menu.tsx';
 
 export default function Layout() {
   return (
     <Wrapper>
-      <Menu />
+      <LeftSideMenu />
       <Outlet />
-      <Search />
+      <RightSideMenu />
     </Wrapper>
   );
 }

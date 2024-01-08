@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { deleteField, doc, updateDoc } from 'firebase/firestore';
 import {
   deleteObject,
@@ -6,7 +7,8 @@ import {
   ref,
   uploadBytes,
 } from 'firebase/storage';
-import { auth, db, storage } from '@/firebase.ts';
+import { db, storage } from '@/firebase.ts';
+import currentUserAtom from '@atom/current-user.tsx';
 import ITweet from '@type/ITweet.ts';
 import CompressImage from '@util/compress-image.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
@@ -26,10 +28,10 @@ export default function EditTweetForm({
 }: IEditTweetForm) {
   const [isLoading, setLoading] = useState(false);
   const [tweet, setTweet] = useState(initialTweet);
+  const currentUser = useRecoilValue(currentUserAtom);
   const onTweetChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTweet(e.target.value);
   };
-
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState(initialPhoto);
   const onImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +40,7 @@ export default function EditTweetForm({
       const selectedImage = images[0];
       const compressedImage = await CompressImage({
         imageFile: selectedImage,
-        size: 300,
+        size: 500,
       });
       setImage(compressedImage);
       const previewUrl = compressedImage
@@ -54,8 +56,7 @@ export default function EditTweetForm({
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const user = auth.currentUser;
-    if (!user || isLoading || tweet === '' || tweet.length > 180) return;
+    if (!currentUser || isLoading || tweet === '' || tweet.length > 180) return;
     try {
       setLoading(true);
       const tweetDocRef = doc(db, 'tweets', id);
@@ -65,7 +66,7 @@ export default function EditTweetForm({
       if (image) {
         const locationRef = ref(
           storage,
-          initialPhoto || `tweets/${user.uid}/${id}`,
+          initialPhoto || `tweets/${currentUser.userId}/${id}`,
         );
         const result = await uploadBytes(locationRef, image);
         const url = await getDownloadURL(result.ref);

@@ -45,7 +45,9 @@ export default defineConfig({
         find: '@compo',
         replacement: path.resolve(__dirname, 'src/components'),
       },
+      { find: '@atom', replacement: path.resolve(__dirname, 'src/atoms') },
       { find: '@type', replacement: path.resolve(__dirname, 'src/interfaces') },
+      { find: '@const', replacement: path.resolve(__dirname, 'src/constants') },
       { find: '@util', replacement: path.resolve(__dirname, 'src/utils') },
       { find: '@style', replacement: path.resolve(__dirname, 'src/styles') },
       {
