@@ -35,10 +35,11 @@ export const MenuList = styled.ul`
   gap: 20px;
 `;
 
-export const MenuItem = styled.li`
+export const MenuItem = styled.li<{ $isActive: boolean }>`
   line-height: 30px;
   cursor: pointer;
   a {
+    color: ${(props) => (props.$isActive ? primaryColor : blackColor)};
     font-size: 20px;
     font-family: 'Ycomputer-Regular', sans-serif;
     text-decoration: none;
@@ -46,7 +47,7 @@ export const MenuItem = styled.li`
   }
   svg {
     width: 24px;
-    stroke: ${blackColor};
+    stroke: ${(props) => (props.$isActive ? primaryColor : blackColor)};
     vertical-align: sub;
     transition: all 0.5s ease;
   }
