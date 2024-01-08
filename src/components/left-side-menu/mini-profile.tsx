@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { auth } from '@/firebase.ts';
-import currentUserInfoAtom from '@atom/current-user.tsx';
+import currentUserAtom from '@atom/current-user.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
 import * as S from '@style/mini-profile.ts';
-import * as T from '@style/navigation.ts';
 import * as P from '@style/popup.ts';
 import { ReactComponent as IconLogout } from '@img/i-arrowleft.svg';
 
 export default function MiniProfile() {
   const navigate = useNavigate();
-  const setCurrentUserInfo = useSetRecoilState(currentUserInfoAtom);
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
   const [logoutPopup, setLogoutPopup] = useState(false);
   const toggleLogoutPopup = () => {
     setLogoutPopup(!logoutPopup);
@@ -23,7 +22,7 @@ export default function MiniProfile() {
     } catch (error) {
       console.error('Error during sign out:', error);
     } finally {
-      setCurrentUserInfo({
+      setCurrentUser({
         userId: '',
         userAvatar: '',
         userName: '',
@@ -32,10 +31,20 @@ export default function MiniProfile() {
     }
   };
   return (
-    <S.MiniProfile>
-      <T.Button onClick={toggleLogoutPopup}>
-        <IconLogout /> 로그아웃
-      </T.Button>
+    <>
+      <S.MiniProfile>
+        <S.Avatar
+          src={currentUser.userAvatar}
+          width="50"
+          height="50"
+          alt={`${currentUser.userName}의 프로필 사진`}
+        />
+        <S.Name>{currentUser.userName}</S.Name>
+        <S.Logout type="button" onClick={toggleLogoutPopup}>
+          <p className="a11yHidden">로그아웃</p>
+          <IconLogout />
+        </S.Logout>
+      </S.MiniProfile>
       {logoutPopup ? (
         <P.PopupWrapper>
           <P.MiniPopup>
@@ -51,6 +60,6 @@ export default function MiniProfile() {
           </P.MiniPopup>
         </P.PopupWrapper>
       ) : null}
-    </S.MiniProfile>
+    </>
   );
 }
