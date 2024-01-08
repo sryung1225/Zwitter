@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { Unsubscribe } from 'firebase/auth';
 import {
   collection,
@@ -8,20 +9,21 @@ import {
   query,
   where,
 } from 'firebase/firestore';
-import { auth, db } from '@/firebase.ts';
+import currentUserAtom from '@atom/current-user.tsx';
+import { db } from '@/firebase.ts';
 import ITweet from '@type/ITweet.ts';
 import Tweet from '@compo/home/tweet.tsx';
 import * as S from '@style/timeline.ts';
 
 export default function UserTimeline() {
   const [tweets, setTweets] = useState<ITweet[]>([]);
+  const currentUser = useRecoilValue(currentUserAtom);
   useEffect(() => {
-    const user = auth.currentUser;
     let unsubscribe: Unsubscribe | null = null;
     const fetchTweets = async () => {
       const tweetsQuery = query(
         collection(db, 'tweets'),
-        where('userId', '==', user?.uid),
+        where('userId', '==', currentUser.userId),
         orderBy('createdAt', 'desc'),
         limit(25),
       );
@@ -46,7 +48,7 @@ export default function UserTimeline() {
         unsubscribe();
       }
     };
-  }, []);
+  }, [currentUser.userId]);
   return tweets.length !== 0 ? (
     <S.TimelineWrapper>
       {tweets.map((tweet) => (

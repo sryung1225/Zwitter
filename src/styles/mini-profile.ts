@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { primaryColor } from '@style/global.ts';
+import { grayColor, primaryColor } from '@style/global.ts';
 
 export const MiniProfile = styled.div`
   position: relative;
@@ -19,17 +19,45 @@ export const MiniProfile = styled.div`
   }
 `;
 
-export const Avatar = styled.img`
+export const Avatar = styled.div`
+  position: relative;
   flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 50px;
   height: 50px;
   margin-left: 10px;
   border-radius: 50%;
+  overflow: hidden;
+  svg {
+    width: 30px;
+    stroke: ${grayColor};
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 46px;
+    height: 46px;
+    border: 2px dashed ${grayColor};
+    border-radius: 50%;
+  }
+`;
+
+export const AvatarImage = styled.img`
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  z-index: 10;
 `;
 
 export const Name = styled.p`
   flex-grow: 1;
+  font-weight: 600;
   font-size: 16px;
   line-height: 25px;
   text-align: left;

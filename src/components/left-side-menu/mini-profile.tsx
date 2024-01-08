@@ -6,6 +6,7 @@ import currentUserAtom from '@atom/current-user.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
 import * as S from '@style/mini-profile.ts';
 import * as P from '@style/popup.ts';
+import { ReactComponent as IconUser } from '@img/i-user.svg';
 import { ReactComponent as IconLogout } from '@img/i-arrowleft.svg';
 
 export default function MiniProfile() {
@@ -33,12 +34,18 @@ export default function MiniProfile() {
   return (
     <>
       <S.MiniProfile>
-        <S.Avatar
-          src={currentUser.userAvatar}
-          width="50"
-          height="50"
-          alt={`${currentUser.userName}의 프로필 사진`}
-        />
+        <S.Avatar>
+          {currentUser.userAvatar ? (
+            <S.AvatarImage
+              src={currentUser.userAvatar}
+              alt={`${currentUser.userName}의 프로필 사진`}
+              width="50"
+              height="50"
+            />
+          ) : (
+            <IconUser />
+          )}
+        </S.Avatar>
         <S.Name>{currentUser.userName}</S.Name>
         <S.Logout type="button" onClick={toggleLogoutPopup}>
           <p className="a11yHidden">로그아웃</p>

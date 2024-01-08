@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { FirebaseError } from 'firebase/app';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
@@ -56,9 +56,6 @@ export default function SignUp({ onClose }: ISignUpProps) {
         userEmail,
         userPassword,
       );
-      await updateProfile(credentials.user, {
-        displayName: userName,
-      });
       const userRef = doc(db, 'users', credentials.user.uid);
       await setDoc(userRef, {
         userName: userName || 'Anonymous',

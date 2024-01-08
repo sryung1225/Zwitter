@@ -27,10 +27,10 @@ export const Avatar = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   width: 120px;
   height: 120px;
   border-radius: 50%;
+  overflow: hidden;
   svg {
     width: 40px;
     stroke: ${grayColor};
