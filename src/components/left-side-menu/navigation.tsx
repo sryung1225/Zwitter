@@ -1,4 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import currentUserAtom from '@atom/current-user.tsx';
 import * as S from '@style/navigation.ts';
 import ImageComputer from '@img/logo-small.png';
 import { ReactComponent as IconUser } from '@img/i-user.svg';
@@ -6,6 +8,7 @@ import { ReactComponent as IconHome } from '@img/i-home.svg';
 
 export default function Navigation() {
   const location = useLocation();
+  const currentUser = useRecoilValue(currentUserAtom);
   return (
     <>
       <S.Logo>
@@ -20,8 +23,10 @@ export default function Navigation() {
             <IconHome /> 홈
           </Link>
         </S.MenuItem>
-        <S.MenuItem $isActive={location.pathname === '/profile'}>
-          <Link to="/profile">
+        <S.MenuItem
+          $isActive={location.search === `?query=${currentUser.userId}`}
+        >
+          <Link to={`/user?query=${currentUser.userId}`}>
             <IconUser /> 프로필
           </Link>
         </S.MenuItem>
