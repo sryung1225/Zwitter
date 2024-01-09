@@ -57,7 +57,7 @@ export default function Tweet({
   }, [userId]);
   return (
     <S.Wrapper>
-      <S.Avatar>
+      <S.Avatar to={`/${userId}`}>
         {userAvatar ? (
           <S.AvatarImage
             src={userAvatar}
@@ -70,7 +70,7 @@ export default function Tweet({
         )}
       </S.Avatar>
       <S.Row>
-        <S.Username>{userName}</S.Username>
+        <S.Username to={`/${userId}`}>{userName}</S.Username>
         <S.Date>{FormatDate(createdAt)}</S.Date>
       </S.Row>
       <S.Payload>{tweet}</S.Payload>

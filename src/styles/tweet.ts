@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { grayColor, primaryColor } from '@style/global.ts';
+import { Link } from 'react-router-dom';
 
 export const Wrapper = styled.li`
   position: relative;
@@ -13,7 +14,7 @@ export const Wrapper = styled.li`
 
 export const Row = styled.div``;
 
-export const Avatar = styled.div`
+export const Avatar = styled(Link)`
   position: absolute;
   top: 20px;
   left: 10px;
@@ -50,9 +51,10 @@ export const AvatarImage = styled.img`
   z-index: 10;
 `;
 
-export const Username = styled.span`
+export const Username = styled(Link)`
   font-weight: 600;
   font-size: 15px;
+  text-decoration: none;
 `;
 
 export const Date = styled.span`
