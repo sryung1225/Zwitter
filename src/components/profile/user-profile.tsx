@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { deleteUser } from 'firebase/auth';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { deleteObject, ref } from 'firebase/storage';
+import { auth, db, storage } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
 import IUser from '@type/IUser.ts';
 import EditProfileForm from '@compo/profile/edit-profile-form.tsx';
@@ -12,10 +17,34 @@ interface IUserProfile {
 }
 
 export default function UserProfile({ user }: IUserProfile) {
+  const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
   const [editPopup, setEditPopup] = useState(false);
-  const currentUser = useRecoilValue(currentUserAtom);
+  const [withdrawPopup, setWithdrawPopup] = useState(false);
   const toggleEditPopup = () => {
     setEditPopup(!editPopup);
+  };
+  const toggleWithdrawPopup = () => {
+    setWithdrawPopup(!withdrawPopup);
+  };
+  const withdrawAccount = async () => {
+    const authCurrentUser = auth.currentUser;
+    if (!authCurrentUser) return;
+    try {
+      await deleteDoc(doc(db, 'users', authCurrentUser.uid));
+      const photoRef = ref(storage, `avatars/${authCurrentUser.uid}`);
+      await deleteObject(photoRef);
+      await deleteUser(authCurrentUser);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setCurrentUser({
+        userId: '',
+        userAvatar: '',
+        userName: '',
+      });
+      navigate('/auth');
+    }
   };
   return (
     <S.Profile>
@@ -33,7 +62,7 @@ export default function UserProfile({ user }: IUserProfile) {
       </S.Avatar>
       <S.Name>{user.userName}</S.Name>
       {user.userId === currentUser.userId && (
-        <>
+        <S.Buttons>
           <S.EditButton onClick={toggleEditPopup} type="button">
             프로필 수정
           </S.EditButton>
@@ -45,7 +74,28 @@ export default function UserProfile({ user }: IUserProfile) {
               </P.Popup>
             </P.PopupWrapper>
           )}
-        </>
+          <S.WithdrawButton onClick={toggleWithdrawPopup} type="button">
+            회원 탈퇴
+          </S.WithdrawButton>
+          {withdrawPopup && (
+            <P.PopupWrapper>
+              <P.MiniPopup>
+                <P.CloseButton onClick={toggleWithdrawPopup} type="button" />
+                <P.Text>
+                  정말 <span>탈퇴</span>하시겠습니까?
+                </P.Text>
+                <P.ButtonWrapper>
+                  <P.Button onClick={withdrawAccount} type="button">
+                    예
+                  </P.Button>
+                  <P.Button onClick={toggleWithdrawPopup} type="button">
+                    아니요
+                  </P.Button>
+                </P.ButtonWrapper>
+              </P.MiniPopup>
+            </P.PopupWrapper>
+          )}
+        </S.Buttons>
       )}
     </S.Profile>
   );

@@ -97,6 +97,9 @@ export const Text = styled.p`
   font-size: 18px;
   line-height: 30px;
   text-align: center;
+  span {
+    color: ${primaryColor};
+  }
 `;
 
 export const ButtonWrapper = styled.div`

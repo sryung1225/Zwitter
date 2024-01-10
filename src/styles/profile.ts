@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import { grayColor } from '@style/global.ts';
-import { LineButton } from '@style/button.ts';
+import { LineButton, SolidButton } from '@style/button.ts';
 
 export const Profile = styled.article`
   position: relative;
@@ -60,7 +60,16 @@ export const Name = styled.h2`
   font-size: 30px;
 `;
 
-export const EditButton = styled(LineButton)`
+export const Buttons = styled.div`
+  display: inline-block;
+`;
+
+export const EditButton = styled(SolidButton)`
   width: auto;
-  margin: 0;
+  margin: 0 5px;
+`;
+
+export const WithdrawButton = styled(LineButton)`
+  width: auto;
+  margin: 0 5px;
 `;
