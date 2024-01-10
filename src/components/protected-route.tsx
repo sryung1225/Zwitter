@@ -15,8 +15,8 @@ export default function ProtectedRoute({
   if (!user || localStorageUser.userId === '') {
     auth.signOut().then(() => {
       setLocalStorageUser({ userId: '', userName: '', userAvatar: '' });
-      <Navigate to="/auth" />;
     });
+    return <Navigate to="/auth" />;
   }
   return children;
 }
