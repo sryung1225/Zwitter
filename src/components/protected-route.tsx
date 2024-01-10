@@ -13,9 +13,10 @@ export default function ProtectedRoute({
   const [localStorageUser, setLocalStorageUser] =
     useRecoilState(currentUserAtom);
   if (!user || localStorageUser.userId === '') {
-    auth.signOut();
-    setLocalStorageUser({ userId: '', userName: '', userAvatar: '' });
-    return <Navigate to="/auth" />;
+    auth.signOut().then(() => {
+      setLocalStorageUser({ userId: '', userName: '', userAvatar: '' });
+      <Navigate to="/auth" />;
+    });
   }
   return children;
 }
