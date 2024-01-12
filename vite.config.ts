@@ -48,6 +48,7 @@ export default defineConfig({
       { find: '@atom', replacement: path.resolve(__dirname, 'src/atoms') },
       { find: '@type', replacement: path.resolve(__dirname, 'src/interfaces') },
       { find: '@const', replacement: path.resolve(__dirname, 'src/constants') },
+      { find: '@hook', replacement: path.resolve(__dirname, 'src/hooks') },
       { find: '@util', replacement: path.resolve(__dirname, 'src/utils') },
       { find: '@style', replacement: path.resolve(__dirname, 'src/styles') },
       {
