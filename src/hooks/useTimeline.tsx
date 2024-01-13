@@ -1,49 +1,71 @@
 import { useEffect, useState } from 'react';
-import { Unsubscribe } from 'firebase/auth';
 import {
+  DocumentData,
+  Query,
   collection,
   limit,
   onSnapshot,
   orderBy,
   query,
+  startAfter,
 } from 'firebase/firestore';
 import { db } from '@/firebase.ts';
 import ITweet from '@type/ITweet.ts';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function useTimeline(queryOptions: any[]) {
+interface IUseTimeline {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  queryOptions: any[];
+}
+
+export default function useTimeline({ queryOptions }: IUseTimeline) {
   const [tweets, setTweets] = useState<ITweet[]>([]);
-  useEffect(() => {
-    let unsubscribe: Unsubscribe | null = null;
-    const fetchTweets = async () => {
-      const tweetsQuery = query(
-        collection(db, 'tweets'),
-        ...queryOptions,
-        orderBy('createdAt', 'desc'),
-        limit(25),
-      );
-      unsubscribe = await onSnapshot(tweetsQuery, (snapshot) => {
-        const tweetList = snapshot.docs.map((doc) => {
-          const { userId, userName, tweet, createdAt, photo } = doc.data();
-          return {
-            userId,
-            userName,
-            tweet,
-            createdAt,
-            photo,
+  const [lastVisible, setLastVisible] = useState<DocumentData | undefined>(
+    undefined,
+  );
+  const [loading, setLoading] = useState(false);
+  let unsubscribe: ReturnType<typeof onSnapshot> | null = null;
+
+  const fetchNextTweets = async (after?: DocumentData) => {
+    setLoading(true);
+    const tweetsQuery: Query = query(
+      collection(db, 'tweets'),
+      ...queryOptions,
+      orderBy('createdAt', 'desc'),
+      after ? startAfter(after) : limit(10),
+      limit(10),
+    );
+    unsubscribe = await onSnapshot(tweetsQuery, (snapshot) => {
+      const newTweets = snapshot.docs.map(
+        (doc) =>
+          ({
+            ...doc.data(),
             id: doc.id,
-          };
-        });
-        tweetList.sort((a, b) => b.createdAt - a.createdAt);
-        setTweets(tweetList);
-      });
-    };
-    fetchTweets();
+          }) as ITweet,
+      );
+      setTweets((prev) => (after ? [...prev, ...newTweets] : newTweets));
+      setLastVisible(
+        snapshot.docs.length > 0
+          ? snapshot.docs[snapshot.docs.length - 1]
+          : undefined,
+      );
+      setLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    fetchNextTweets();
     return () => {
       if (unsubscribe) {
         unsubscribe();
       }
     };
-  }, [queryOptions]);
-  return tweets;
+  }, [queryOptions, fetchNextTweets]);
+
+  return {
+    tweets,
+    loadMoreTweets: () => {
+      fetchNextTweets(lastVisible);
+    },
+    loading,
+  };
 }

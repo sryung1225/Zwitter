@@ -10,9 +10,9 @@ interface IUserTimeline {
 
 export default function UserTimeline({ user }: IUserTimeline) {
   const queryOptions = [where('userId', '==', user.userId)];
-  const tweets = useTimeline(queryOptions);
+  const { tweets } = useTimeline({ queryOptions });
   return tweets.length !== 0 ? (
-    <S.TimelineWrapper>
+    <S.TimelineWrapper id="timeline">
       {tweets.map((tweet) => (
         <Tweet key={tweet.id} {...tweet} />
       ))}

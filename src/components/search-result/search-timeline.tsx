@@ -18,9 +18,9 @@ export default function SearchTimeline() {
     where('tweet', '>=', searchKeyword),
     where('tweet', '<=', `${searchKeyword}\uf8ff`),
   ];
-  const tweets = useTimeline(queryOptions);
+  const { tweets } = useTimeline({ queryOptions });
   return tweets.length !== 0 ? (
-    <S.TimelineWrapper>
+    <S.TimelineWrapper id="timeline">
       {tweets.map((tweet) => (
         <Tweet key={tweet.id} {...tweet} />
       ))}
