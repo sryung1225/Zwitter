@@ -83,15 +83,20 @@ export const Photo = styled.img`
 export const WatchStats = styled.span`
   display: flex;
   align-items: center;
-  width: 100px;
+  width: 50px;
   margin: 10px 0;
 `;
 
-export const LikeButton = styled.button`
+export const StatsButton = styled.button`
   height: 30px;
   padding: 6px 6px 6px 0;
   background-color: transparent;
   border: none;
+  svg {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 interface IStyledHeart extends React.SVGProps<SVGSVGElement> {
@@ -99,9 +104,6 @@ interface IStyledHeart extends React.SVGProps<SVGSVGElement> {
 }
 
 export const StyledHeart = styled(IconHeart)<IStyledHeart>`
-  display: inline-block;
-  width: 20px;
-  height: 20px;
   fill: ${(props) => (props.$active ? primaryColor : 'transparent')};
 `;
 

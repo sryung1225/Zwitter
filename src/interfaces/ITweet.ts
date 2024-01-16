@@ -1,3 +1,5 @@
+import IComment from './IComment.ts';
+
 export default interface ITweet {
   id: string;
   userId: string;
@@ -6,4 +8,5 @@ export default interface ITweet {
   createdAt: number;
   photo?: string;
   liked?: string[];
+  comment?: IComment[];
 }

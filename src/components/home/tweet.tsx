@@ -15,10 +15,12 @@ import ITweet from '@type/ITweet.ts';
 import FormatDate from '@util/format-date.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
 import ScrollTop from '@util/scroll-top.tsx';
+import CommentPanel from '@compo/home/comment-panel.tsx';
 import EditTweetForm from '@compo/home/edit-tweet-form.tsx';
 import * as S from '@style/tweet.ts';
 import * as P from '@style/popup.ts';
 import { ReactComponent as IconUser } from '@img/i-user.svg';
+import { ReactComponent as IconComment } from '@img/i-comment.svg';
 import { ReactComponent as IconEdit } from '@img/i-edit.svg';
 
 export default function Tweet({
@@ -29,6 +31,7 @@ export default function Tweet({
   photo,
   tweet,
   liked,
+  comment,
 }: ITweet) {
   const currentUser = useRecoilValue(currentUserAtom);
   const [userAvatar, setUserAvatar] = useState<string | null>(null);
@@ -47,6 +50,10 @@ export default function Tweet({
       });
     }
     setIsLiked(!isLiked);
+  };
+  const [showComments, setShowComments] = useState(false);
+  const toggleCommentPanel = () => {
+    setShowComments(!showComments);
   };
   const [editPopup, setEditPopup] = useState(false);
   const toggleEditPopup = () => {
@@ -103,13 +110,23 @@ export default function Tweet({
       ) : null}
       <S.Row>
         <S.WatchStats>
-          <S.LikeButton type="button" onClick={toggleLike}>
-            <span className="a11yHidden">좋아요</span>
+          <S.StatsButton type="button" onClick={toggleLike}>
+            <span className="a11yHidden">좋아요 누르기</span>
             <S.StyledHeart $active={isLiked} />
-          </S.LikeButton>
+          </S.StatsButton>
           {liked ? liked.length : 0}
         </S.WatchStats>
+        <S.WatchStats>
+          <S.StatsButton type="button" onClick={toggleCommentPanel}>
+            <span className="a11yHidden">댓글 보기</span>
+            <IconComment />
+          </S.StatsButton>
+          {comment ? comment.length : 0}
+        </S.WatchStats>
       </S.Row>
+      {showComments /* && comments.length !== 0 */ && (
+        <CommentPanel comments={comment || []} />
+      )}
       {currentUser.userId === userId ? (
         <>
           <S.EditButton onClick={toggleEditPopup} type="button">
