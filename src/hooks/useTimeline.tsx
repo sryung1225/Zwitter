@@ -24,13 +24,15 @@ export default function useTimeline(queryOptions: any[]) {
       );
       unsubscribe = await onSnapshot(tweetsQuery, (snapshot) => {
         const tweetList = snapshot.docs.map((doc) => {
-          const { userId, userName, tweet, createdAt, photo } = doc.data();
+          const { userId, userName, tweet, createdAt, photo, liked } =
+            doc.data();
           return {
             userId,
             userName,
             tweet,
             createdAt,
             photo,
+            liked,
             id: doc.id,
           };
         });

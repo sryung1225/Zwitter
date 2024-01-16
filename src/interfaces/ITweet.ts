@@ -4,5 +4,6 @@ export default interface ITweet {
   userName: string;
   tweet: string;
   createdAt: number;
-  photo: string;
+  photo?: string;
+  liked?: string[];
 }

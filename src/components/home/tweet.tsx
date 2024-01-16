@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { deleteDoc, doc, getDoc } from 'firebase/firestore';
+import {
+  arrayRemove,
+  arrayUnion,
+  deleteDoc,
+  doc,
+  getDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
 import { db, storage } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
@@ -21,10 +28,27 @@ export default function Tweet({
   createdAt,
   photo,
   tweet,
+  liked,
 }: ITweet) {
-  const [userAvatar, setUserAvatar] = useState<string | null>(null);
-  const [editPopup, setEditPopup] = useState(false);
   const currentUser = useRecoilValue(currentUserAtom);
+  const [userAvatar, setUserAvatar] = useState<string | null>(null);
+  const [isLiked, setIsLiked] = useState(
+    liked ? liked.includes(currentUser.userId) : false,
+  );
+  const toggleLike = async () => {
+    const tweetRef = doc(db, 'tweets', id);
+    if (isLiked) {
+      await updateDoc(tweetRef, {
+        liked: arrayRemove(currentUser.userId),
+      });
+    } else {
+      await updateDoc(tweetRef, {
+        liked: arrayUnion(currentUser.userId),
+      });
+    }
+    setIsLiked(!isLiked);
+  };
+  const [editPopup, setEditPopup] = useState(false);
   const toggleEditPopup = () => {
     setEditPopup(!editPopup);
   };
@@ -77,6 +101,15 @@ export default function Tweet({
       {photo ? (
         <S.Photo src={photo} alt={tweet} width="300" height="300" />
       ) : null}
+      <S.Row>
+        <S.WatchStats>
+          <S.LikeButton type="button" onClick={toggleLike}>
+            <span className="a11yHidden">좋아요</span>
+            <S.StyledHeart $active={isLiked} />
+          </S.LikeButton>
+          {liked ? liked.length : 0}
+        </S.WatchStats>
+      </S.Row>
       {currentUser.userId === userId ? (
         <>
           <S.EditButton onClick={toggleEditPopup} type="button">

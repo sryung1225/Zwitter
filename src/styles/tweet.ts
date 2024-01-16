@@ -1,6 +1,8 @@
 import { styled } from 'styled-components';
 import { grayColor, primaryColor } from '@style/global.ts';
 import { Link } from 'react-router-dom';
+import { ReactComponent as IconHeart } from '@img/i-heart.svg';
+import React from 'react';
 
 export const Wrapper = styled.li`
   position: relative;
@@ -12,7 +14,11 @@ export const Wrapper = styled.li`
   }
 `;
 
-export const Row = styled.div``;
+export const Row = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
 
 export const Avatar = styled(Link)`
   position: absolute;
@@ -58,7 +64,6 @@ export const Username = styled(Link)`
 `;
 
 export const Date = styled.span`
-  margin-left: 10px;
   color: ${grayColor};
   font-size: 10px;
 `;
@@ -73,6 +78,31 @@ export const Photo = styled.img`
   height: 300px;
   border-radius: 15px;
   object-fit: cover;
+`;
+
+export const WatchStats = styled.span`
+  display: flex;
+  align-items: center;
+  width: 100px;
+  margin: 10px 0;
+`;
+
+export const LikeButton = styled.button`
+  height: 30px;
+  padding: 6px 6px 6px 0;
+  background-color: transparent;
+  border: none;
+`;
+
+interface IStyledHeart extends React.SVGProps<SVGSVGElement> {
+  $active: boolean;
+}
+
+export const StyledHeart = styled(IconHeart)<IStyledHeart>`
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  fill: ${(props) => (props.$active ? primaryColor : 'transparent')};
 `;
 
 export const DeleteButton = styled.button`
