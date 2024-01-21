@@ -124,9 +124,7 @@ export default function Tweet({
           {comments ? comments.length : 0}
         </S.WatchStats>
       </S.Row>
-      {showComments && comments?.length !== 0 && (
-        <CommentPanel comments={comments || []} id={id} />
-      )}
+      {showComments && <CommentPanel comments={comments || []} id={id} />}
       {currentUser.userId === userId ? (
         <>
           <S.EditButton onClick={toggleEditPopup} type="button">

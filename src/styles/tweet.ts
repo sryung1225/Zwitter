@@ -1,6 +1,6 @@
+import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { grayColor, primaryColor } from '@style/global.ts';
-import { Link } from 'react-router-dom';
 import { ReactComponent as IconHeart } from '@img/i-heart.svg';
 import React from 'react';
 

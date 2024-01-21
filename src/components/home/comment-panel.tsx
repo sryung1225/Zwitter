@@ -3,6 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '@/firebase.ts';
+import Comment from '@compo/home/comment.tsx';
 import currentUserAtom from '@atom/current-user.tsx';
 import IComment from '@type/IComment.ts';
 import * as S from '@style/comment-panel.ts';
@@ -28,7 +29,8 @@ export default function CommentPanel({ comments, id }: ICommentPanel) {
       const tweetDocRef = doc(db, 'tweets', id);
       const newCommentObj = {
         id: uuidv4(),
-        user: currentUser.userId,
+        userId: currentUser.userId,
+        userName: currentUser.userName,
         contents: newComment,
       };
       await updateDoc(tweetDocRef, {
@@ -41,15 +43,11 @@ export default function CommentPanel({ comments, id }: ICommentPanel) {
       setNewComment('');
     }
   };
-
   return (
-    <>
+    <S.CommentPanel>
       <S.CommentList>
         {comments.map((item) => (
-          <S.CommentItem key={item.id}>
-            <p>{item.user}</p>
-            <p>{item.contents}</p>
-          </S.CommentItem>
+          <Comment comment={item} key={item.id} />
         ))}
       </S.CommentList>
       <S.WriteForm onSubmit={onSubmit}>
@@ -64,6 +62,6 @@ export default function CommentPanel({ comments, id }: ICommentPanel) {
           {isLoading ? <LoadingSpinner /> : '작성'}
         </S.WriteButton>
       </S.WriteForm>
-    </>
+    </S.CommentPanel>
   );
 }
