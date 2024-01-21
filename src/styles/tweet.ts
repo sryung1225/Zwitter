@@ -84,7 +84,6 @@ export const WatchStats = styled.span`
   display: flex;
   align-items: center;
   width: 50px;
-  margin: 10px 0;
 `;
 
 export const StatsButton = styled.button`

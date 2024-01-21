@@ -125,7 +125,7 @@ export default function Tweet({
         </S.WatchStats>
       </S.Row>
       {showComments /* && comments.length !== 0 */ && (
-        <CommentPanel comments={comment || []} />
+        <CommentPanel comments={comment || []} id={id} />
       )}
       {currentUser.userId === userId ? (
         <>
