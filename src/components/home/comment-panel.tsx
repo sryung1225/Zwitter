@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { v4 as uuidv4 } from 'uuid';
 import { db } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
 import IComment from '@type/IComment.ts';
@@ -26,6 +27,7 @@ export default function CommentPanel({ comments, id }: ICommentPanel) {
       setLoading(true);
       const tweetDocRef = doc(db, 'tweets', id);
       const newCommentObj = {
+        id: uuidv4(),
         user: currentUser.userId,
         contents: newComment,
       };
@@ -44,7 +46,7 @@ export default function CommentPanel({ comments, id }: ICommentPanel) {
     <>
       <S.CommentList>
         {comments.map((item) => (
-          <S.CommentItem>
+          <S.CommentItem key={item.id}>
             <p>{item.user}</p>
             <p>{item.contents}</p>
           </S.CommentItem>
