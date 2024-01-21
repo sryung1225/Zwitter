@@ -73,6 +73,7 @@ export default function PostTweetForm() {
   return (
     <S.PostForm onSubmit={onSubmit}>
       <S.TextArea
+        name="tweetContent"
         onChange={onChange}
         value={tweet}
         rows={5}

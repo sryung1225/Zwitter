@@ -92,6 +92,7 @@ export default function EditTweetForm({
   return (
     <S.EditForm onSubmit={onSubmit}>
       <S.TextArea
+        name="tweetChangeContent"
         onChange={onTweetChange}
         value={tweet}
         rows={5}

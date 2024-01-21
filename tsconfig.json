@@ -15,6 +15,7 @@
       "@atom/*": ["atoms/*"],
       "@type/*": ["interfaces/*"],
       "@const/*": ["constants/*"],
+      "@hook/*": ["hooks/*"],
       "@util/*": ["utils/*"],
       "@style/*": ["styles/*"],
       "@img/*": ["assets/images/*"]

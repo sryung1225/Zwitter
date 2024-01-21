@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { deleteDoc, doc, getDoc } from 'firebase/firestore';
+import {
+  arrayRemove,
+  arrayUnion,
+  deleteDoc,
+  doc,
+  getDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
 import { db, storage } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
@@ -8,10 +15,12 @@ import ITweet from '@type/ITweet.ts';
 import FormatDate from '@util/format-date.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
 import ScrollTop from '@util/scroll-top.tsx';
+import CommentPanel from '@compo/home/comment-panel.tsx';
 import EditTweetForm from '@compo/home/edit-tweet-form.tsx';
 import * as S from '@style/tweet.ts';
 import * as P from '@style/popup.ts';
 import { ReactComponent as IconUser } from '@img/i-user.svg';
+import { ReactComponent as IconComment } from '@img/i-comment.svg';
 import { ReactComponent as IconEdit } from '@img/i-edit.svg';
 
 export default function Tweet({
@@ -21,10 +30,32 @@ export default function Tweet({
   createdAt,
   photo,
   tweet,
+  liked,
+  comments,
 }: ITweet) {
-  const [userAvatar, setUserAvatar] = useState<string | null>(null);
-  const [editPopup, setEditPopup] = useState(false);
   const currentUser = useRecoilValue(currentUserAtom);
+  const [userAvatar, setUserAvatar] = useState<string | null>(null);
+  const [isLiked, setIsLiked] = useState(
+    liked ? liked.includes(currentUser.userId) : false,
+  );
+  const toggleLike = async () => {
+    const tweetRef = doc(db, 'tweets', id);
+    if (isLiked) {
+      await updateDoc(tweetRef, {
+        liked: arrayRemove(currentUser.userId),
+      });
+    } else {
+      await updateDoc(tweetRef, {
+        liked: arrayUnion(currentUser.userId),
+      });
+    }
+    setIsLiked(!isLiked);
+  };
+  const [showComments, setShowComments] = useState(false);
+  const toggleCommentPanel = () => {
+    setShowComments(!showComments);
+  };
+  const [editPopup, setEditPopup] = useState(false);
   const toggleEditPopup = () => {
     setEditPopup(!editPopup);
   };
@@ -77,6 +108,23 @@ export default function Tweet({
       {photo ? (
         <S.Photo src={photo} alt={tweet} width="300" height="300" />
       ) : null}
+      <S.Row>
+        <S.WatchStats>
+          <S.StatsButton type="button" onClick={toggleLike}>
+            <span className="a11yHidden">좋아요 누르기</span>
+            <S.StyledHeart $active={isLiked} />
+          </S.StatsButton>
+          {liked ? liked.length : 0}
+        </S.WatchStats>
+        <S.WatchStats>
+          <S.StatsButton type="button" onClick={toggleCommentPanel}>
+            <span className="a11yHidden">댓글 보기</span>
+            <IconComment />
+          </S.StatsButton>
+          {comments ? comments.length : 0}
+        </S.WatchStats>
+      </S.Row>
+      {showComments && <CommentPanel comments={comments || []} id={id} />}
       {currentUser.userId === userId ? (
         <>
           <S.EditButton onClick={toggleEditPopup} type="button">
