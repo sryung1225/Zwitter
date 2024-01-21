@@ -31,7 +31,7 @@ export default function Tweet({
   photo,
   tweet,
   liked,
-  comment,
+  comments,
 }: ITweet) {
   const currentUser = useRecoilValue(currentUserAtom);
   const [userAvatar, setUserAvatar] = useState<string | null>(null);
@@ -121,11 +121,11 @@ export default function Tweet({
             <span className="a11yHidden">댓글 보기</span>
             <IconComment />
           </S.StatsButton>
-          {comment ? comment.length : 0}
+          {comments ? comments.length : 0}
         </S.WatchStats>
       </S.Row>
-      {showComments /* && comments.length !== 0 */ && (
-        <CommentPanel comments={comment || []} id={id} />
+      {showComments && comments?.length !== 0 && (
+        <CommentPanel comments={comments || []} id={id} />
       )}
       {currentUser.userId === userId ? (
         <>

@@ -8,5 +8,5 @@ export default interface ITweet {
   createdAt: number;
   photo?: string;
   liked?: string[];
-  comment?: IComment[];
+  comments?: IComment[];
 }

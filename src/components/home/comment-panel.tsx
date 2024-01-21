@@ -25,7 +25,10 @@ export default function CommentPanel({ comments, id }: ICommentPanel) {
     try {
       setLoading(true);
       const tweetDocRef = doc(db, 'tweets', id);
-      const newCommentObj = { user: currentUser.userId, contents: newComment };
+      const newCommentObj = {
+        user: currentUser.userId,
+        contents: newComment,
+      };
       await updateDoc(tweetDocRef, {
         comments: arrayUnion(newCommentObj),
       });
@@ -42,8 +45,8 @@ export default function CommentPanel({ comments, id }: ICommentPanel) {
       <S.CommentList>
         {comments.map((item) => (
           <S.CommentItem>
-            <p>{item.userId}</p>
-            <p>{item.context}</p>
+            <p>{item.user}</p>
+            <p>{item.contents}</p>
           </S.CommentItem>
         ))}
       </S.CommentList>
