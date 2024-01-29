@@ -53,7 +53,7 @@ function App() {
   }, []);
   return (
     <ThemeProvider theme={theme}>
-      <S.GlobalStyles />
+      <GlobalStyles />
       <Suspense fallback={<LoadingSpinner />}>
         {isLoading ? <LoadingSpinner /> : <RouterProvider router={router} />}
       </Suspense>
