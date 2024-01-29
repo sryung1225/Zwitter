@@ -13,7 +13,7 @@
       "@page/*": ["routes/*"],
       "@compo/*": ["components/*"],
       "@atom/*": ["atoms/*"],
-      "@type/*": ["interfaces/*"],
+      "@type/*": ["types/*"],
       "@const/*": ["constants/*"],
       "@hook/*": ["hooks/*"],
       "@util/*": ["utils/*"],
