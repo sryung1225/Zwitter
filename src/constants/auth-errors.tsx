@@ -1,5 +1,4 @@
 const AUTH_ERRORS: { [key: string]: string } = {
-  default: '오류가 발생했습니다. 새로고침 후 다시 시도해주세요.',
   'auth/invalid-login-credentials': '유효하지 않은 사용자입니다.',
   'auth/user-not-found': '가입한 적 없는 사용자입니다.',
   'auth/wrong-password': '잘못된 비밀번호입니다.',

@@ -6,6 +6,7 @@ import { AuthProvider, signInWithPopup } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
+import DEFAULT_ERROR from '@const/default-error.tsx';
 import AUTH_ERRORS from '@const/auth-errors.tsx';
 import FetchCurrentUser from '@util/fetch-current-user.tsx';
 import * as S from '@style/auth.ts';
@@ -24,8 +25,7 @@ export default function SocialSignIn({ provider, icon, text }: ISocialButton) {
   const displayError = (error: unknown) => {
     let message = '';
     if (error instanceof FirebaseError) {
-      message =
-        AUTH_ERRORS[error.code] || `${AUTH_ERRORS.default} (${error.code})`;
+      message = AUTH_ERRORS[error.code] || `${DEFAULT_ERROR} (${error.code})`;
     }
     setErrorMessage(message);
     setTimeout(() => {

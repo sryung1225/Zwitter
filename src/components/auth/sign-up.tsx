@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
+import DEFAULT_ERROR from '@const/default-error.tsx';
 import AUTH_ERRORS from '@const/auth-errors.tsx';
 import FetchCurrentUser from '@util/fetch-current-user.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
@@ -42,8 +43,7 @@ export default function SignUp({ onClose }: ISignUpProps) {
   const displayError = (error: unknown) => {
     let message = '';
     if (error instanceof FirebaseError) {
-      message =
-        AUTH_ERRORS[error.code] || `${AUTH_ERRORS.default} (${error.code})`;
+      message = AUTH_ERRORS[error.code] || `${DEFAULT_ERROR} (${error.code})`;
     }
     setErrorMessage(message);
     setTimeout(() => {
