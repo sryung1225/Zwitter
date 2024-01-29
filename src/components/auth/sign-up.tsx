@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
+import AUTH_ERRORS from '@const/auth-errors.tsx';
 import FetchCurrentUser from '@util/fetch-current-user.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
 import * as S from '@style/auth.ts';
@@ -17,20 +18,13 @@ interface ISignUpProps {
   onClose: () => void;
 }
 
-const errors: { [key: string]: string } = {
-  'auth/email-already-in-use': '해당 이메일은 이미 사용 중 입니다.',
-  'auth/invalid-email': '유효하지 않은 이메일 형식입니다.',
-  'auth/weak-password': '비밀번호가 보안상 약해 사용할 수 없습니다.',
-  'auth/too-many-requests': '잠시 후 다시 시도해주세요.',
-};
-
 export default function SignUp({ onClose }: ISignUpProps) {
   const navigate = useNavigate();
+  const setCurrentUser = useSetRecoilState(currentUserAtom);
   const [isLoading, setLoading] = useState(false);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const setCurrentUser = useSetRecoilState(currentUserAtom);
   const [firebaseError, setFirebaseError] = useState('');
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -69,7 +63,7 @@ export default function SignUp({ onClose }: ISignUpProps) {
       navigate('/');
     } catch (error) {
       if (error instanceof FirebaseError) {
-        setFirebaseError(errors[error.code] || error.message);
+        setFirebaseError(AUTH_ERRORS[error.code] || error.message);
       }
     } finally {
       setLoading(false);
