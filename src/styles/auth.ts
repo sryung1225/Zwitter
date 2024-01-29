@@ -28,7 +28,7 @@ export const Image = styled.img`
 
 export const Intro = styled.h2`
   font-size: 64px;
-  color: ${theme.colors.black};
+  color: ${theme.colors.white};
   text-shadow: ${theme.LogoTextShadow(3)};
   span {
     color: ${theme.colors.primary};
