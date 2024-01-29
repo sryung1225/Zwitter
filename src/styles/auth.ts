@@ -73,6 +73,7 @@ export const SignUpButton = styled(SolidButton)``;
 
 export const SignInButton = styled(LineButton)`
   color: ${({ theme }) => theme.colors.primary};
+  border-color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const Form = styled.form`

@@ -28,7 +28,6 @@ export const AttachAvatarPreview = styled.img`
 export const AttachAvatarButton = styled.button`
   position: absolute;
   top: 0;
-
   width: 25px;
   height: 25px;
   background-color: ${({ theme }) => theme.colors.primary};
@@ -67,7 +66,7 @@ export const AttachAvatarChange: React.ComponentType<
   svg {
     width: 15px;
     height: 15px;
-    stroke: ${({ theme }) => theme.colors.background};
+    stroke: ${({ theme }) => theme.colors.white};
     stroke-width: 3px;
   }
 `;
