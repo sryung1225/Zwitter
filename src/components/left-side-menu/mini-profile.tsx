@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { auth } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
@@ -8,10 +8,12 @@ import * as S from '@style/mini-profile.ts';
 import * as P from '@style/popup.ts';
 import { ReactComponent as IconUser } from '@img/i-user.svg';
 import { ReactComponent as IconLogout } from '@img/i-arrowleft.svg';
+import timelineTweetsAtom from '@/atoms/timeline-tweets.tsx';
 
 export default function MiniProfile() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
+  const setTimelineTweets = useSetRecoilState(timelineTweetsAtom);
   const [logoutPopup, setLogoutPopup] = useState(false);
   const toggleLogoutPopup = () => {
     setLogoutPopup(!logoutPopup);
@@ -23,12 +25,13 @@ export default function MiniProfile() {
     } catch (error) {
       console.error('Error during sign out:', error);
     } finally {
+      navigate('/auth');
       setCurrentUser({
         userId: '',
         userAvatar: '',
         userName: '',
       });
-      navigate('/auth');
+      setTimelineTweets([]);
     }
   };
   return (
