@@ -1,5 +1,4 @@
 import { styled } from 'styled-components';
-import theme from '@style/theme.ts';
 import { Input } from '@style/button.ts';
 
 export const Form = styled.form`
@@ -13,6 +12,7 @@ export const Form = styled.form`
 
 export const FormInput = styled(Input)`
   padding-right: 50px;
+  background-color: transparent;
 `;
 
 export const FormButton = styled.button`
@@ -26,6 +26,6 @@ export const FormButton = styled.button`
   border-radius: 50%;
   border: none;
   svg {
-    stroke: ${theme.colors.gray};
+    stroke: ${({ theme }) => theme.colors.gray};
   }
 `;

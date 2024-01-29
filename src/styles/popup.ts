@@ -1,5 +1,4 @@
 import { styled } from 'styled-components';
-import theme from '@style/theme.ts';
 import { SolidButton } from '@style/button.ts';
 
 export const PopupWrapper = styled.div`
@@ -23,8 +22,8 @@ export const PopupBox = styled.div`
   justify-content: center;
   width: calc(100vw - 100px);
   padding: 50px 30px 30px 30px;
-  background-color: ${theme.colors.white};
-  border: 3px solid ${theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.background};
+  border: 3px solid ${({ theme }) => theme.colors.text};
 `;
 
 export const Popup = styled(PopupBox)`
@@ -56,7 +55,7 @@ export const CloseButton = styled.button`
     display: block;
     width: 25px;
     height: 2px;
-    background-color: ${theme.colors.black};
+    background-color: ${({ theme }) => theme.colors.text};
   }
   &::before {
     transform: rotate(45deg);
@@ -67,12 +66,12 @@ export const CloseButton = styled.button`
 `;
 
 export const Logo = styled.h2`
-  color: ${theme.colors.white};
+  color: ${({ theme }) => theme.colors.background};
   font-size: 34px;
   line-height: 40px;
-  text-shadow: ${theme.LogoTextShadow(2)};
+  text-shadow: ${({ theme }) => theme.LogoTextShadow(2)};
   span {
-    color: ${theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary};
   }
   img {
     display: inline-block;
@@ -93,7 +92,7 @@ export const Text = styled.p`
   line-height: 30px;
   text-align: center;
   span {
-    color: ${theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;
 

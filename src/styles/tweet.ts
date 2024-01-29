@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
-import theme from '@style/theme.ts';
 import { ReactComponent as IconHeart } from '@img/i-heart.svg';
 
 export const Wrapper = styled.li`
@@ -10,7 +9,7 @@ export const Wrapper = styled.li`
   flex-direction: column;
   padding: 20px 20px 20px 60px;
   &:not(:last-child) {
-    border-bottom: 1px dashed ${theme.colors.gray};
+    border-bottom: 1px dashed ${({ theme }) => theme.colors.gray};
   }
 `;
 
@@ -40,13 +39,13 @@ export const Avatar = styled(Link)`
     right: 0;
     width: 36px;
     height: 36px;
-    border: 2px dashed ${theme.colors.gray};
+    border: 2px dashed ${({ theme }) => theme.colors.gray};
     border-radius: 50%;
   }
   svg {
     width: 26px;
     height: 26px;
-    stroke: ${theme.colors.gray};
+    stroke: ${({ theme }) => theme.colors.gray};
   }
 `;
 
@@ -64,7 +63,7 @@ export const Username = styled(Link)`
 `;
 
 export const Date = styled.span`
-  color: ${theme.colors.gray};
+  color: ${({ theme }) => theme.colors.gray};
   font-size: 10px;
 `;
 
@@ -103,7 +102,8 @@ interface IStyledHeart extends React.SVGProps<SVGSVGElement> {
 }
 
 export const StyledHeart = styled(IconHeart)<IStyledHeart>`
-  fill: ${(props) => (props.$active ? theme.colors.primary : 'transparent')};
+  fill: ${(props) =>
+    props.$active ? props.theme.colors.primary : 'transparent'};
 `;
 
 export const DeleteButton = styled.button`
@@ -122,7 +122,7 @@ export const DeleteButton = styled.button`
     left: 6px;
     width: 13px;
     height: 2px;
-    background-color: ${theme.colors.primary};
+    background-color: ${({ theme }) => theme.colors.primary};
   }
   &::before {
     transform: rotate(45deg);
@@ -143,7 +143,7 @@ export const EditButton = styled.button`
   svg {
     width: 16px;
     height: 16px;
-    stroke: ${theme.colors.primary};
+    stroke: ${({ theme }) => theme.colors.primary};
     stroke-width: 2;
   }
 `;

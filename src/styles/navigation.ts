@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import theme from '@style/theme.ts';
 
 export const Logo = styled.div`
   display: flex;
@@ -10,11 +9,11 @@ export const Logo = styled.div`
 `;
 
 export const LogoTitle = styled.h1`
-  color: ${theme.colors.white};
+  color: ${({ theme }) => theme.colors.background};
   font-size: 34px;
-  text-shadow: ${theme.LogoTextShadow(2)};
+  text-shadow: ${({ theme }) => theme.LogoTextShadow(2)};
   span {
-    color: ${theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -35,25 +34,25 @@ export const MenuItem = styled.li<{ $isActive: boolean }>`
   cursor: pointer;
   a {
     color: ${(props) =>
-      props.$isActive ? theme.colors.primary : theme.colors.black};
+      props.$isActive ? props.theme.colors.primary : props.theme.colors.text};
     font-size: 20px;
-    font-family: 'Ycomputer-Regular', sans-serif;
+    font-family: ${({ theme }) => theme.fonts.logo};
     text-decoration: none;
     transition: all 0.5s ease;
   }
   svg {
     width: 24px;
     stroke: ${(props) =>
-      props.$isActive ? theme.colors.primary : theme.colors.black};
+      props.$isActive ? props.theme.colors.primary : props.theme.colors.text};
     vertical-align: sub;
     transition: all 0.5s ease;
   }
   &:hover {
     a {
-      color: ${theme.colors.primary};
+      color: ${({ theme }) => theme.colors.primary};
     }
     svg {
-      stroke: ${theme.colors.primary};
+      stroke: ${({ theme }) => theme.colors.primary};
     }
   }
 `;
@@ -61,10 +60,10 @@ export const MenuItem = styled.li<{ $isActive: boolean }>`
 export const Button = styled.button`
   border: 0;
   background-color: transparent;
-  color: ${theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary};
   font-size: 20px;
   font-family: 'Ycomputer-Regular', sans-serif;
   svg {
-    stroke: ${theme.colors.primary};
+    stroke: ${({ theme }) => theme.colors.primary};
   }
 `;

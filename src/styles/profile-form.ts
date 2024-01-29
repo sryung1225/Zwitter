@@ -1,6 +1,5 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import theme from '@style/theme.ts';
 import { Input, SolidButton } from '@style/button.ts';
 import { Avatar } from '@style/profile.ts';
 
@@ -32,8 +31,8 @@ export const AttachAvatarButton = styled.button`
 
   width: 25px;
   height: 25px;
-  background-color: ${theme.colors.primary};
-  border: 2px solid ${theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.primary};
+  border: 2px solid ${({ theme }) => theme.colors.background};
   border-radius: 50%;
 `;
 
@@ -47,7 +46,7 @@ export const AttachAvatarDelete = styled(AttachAvatarButton)`
     left: 4px;
     width: 13px;
     height: 2px;
-    background-color: ${theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.background};
   }
   &::before {
     transform: rotate(45deg);
@@ -68,7 +67,7 @@ export const AttachAvatarChange: React.ComponentType<
   svg {
     width: 15px;
     height: 15px;
-    stroke: ${theme.colors.white};
+    stroke: ${({ theme }) => theme.colors.background};
     stroke-width: 3px;
   }
 `;
@@ -87,10 +86,10 @@ export const AttachAvatarLabel: React.ComponentType<
   &:hover,
   &:active {
     svg {
-      stroke: ${theme.colors.primary};
+      stroke: ${({ theme }) => theme.colors.primary};
     }
     &::before {
-      border: 2px dashed ${theme.colors.primary};
+      border: 2px dashed ${({ theme }) => theme.colors.primary};
     }
   }
 `;

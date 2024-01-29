@@ -1,6 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-import theme from '@style/theme.ts';
 
 const GlobalStyles = createGlobalStyle`
   ${reset};
@@ -12,15 +11,15 @@ const GlobalStyles = createGlobalStyle`
   }
   * {
     box-sizing: border-box;
-    font-family: ${theme.fonts.main};
-    color: ${theme.colors.black};
+    font-family: ${({ theme }) => theme.fonts.main};
+    color: ${({ theme }) => theme.colors.text};
   }
   body {
-    background-color: ${theme.colors.white};
-    font-family: ${theme.fonts.main};
+    background-color: ${({ theme }) => theme.colors.background};
+    font-family: ${({ theme }) => theme.fonts.main};
   }
   h1, h2 {
-    font-family: ${theme.fonts.logo};
+    font-family: ${({ theme }) => theme.fonts.logo};
   }
   button {
     cursor: pointer;

@@ -1,3 +1,5 @@
+import { DefaultTheme } from 'styled-components';
+
 const theme = {
   colors: {
     primary: '#FF7AB2',
@@ -9,6 +11,15 @@ const theme = {
     main: 'Galmuri11, sans-serif',
     logo: 'Ycomputer-Regular, sans-serif',
   },
+};
+
+export const lightTheme: DefaultTheme = {
+  ...theme,
+  colors: {
+    ...theme.colors,
+    text: `${theme.colors.black}`,
+    background: `${theme.colors.white}`,
+  },
   LogoTextShadow: (offset: number) =>
     `${-offset}px 0px ${theme.colors.black}, 0px ${offset}px ${
       theme.colors.black
@@ -17,4 +28,17 @@ const theme = {
     }`,
 };
 
-export default theme;
+export const darkTheme: DefaultTheme = {
+  ...theme,
+  colors: {
+    ...theme.colors,
+    text: `${theme.colors.white}`,
+    background: `${theme.colors.black}`,
+  },
+  LogoTextShadow: (offset: number) =>
+    `${-offset}px 0px ${theme.colors.white}, 0px ${offset}px ${
+      theme.colors.white
+    }, ${offset}px 0px ${theme.colors.white}, 0px ${-offset}px ${
+      theme.colors.white
+    }`,
+};

@@ -1,5 +1,4 @@
 import { styled } from 'styled-components';
-import theme from '@style/theme.ts';
 import { LineButton, SolidButton, Input } from '@style/button.ts';
 
 export const Wrapper = styled.div`
@@ -28,10 +27,10 @@ export const Image = styled.img`
 
 export const Intro = styled.h2`
   font-size: 64px;
-  color: ${theme.colors.white};
-  text-shadow: ${theme.LogoTextShadow(3)};
+  color: ${({ theme }) => theme.colors.background};
+  text-shadow: ${({ theme }) => theme.LogoTextShadow(3)};
   span {
-    color: ${theme.colors.primary};
+    color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -48,9 +47,9 @@ export const Boundary = styled.div`
   span {
     flex-shrink: 0;
     margin: 0 10px;
-    color: ${theme.colors.black};
+    color: ${({ theme }) => theme.colors.text};
     font-size: 20px;
-    font-family: 'Ycomputer-Regular', sans-serif;
+    font-family: ${({ theme }) => theme.fonts.logo};
   }
   &::before,
   &::after {
@@ -58,7 +57,7 @@ export const Boundary = styled.div`
     content: '';
     display: inline-block;
     height: 1px;
-    background-color: ${theme.colors.black};
+    background-color: ${({ theme }) => theme.colors.text};
   }
 `;
 
@@ -73,7 +72,7 @@ export const SocialSignIn = styled(LineButton)`
 export const SignUpButton = styled(SolidButton)``;
 
 export const SignInButton = styled(LineButton)`
-  color: ${theme.colors.primary};
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const Form = styled.form`

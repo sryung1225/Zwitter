@@ -1,9 +1,11 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 import { auth } from '@/firebase.ts';
 import LoadingSpinner from '@compo/loading-spinner.tsx';
-import theme from '@style/theme.ts';
+import isDarkAtom from '@atom/is-dark.tsx';
+import { lightTheme, darkTheme } from '@style/theme.ts';
 import GlobalStyles from '@style/global.ts';
 
 const ProtectedRoute = lazy(() => import('@compo/protected-route.tsx'));
@@ -43,6 +45,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const isDark = useRecoilValue(isDarkAtom);
   const [isLoading, setIsLoading] = useState(true);
   const init = async () => {
     await auth.authStateReady();
@@ -52,7 +55,7 @@ function App() {
     init();
   }, []);
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <GlobalStyles />
       <Suspense fallback={<LoadingSpinner />}>
         {isLoading ? <LoadingSpinner /> : <RouterProvider router={router} />}
