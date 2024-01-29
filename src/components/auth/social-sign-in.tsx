@@ -9,6 +9,7 @@ import currentUserAtom from '@atom/current-user.tsx';
 import AUTH_ERRORS from '@const/auth-errors.tsx';
 import FetchCurrentUser from '@util/fetch-current-user.tsx';
 import * as S from '@style/auth.ts';
+import ErrorAlarm from '@style/error-alarm.ts';
 
 interface ISocialButton {
   provider: AuthProvider;
@@ -19,14 +20,24 @@ interface ISocialButton {
 export default function SocialSignIn({ provider, icon, text }: ISocialButton) {
   const navigate = useNavigate();
   const setCurrentUser = useSetRecoilState(currentUserAtom);
-  const [firebaseError, setFirebaseError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const displayError = (error: unknown) => {
+    let message = '';
+    if (error instanceof FirebaseError) {
+      message =
+        AUTH_ERRORS[error.code] || `${AUTH_ERRORS[error.code]} (${error.code})`;
+    }
+    setErrorMessage(message);
+    setTimeout(() => {
+      setErrorMessage('');
+    }, 3000);
+  };
   const onClick = async () => {
-    setFirebaseError('');
     try {
       const credentials = await signInWithPopup(auth, provider);
       const userRef = doc(db, 'users', credentials.user.uid);
       await setDoc(userRef, {
-        userName: credentials.user.displayName || 'Anonymous',
+        userName: credentials.user.displayName || '미지의 Z세대',
         userId: credentials.user.uid,
         userAvatar: credentials.user.photoURL || null,
       });
@@ -36,9 +47,7 @@ export default function SocialSignIn({ provider, icon, text }: ISocialButton) {
       });
       navigate('/');
     } catch (error) {
-      if (error instanceof FirebaseError) {
-        setFirebaseError(AUTH_ERRORS[error.code] || error.message);
-      }
+      displayError(error);
     }
   };
   return (
@@ -47,7 +56,7 @@ export default function SocialSignIn({ provider, icon, text }: ISocialButton) {
         {icon}
         {text}
       </S.SocialSignIn>
-      {firebaseError !== '' ? <S.Error>{firebaseError}</S.Error> : null}
+      {errorMessage && <ErrorAlarm>{errorMessage}</ErrorAlarm>}
     </>
   );
 }
