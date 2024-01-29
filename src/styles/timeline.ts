@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { primaryColor } from '@style/global.ts';
+import theme from '@style/theme.ts';
 
 export const TimelineWrapper = styled.ul`
   display: block;
@@ -11,7 +11,7 @@ export const Text = styled.p`
   margin: 20px 0;
   text-align: center;
   span {
-    color: ${primaryColor};
+    color: ${theme.colors.primary};
     font-weight: 600;
   }
 `;

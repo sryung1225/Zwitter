@@ -1,10 +1,5 @@
 import styled from 'styled-components';
-import {
-  LogoTextShadow,
-  blackColor,
-  primaryColor,
-  whiteColor,
-} from '@style/global.ts';
+import theme from '@style/theme.ts';
 
 export const Logo = styled.div`
   display: flex;
@@ -15,11 +10,11 @@ export const Logo = styled.div`
 `;
 
 export const LogoTitle = styled.h1`
-  color: ${whiteColor};
+  color: ${theme.colors.white};
   font-size: 34px;
-  text-shadow: ${LogoTextShadow(2)};
+  text-shadow: ${theme.LogoTextShadow(2)};
   span {
-    color: ${primaryColor};
+    color: ${theme.colors.primary};
   }
 `;
 
@@ -39,7 +34,8 @@ export const MenuItem = styled.li<{ $isActive: boolean }>`
   line-height: 30px;
   cursor: pointer;
   a {
-    color: ${(props) => (props.$isActive ? primaryColor : blackColor)};
+    color: ${(props) =>
+      props.$isActive ? theme.colors.primary : theme.colors.black};
     font-size: 20px;
     font-family: 'Ycomputer-Regular', sans-serif;
     text-decoration: none;
@@ -47,16 +43,17 @@ export const MenuItem = styled.li<{ $isActive: boolean }>`
   }
   svg {
     width: 24px;
-    stroke: ${(props) => (props.$isActive ? primaryColor : blackColor)};
+    stroke: ${(props) =>
+      props.$isActive ? theme.colors.primary : theme.colors.black};
     vertical-align: sub;
     transition: all 0.5s ease;
   }
   &:hover {
     a {
-      color: ${primaryColor};
+      color: ${theme.colors.primary};
     }
     svg {
-      stroke: ${primaryColor};
+      stroke: ${theme.colors.primary};
     }
   }
 `;
@@ -64,10 +61,10 @@ export const MenuItem = styled.li<{ $isActive: boolean }>`
 export const Button = styled.button`
   border: 0;
   background-color: transparent;
-  color: ${primaryColor};
+  color: ${theme.colors.primary};
   font-size: 20px;
   font-family: 'Ycomputer-Regular', sans-serif;
   svg {
-    stroke: ${primaryColor};
+    stroke: ${theme.colors.primary};
   }
 `;

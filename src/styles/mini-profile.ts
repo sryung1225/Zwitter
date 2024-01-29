@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { grayColor, primaryColor } from '@style/global.ts';
+import theme from '@style/theme.ts';
 
 export const MiniProfile = styled.div`
   position: relative;
@@ -15,7 +15,7 @@ export const MiniProfile = styled.div`
   transition: 0.5s ease-in;
   &:hover,
   &:active {
-    border: 2px solid ${primaryColor};
+    border: 2px solid ${theme.colors.primary};
   }
 `;
 
@@ -32,7 +32,7 @@ export const Avatar = styled.div`
   overflow: hidden;
   svg {
     width: 30px;
-    stroke: ${grayColor};
+    stroke: ${theme.colors.gray};
   }
   &::before {
     content: '';
@@ -43,7 +43,7 @@ export const Avatar = styled.div`
     right: 0;
     width: 46px;
     height: 46px;
-    border: 2px dashed ${grayColor};
+    border: 2px dashed ${theme.colors.gray};
     border-radius: 50%;
   }
 `;
@@ -79,6 +79,6 @@ export const Logout = styled.button`
   border: 0;
   svg {
     size: 20px;
-    stroke: ${primaryColor};
+    stroke: ${theme.colors.primary};
   }
 `;

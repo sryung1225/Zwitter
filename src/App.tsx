@@ -1,8 +1,10 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
 import { auth } from '@/firebase.ts';
 import LoadingSpinner from '@compo/loading-spinner.tsx';
-import * as S from '@style/global.ts';
+import theme from '@style/theme.ts';
+import GlobalStyles from '@style/global.ts';
 
 const ProtectedRoute = lazy(() => import('@compo/protected-route.tsx'));
 const Home = lazy(() => import('@page/home.tsx'));
@@ -50,12 +52,12 @@ function App() {
     init();
   }, []);
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <S.GlobalStyles />
       <Suspense fallback={<LoadingSpinner />}>
         {isLoading ? <LoadingSpinner /> : <RouterProvider router={router} />}
       </Suspense>
-    </>
+    </ThemeProvider>
   );
 }
 

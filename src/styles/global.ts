@@ -1,15 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import theme from '@style/theme.ts';
 
-export const primaryColor = '#FF7AB2';
-export const grayColor = '#A7A7A7';
-export const blackColor = '#070707';
-export const whiteColor = '#FAFAFA';
-
-export const LogoTextShadow = (offset: number) =>
-  `${-offset}px 0px ${blackColor}, 0px ${offset}px ${blackColor}, ${offset}px 0px ${blackColor}, 0px ${-offset}px ${blackColor}`;
-
-export const GlobalStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle`
   ${reset};
   @font-face {
     font-family: 'Ycomputer-Regular';
@@ -19,15 +12,15 @@ export const GlobalStyles = createGlobalStyle`
   }
   * {
     box-sizing: border-box;
-    font-family: Galmuri11, sans-serif;
-    color: ${blackColor};
+    font-family: ${theme.fonts.main};
+    color: ${theme.colors.black};
   }
   body {
-    background-color: ${whiteColor};
-    font-family: Galmuri11, sans-serif;
+    background-color: ${theme.colors.white};
+    font-family: ${theme.fonts.main};
   }
   h1, h2 {
-    font-family: 'Ycomputer-Regular', sans-serif;
+    font-family: ${theme.fonts.logo};
   }
   button {
     cursor: pointer;
@@ -48,3 +41,5 @@ export const GlobalStyles = createGlobalStyle`
     position: absolute !important;
   }
 `;
+
+export default GlobalStyles;

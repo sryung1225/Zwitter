@@ -1,10 +1,5 @@
 import { styled } from 'styled-components';
-import {
-  LogoTextShadow,
-  blackColor,
-  primaryColor,
-  whiteColor,
-} from '@style/global.ts';
+import theme from '@style/theme.ts';
 import { LineButton, SolidButton, Input } from '@style/button.ts';
 
 export const Wrapper = styled.div`
@@ -33,10 +28,10 @@ export const Image = styled.img`
 
 export const Intro = styled.h2`
   font-size: 64px;
-  color: ${whiteColor};
-  text-shadow: ${LogoTextShadow(3)};
+  color: ${theme.colors.black};
+  text-shadow: ${theme.LogoTextShadow(3)};
   span {
-    color: ${primaryColor};
+    color: ${theme.colors.primary};
   }
 `;
 
@@ -53,7 +48,7 @@ export const Boundary = styled.div`
   span {
     flex-shrink: 0;
     margin: 0 10px;
-    color: ${blackColor};
+    color: ${theme.colors.black};
     font-size: 20px;
     font-family: 'Ycomputer-Regular', sans-serif;
   }
@@ -63,7 +58,7 @@ export const Boundary = styled.div`
     content: '';
     display: inline-block;
     height: 1px;
-    background-color: ${blackColor};
+    background-color: ${theme.colors.black};
   }
 `;
 
@@ -78,7 +73,7 @@ export const SocialSignIn = styled(LineButton)`
 export const SignUpButton = styled(SolidButton)``;
 
 export const SignInButton = styled(LineButton)`
-  color: ${primaryColor};
+  color: ${theme.colors.primary};
 `;
 
 export const Form = styled.form`
