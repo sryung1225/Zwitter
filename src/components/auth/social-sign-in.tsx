@@ -25,7 +25,7 @@ export default function SocialSignIn({ provider, icon, text }: ISocialButton) {
     let message = '';
     if (error instanceof FirebaseError) {
       message =
-        AUTH_ERRORS[error.code] || `${AUTH_ERRORS[error.code]} (${error.code})`;
+        AUTH_ERRORS[error.code] || `${AUTH_ERRORS.default} (${error.code})`;
     }
     setErrorMessage(message);
     setTimeout(() => {
