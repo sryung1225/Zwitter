@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { FirebaseError } from 'firebase/app';
 import { AuthProvider, signInWithPopup } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
-import DEFAULT_ERROR from '@const/default-error.tsx';
-import AUTH_ERRORS from '@const/auth-errors.tsx';
+import useErrorMessage from '@hook/useErrorMessage.tsx';
 import FetchCurrentUser from '@util/fetch-current-user.tsx';
 import * as S from '@style/auth.ts';
 import ErrorAlarm from '@style/error-alarm.ts';
@@ -21,17 +19,7 @@ interface ISocialButton {
 export default function SocialSignIn({ provider, icon, text }: ISocialButton) {
   const navigate = useNavigate();
   const setCurrentUser = useSetRecoilState(currentUserAtom);
-  const [errorMessage, setErrorMessage] = useState('');
-  const displayError = (error: unknown) => {
-    let message = '';
-    if (error instanceof FirebaseError) {
-      message = AUTH_ERRORS[error.code] || `${DEFAULT_ERROR} (${error.code})`;
-    }
-    setErrorMessage(message);
-    setTimeout(() => {
-      setErrorMessage('');
-    }, 3000);
-  };
+  const { errorMessage, displayError } = useErrorMessage('');
   const onClick = async () => {
     try {
       const credentials = await signInWithPopup(auth, provider);

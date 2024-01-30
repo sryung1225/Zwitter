@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { FirebaseError } from 'firebase/app';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
-import DEFAULT_ERROR from '@const/default-error.tsx';
-import AUTH_ERRORS from '@const/auth-errors.tsx';
+import useErrorMessage from '@hook/useErrorMessage.tsx';
 import FetchCurrentUser from '@util/fetch-current-user.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
 import * as S from '@style/auth.ts';
@@ -27,7 +25,7 @@ export default function SignUp({ onClose }: ISignUpProps) {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const { errorMessage, displayError } = useErrorMessage('');
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
@@ -39,16 +37,6 @@ export default function SignUp({ onClose }: ISignUpProps) {
     } else if (name === 'userPassword') {
       setUserPassword(value);
     }
-  };
-  const displayError = (error: unknown) => {
-    let message = '';
-    if (error instanceof FirebaseError) {
-      message = AUTH_ERRORS[error.code] || `${DEFAULT_ERROR} (${error.code})`;
-    }
-    setErrorMessage(message);
-    setTimeout(() => {
-      setErrorMessage('');
-    }, 3000);
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
