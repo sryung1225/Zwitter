@@ -13,6 +13,12 @@ const theme = {
   },
 };
 
+export type ColorsTypes = typeof theme.colors & {
+  text: string;
+  background: string;
+};
+export type FontsTypes = typeof theme.fonts;
+
 export const lightTheme: DefaultTheme = {
   ...theme,
   colors: {
