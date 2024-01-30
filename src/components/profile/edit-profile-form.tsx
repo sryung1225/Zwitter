@@ -10,9 +10,9 @@ import {
 import { db, storage } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
 import IUser from '@type/IUser.ts';
+import useEscClose from '@hook/useEscClose.tsx';
 import useErrorMessage from '@hook/useErrorMessage.tsx';
 import CompressImage from '@util/compress-image.tsx';
-import useEscClose from '@util/use-esc-close.tsx';
 import * as S from '@style/profile-form.ts';
 import ErrorAlarm from '@style/error-alarm.ts';
 import { ReactComponent as IconUser } from '@img/i-user.svg';
