@@ -5,7 +5,7 @@ import * as S from '@style/window.ts';
 
 export default function LeftSideMenu() {
   return (
-    <S.Window as="nav">
+    <S.Window as="nav" className="side-menu left">
       <WindowTop />
       <Navigation />
       <MiniProfile />

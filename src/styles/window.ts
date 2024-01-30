@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import media from '@style/media.ts';
 
 export const Window = styled.section`
   position: relative;
@@ -9,6 +10,16 @@ export const Window = styled.section`
   border: 3px solid ${({ theme }) => theme.colors.text};
   border-radius: 6px;
   box-shadow: 6px 6px ${({ theme }) => theme.colors.gray};
+  ${media.semi} {
+    &.side-menu.right {
+      display: none;
+    }
+  }
+  ${media.tablet} {
+    &.side-menu.left {
+      display: none;
+    }
+  }
 `;
 
 export const TopBar = styled.div`

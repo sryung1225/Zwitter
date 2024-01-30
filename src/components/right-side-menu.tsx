@@ -4,7 +4,7 @@ import * as S from '@style/window.ts';
 
 export default function RightSideMenu() {
   return (
-    <S.Window>
+    <S.Window className="side-menu right">
       <WindowTop />
       <SearchKeyword />
     </S.Window>

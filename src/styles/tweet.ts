@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
+import media from '@style/media.ts';
 import { ReactComponent as IconHeart } from '@img/i-heart.svg';
 
 export const Wrapper = styled.li`
@@ -77,6 +78,12 @@ export const Photo = styled.img`
   height: 300px;
   border-radius: 15px;
   object-fit: cover;
+  ${media.tablet} {
+    width: 100%;
+    max-width: 300px;
+    height: 100%;
+    max-height: 300px;
+  }
 `;
 
 export const WatchStats = styled.span`
