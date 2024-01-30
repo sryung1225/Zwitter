@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { ThemeProvider } from 'styled-components';
 import { auth } from '@/firebase.ts';
 import LoadingSpinner from '@compo/loading-spinner.tsx';
+import ModeToggle from '@compo/mode-toggle.tsx';
 import isDarkAtom from '@atom/is-dark.tsx';
 import { lightTheme, darkTheme } from '@style/theme.ts';
 import GlobalStyles from '@style/global.ts';
@@ -60,6 +61,7 @@ function App() {
       <Suspense fallback={<LoadingSpinner />}>
         {isLoading ? <LoadingSpinner /> : <RouterProvider router={router} />}
       </Suspense>
+      <ModeToggle />
     </ThemeProvider>
   );
 }
