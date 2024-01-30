@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import media from '@style/media.ts';
 import { LineButton, SolidButton, Input } from '@style/button.ts';
 
 export const Wrapper = styled.div`
@@ -7,6 +8,9 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  ${media.tablet} {
+    margin: 10px;
+  }
 `;
 
 export const Title = styled.div`
@@ -16,6 +20,9 @@ export const Title = styled.div`
   width: 100%;
   min-width: 800px;
   margin-bottom: 20px;
+  ${media.tablet} {
+    flex-direction: column;
+  }
 `;
 
 export const Image = styled.img`
@@ -23,6 +30,14 @@ export const Image = styled.img`
   width: 360px;
   height: 360px;
   padding: 30px;
+  ${media.desktop} {
+    width: 300px;
+    height: 300px;
+  }
+  ${media.tablet} {
+    width: 200px;
+    height: 200px;
+  }
 `;
 
 export const Intro = styled.h2`
@@ -31,6 +46,12 @@ export const Intro = styled.h2`
   text-shadow: ${({ theme }) => theme.LogoTextShadow(3)};
   span {
     color: ${({ theme }) => theme.colors.primary};
+  }
+  ${media.desktop} {
+    font-size: 56px;
+  }
+  ${media.tablet} {
+    font-size: 50px;
   }
 `;
 

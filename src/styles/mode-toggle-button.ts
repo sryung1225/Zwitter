@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import media from '@style/media.ts';
 
 const ModeToggleButton = styled.button`
   z-index: 50;
@@ -17,6 +18,20 @@ const ModeToggleButton = styled.button`
     fill: ${({ theme }) => theme.colors.background};
     width: 26px;
     height: 26px;
+    transition: 0.2s ease-in;
+  }
+  &:hover {
+    opacity: 1;
+    svg {
+      stroke: ${({ theme }) => theme.colors.primary};
+      fill: ${({ theme }) => theme.colors.primary};
+    }
+  }
+  ${media.phone} {
+    & {
+      bottom: 30px;
+      right: 30px;
+    }
   }
 `;
 
