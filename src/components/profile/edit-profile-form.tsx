@@ -10,9 +10,11 @@ import {
 import { db, storage } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
 import IUser from '@type/IUser.ts';
+import useErrorMessage from '@hook/useErrorMessage.tsx';
 import CompressImage from '@util/compress-image.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
 import * as S from '@style/profile-form.ts';
+import ErrorAlarm from '@style/error-alarm.ts';
 import { ReactComponent as IconUser } from '@img/i-user.svg';
 import { ReactComponent as IconChange } from '@img/i-change.svg';
 import { ReactComponent as LoadingSpinner } from '@img/loading-spinner-mini.svg';
@@ -22,11 +24,12 @@ interface IEditProfileForm {
 }
 
 export default function EditProfileForm({ onClose }: IEditProfileForm) {
-  const [isLoading, setLoading] = useState(false);
   const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
+  const [isLoading, setLoading] = useState(false);
   const [avatar, setAvatar] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState(currentUser.userAvatar);
   const [name, setName] = useState(currentUser.userName);
+  const { errorMessage, displayError } = useErrorMessage('');
   const onAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const images = e.target.files;
     if (images && images.length === 1) {
@@ -90,7 +93,7 @@ export default function EditProfileForm({ onClose }: IEditProfileForm) {
       setAvatarPreview(null);
       setAvatar(null);
     } catch (error) {
-      console.log(error);
+      displayError(error);
     } finally {
       setLoading(false);
       onClose();
@@ -98,42 +101,45 @@ export default function EditProfileForm({ onClose }: IEditProfileForm) {
   };
   useEscClose(onClose);
   return (
-    <S.Form onSubmit={onSubmit}>
-      {avatarPreview ? (
-        <S.AttachAvatar>
-          <S.AttachAvatarPreview
-            src={avatarPreview}
-            alt="프로필이미지 미리보기"
-            width="120"
-            height="120"
-          />
-          <S.AttachAvatarDelete type="button" onClick={onAvatarDelete} />
-          <S.AttachAvatarChange htmlFor="avatar_edit">
-            <IconChange />
-          </S.AttachAvatarChange>
-        </S.AttachAvatar>
-      ) : (
-        <S.AttachAvatarLabel htmlFor="avatar_edit">
-          <IconUser />
-        </S.AttachAvatarLabel>
-      )}
-      <S.AttachAvatarInput
-        onChange={onAvatarChange}
-        id="avatar_edit"
-        type="file"
-        accept="image/*"
-      />
-      <S.InputText
-        onChange={onNameChange}
-        name="name_edit"
-        type="text"
-        placeholder="이름을 입력해주세요"
-        value={name}
-        required
-      />
-      <S.SubmitButton type="submit">
-        {isLoading ? <LoadingSpinner /> : '수정'}
-      </S.SubmitButton>
-    </S.Form>
+    <>
+      <S.Form onSubmit={onSubmit}>
+        {avatarPreview ? (
+          <S.AttachAvatar>
+            <S.AttachAvatarPreview
+              src={avatarPreview}
+              alt="프로필이미지 미리보기"
+              width="120"
+              height="120"
+            />
+            <S.AttachAvatarDelete type="button" onClick={onAvatarDelete} />
+            <S.AttachAvatarChange htmlFor="avatar_edit">
+              <IconChange />
+            </S.AttachAvatarChange>
+          </S.AttachAvatar>
+        ) : (
+          <S.AttachAvatarLabel htmlFor="avatar_edit">
+            <IconUser />
+          </S.AttachAvatarLabel>
+        )}
+        <S.AttachAvatarInput
+          onChange={onAvatarChange}
+          id="avatar_edit"
+          type="file"
+          accept="image/*"
+        />
+        <S.InputText
+          onChange={onNameChange}
+          name="name_edit"
+          type="text"
+          placeholder="이름을 입력해주세요"
+          value={name}
+          required
+        />
+        <S.SubmitButton type="submit">
+          {isLoading ? <LoadingSpinner /> : '수정'}
+        </S.SubmitButton>
+      </S.Form>
+      {errorMessage && <ErrorAlarm>{errorMessage}</ErrorAlarm>}
+    </>
   );
 }

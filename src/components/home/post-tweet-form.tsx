@@ -4,18 +4,21 @@ import { addDoc, collection, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { db, storage } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
+import useErrorMessage from '@hook/useErrorMessage.tsx';
 import CompressImage from '@util/compress-image.tsx';
 import ScrollTop from '@util/scroll-top.tsx';
 import * as S from '@style/tweet-form.ts';
+import ErrorAlarm from '@style/error-alarm.ts';
 import { ReactComponent as IconPhoto } from '@img/i-photo.svg';
 import { ReactComponent as LoadingSpinner } from '@img/loading-spinner-mini.svg';
 
 export default function PostTweetForm() {
+  const currentUser = useRecoilValue(currentUserAtom);
   const [isLoading, setLoading] = useState(false);
   const [tweet, setTweet] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState('');
-  const currentUser = useRecoilValue(currentUserAtom);
+  const { errorMessage, displayError } = useErrorMessage('');
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTweet(e.target.value);
   };
@@ -64,46 +67,49 @@ export default function PostTweetForm() {
       setImage(null);
       setImagePreview('');
     } catch (error) {
-      console.log(error);
+      displayError(error);
     } finally {
       setLoading(false);
       ScrollTop('timeline');
     }
   };
   return (
-    <S.PostForm onSubmit={onSubmit}>
-      <S.TextArea
-        name="tweetContent"
-        onChange={onChange}
-        value={tweet}
-        rows={5}
-        maxLength={180}
-        placeholder="지금 무슨 일이 일어나고 있나요?"
-      />
-      {imagePreview ? (
-        <>
-          <S.AttachImagePreview
-            src={imagePreview}
-            alt="첨부이미지 미리보기"
-            width="120"
-            height="120"
-          />
-          <S.AttachImageDelete type="button" onClick={onImageDelete} />
-        </>
-      ) : (
-        <S.AttachImageButton htmlFor="image">
-          <IconPhoto />
-        </S.AttachImageButton>
-      )}
-      <S.AttachImageInput
-        onChange={onImageChange}
-        type="file"
-        id="image"
-        accept="image/*"
-      />
-      <S.SubmitButton type="submit">
-        {isLoading ? <LoadingSpinner /> : '포스팅'}
-      </S.SubmitButton>
-    </S.PostForm>
+    <>
+      <S.PostForm onSubmit={onSubmit}>
+        <S.TextArea
+          name="tweetContent"
+          onChange={onChange}
+          value={tweet}
+          rows={5}
+          maxLength={180}
+          placeholder="지금 무슨 일이 일어나고 있나요?"
+        />
+        {imagePreview ? (
+          <>
+            <S.AttachImagePreview
+              src={imagePreview}
+              alt="첨부이미지 미리보기"
+              width="120"
+              height="120"
+            />
+            <S.AttachImageDelete type="button" onClick={onImageDelete} />
+          </>
+        ) : (
+          <S.AttachImageButton htmlFor="image">
+            <IconPhoto />
+          </S.AttachImageButton>
+        )}
+        <S.AttachImageInput
+          onChange={onImageChange}
+          type="file"
+          id="image"
+          accept="image/*"
+        />
+        <S.SubmitButton type="submit">
+          {isLoading ? <LoadingSpinner /> : '포스팅'}
+        </S.SubmitButton>
+      </S.PostForm>
+      {errorMessage && <ErrorAlarm>{errorMessage}</ErrorAlarm>}
+    </>
   );
 }

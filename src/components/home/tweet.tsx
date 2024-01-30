@@ -12,6 +12,7 @@ import { deleteObject, ref } from 'firebase/storage';
 import { db, storage } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
 import ITweet from '@type/ITweet.ts';
+import useErrorMessage from '@hook/useErrorMessage.tsx';
 import FormatDate from '@util/format-date.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
 import ScrollTop from '@util/scroll-top.tsx';
@@ -19,6 +20,7 @@ import CommentPanel from '@compo/home/comment-panel.tsx';
 import EditTweetForm from '@compo/home/edit-tweet-form.tsx';
 import * as S from '@style/tweet.ts';
 import * as P from '@style/popup.ts';
+import ErrorAlarm from '@style/error-alarm.ts';
 import { ReactComponent as IconUser } from '@img/i-user.svg';
 import { ReactComponent as IconComment } from '@img/i-comment.svg';
 import { ReactComponent as IconEdit } from '@img/i-edit.svg';
@@ -38,24 +40,29 @@ export default function Tweet({
   const [isLiked, setIsLiked] = useState(
     liked ? liked.includes(currentUser.userId) : false,
   );
-  const toggleLike = async () => {
-    const tweetRef = doc(db, 'tweets', id);
-    if (isLiked) {
-      await updateDoc(tweetRef, {
-        liked: arrayRemove(currentUser.userId),
-      });
-    } else {
-      await updateDoc(tweetRef, {
-        liked: arrayUnion(currentUser.userId),
-      });
-    }
-    setIsLiked(!isLiked);
-  };
   const [showComments, setShowComments] = useState(false);
+  const [editPopup, setEditPopup] = useState(false);
+  const { errorMessage, displayError } = useErrorMessage('');
+  const toggleLike = async () => {
+    try {
+      const tweetRef = doc(db, 'tweets', id);
+      if (isLiked) {
+        await updateDoc(tweetRef, {
+          liked: arrayRemove(currentUser.userId),
+        });
+      } else {
+        await updateDoc(tweetRef, {
+          liked: arrayUnion(currentUser.userId),
+        });
+      }
+      setIsLiked(!isLiked);
+    } catch (error) {
+      displayError(error);
+    }
+  };
   const toggleCommentPanel = () => {
     setShowComments(!showComments);
   };
-  const [editPopup, setEditPopup] = useState(false);
   const toggleEditPopup = () => {
     setEditPopup(!editPopup);
   };
@@ -71,8 +78,8 @@ export default function Tweet({
         const photoRef = ref(storage, `tweets/${currentUser.userId}/${id}`);
         await deleteObject(photoRef);
       }
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      displayError(error);
     } finally {
       ScrollTop('timeline');
     }
@@ -164,6 +171,7 @@ export default function Tweet({
           </P.MiniPopup>
         </P.PopupWrapper>
       ) : null}
+      {errorMessage && <ErrorAlarm>{errorMessage}</ErrorAlarm>}
     </S.Wrapper>
   );
 }

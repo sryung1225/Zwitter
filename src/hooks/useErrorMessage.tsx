@@ -9,6 +9,8 @@ export default function useAuthErrorMessage(initialMessage: string) {
     let message = '';
     if (error instanceof FirebaseError) {
       message = AUTH_ERRORS[error.code] || `${DEFAULT_ERROR} (${error.code})`;
+    } else if (error instanceof Error) {
+      message = `${DEFAULT_ERROR} (${error.name})`;
     }
     setErrorMessage(message);
     setTimeout(() => {

@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { auth } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
+import useErrorMessage from '@hook/useErrorMessage.tsx';
 import useEscClose from '@util/use-esc-close.tsx';
 import * as S from '@style/mini-profile.ts';
 import * as P from '@style/popup.ts';
+import ErrorAlarm from '@style/error-alarm.ts';
 import { ReactComponent as IconUser } from '@img/i-user.svg';
 import { ReactComponent as IconLogout } from '@img/i-arrowleft.svg';
 import timelineTweetsAtom from '@/atoms/timeline-tweets.tsx';
@@ -15,6 +17,7 @@ export default function MiniProfile() {
   const [currentUser, setCurrentUser] = useRecoilState(currentUserAtom);
   const setTimelineTweets = useSetRecoilState(timelineTweetsAtom);
   const [logoutPopup, setLogoutPopup] = useState(false);
+  const { errorMessage, displayError } = useErrorMessage('');
   const toggleLogoutPopup = () => {
     setLogoutPopup(!logoutPopup);
   };
@@ -23,7 +26,7 @@ export default function MiniProfile() {
     try {
       await auth.signOut();
     } catch (error) {
-      console.error('Error during sign out:', error);
+      displayError(error);
     } finally {
       navigate('/auth');
       setCurrentUser({
@@ -70,6 +73,7 @@ export default function MiniProfile() {
           </P.MiniPopup>
         </P.PopupWrapper>
       ) : null}
+      {errorMessage && <ErrorAlarm>{errorMessage}</ErrorAlarm>}
     </>
   );
 }
