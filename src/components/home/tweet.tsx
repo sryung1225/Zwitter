@@ -95,7 +95,10 @@ export default function Tweet({
   }, [userId]);
   return (
     <S.Wrapper>
-      <S.Avatar to={`/user?query=${userId}`}>
+      <S.Avatar
+        to={`/user?query=${userId}`}
+        aria-label={`${userName} 프로필로 이동`}
+      >
         {userAvatar ? (
           <S.AvatarImage
             src={userAvatar}
@@ -108,7 +111,12 @@ export default function Tweet({
         )}
       </S.Avatar>
       <S.Row>
-        <S.Username to={`/user?query=${userId}`}>{userName}</S.Username>
+        <S.Username
+          to={`/user?query=${userId}`}
+          aria-label={`${userName} 프로필로 이동`}
+        >
+          {userName}
+        </S.Username>
         <S.Date>{FormatDate(createdAt)}</S.Date>
       </S.Row>
       <S.Payload>{tweet}</S.Payload>

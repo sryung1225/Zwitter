@@ -8,7 +8,8 @@ export default function ModeToggle() {
   const [isDark, setIsDark] = useRecoilState(isDarkAtom);
   const toggleMode = () => setIsDark((current) => !current);
   return (
-    <ModeToggleButton onClick={toggleMode}>
+    <ModeToggleButton type="button" onClick={toggleMode}>
+      <p className="a11yHidden">테마 토글 버튼</p>
       {isDark ? <IconSun /> : <IconMoon />}
     </ModeToggleButton>
   );

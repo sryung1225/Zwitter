@@ -1,8 +1,8 @@
-import IUser from '@type/IUser.ts';
-import Tweet from '@compo/home/tweet.tsx';
-import * as S from '@style/timeline.ts';
-import useTimeline from '@hook/useTimeline.tsx';
 import { where } from 'firebase/firestore';
+import Tweet from '@compo/home/tweet.tsx';
+import IUser from '@type/IUser.ts';
+import useTimeline from '@hook/useTimeline.tsx';
+import * as S from '@style/timeline.ts';
 
 interface IUserTimeline {
   user: IUser;
