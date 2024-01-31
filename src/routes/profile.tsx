@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/firebase.ts';
-import WindowTop from '@compo/window-top.tsx';
+import WindowTop from '@compo/common/window-top.tsx';
 import UserProfile from '@compo/profile/user-profile.tsx';
 import UserTimeline from '@compo/profile/user-timeline.tsx';
 import currentUserAtom from '@atom/current-user.tsx';

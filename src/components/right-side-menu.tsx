@@ -1,5 +1,5 @@
-import WindowTop from '@compo/window-top.tsx';
-import SearchKeyword from '@compo/right-side-menu/search-keyword.tsx';
+import WindowTop from '@compo/common/window-top.tsx';
+import SearchKeyword from '@compo/common/search-keyword.tsx';
 import * as S from '@style/window.ts';
 
 export default function RightSideMenu() {

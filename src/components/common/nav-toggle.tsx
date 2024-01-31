@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import SearchKeyword from '@compo/common/search-keyword.tsx';
+import LogoutPopup from '@compo/common/logout-popup.tsx';
 import currentUserAtom from '@atom/current-user.tsx';
 import useEscClose from '@hook/useEscClose.tsx';
-import SearchKeyword from '@compo/right-side-menu/search-keyword.tsx';
-import LogoutPopup from '@compo/logout-popup.tsx';
 import { NavToggleButton } from '@style/floating-action-button.ts';
 import * as S from '@style/navigation-full.ts';
 import ImageComputer from '@img/logo-small.png';

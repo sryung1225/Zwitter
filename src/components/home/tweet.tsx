@@ -10,14 +10,14 @@ import {
 } from 'firebase/firestore';
 import { deleteObject, ref } from 'firebase/storage';
 import { db, storage } from '@/firebase.ts';
+import CommentPanel from '@compo/home/comment-panel.tsx';
+import EditTweetForm from '@compo/home/edit-tweet-form.tsx';
 import currentUserAtom from '@atom/current-user.tsx';
 import ITweet from '@type/ITweet.ts';
 import useEscClose from '@hook/useEscClose.tsx';
 import useErrorMessage from '@hook/useErrorMessage.tsx';
 import FormatDate from '@util/format-date.tsx';
 import ScrollTop from '@util/scroll-top.tsx';
-import CommentPanel from '@compo/home/comment-panel.tsx';
-import EditTweetForm from '@compo/home/edit-tweet-form.tsx';
 import * as S from '@style/tweet.ts';
 import * as P from '@style/popup.ts';
 import ErrorAlarm from '@style/error-alarm.ts';

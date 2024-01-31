@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import LogoutPopup from '@compo/logout-popup.tsx';
+import LogoutPopup from '@compo/common/logout-popup.tsx';
 import currentUserAtom from '@atom/current-user.tsx';
 import useEscClose from '@hook/useEscClose.tsx';
 import * as S from '@style/mini-profile.ts';

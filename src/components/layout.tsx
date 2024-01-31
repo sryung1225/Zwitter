@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import SCREEN_SIZE from '@const/screen-size.tsx';
 import LeftSideMenu from '@compo/left-side-menu.tsx';
 import RightSideMenu from '@compo/right-side-menu.tsx';
-import NavToggle from '@compo/nav-toggle.tsx';
+import NavToggle from '@compo/common/nav-toggle.tsx';
+import SCREEN_SIZE from '@const/screen-size.tsx';
 import Wrapper from '@style/layout.ts';
 
 export default function Layout() {
