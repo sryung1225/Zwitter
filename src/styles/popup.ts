@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 import { SolidButton } from '@style/button.ts';
 
 export const PopupWrapper = styled.div`

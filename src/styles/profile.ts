@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 import { LineButton, SolidButton } from '@style/button.ts';
 
 export const Profile = styled.article`

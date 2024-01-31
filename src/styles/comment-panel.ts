@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 import { Input, SolidButton } from '@style/button.ts';
 import { Avatar, AvatarImage } from '@style/tweet.ts';
 
