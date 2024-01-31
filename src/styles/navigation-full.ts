@@ -21,7 +21,7 @@ const slideOut = keyframes`
 `;
 
 export const NavigationWrapper = styled.nav<{ $isActive: boolean }>`
-  z-index: 300;
+  z-index: 100;
   position: fixed;
   top: 0;
   bottom: 0;

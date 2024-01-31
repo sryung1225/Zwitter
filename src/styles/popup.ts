@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { SolidButton } from '@style/button.ts';
 
 export const PopupWrapper = styled.div`
-  z-index: 100;
+  z-index: 150;
   position: fixed;
   top: 0;
   bottom: 0;
