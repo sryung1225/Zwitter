@@ -66,7 +66,7 @@ export const AttachAvatarChange: React.ComponentType<
   svg {
     width: 15px;
     height: 15px;
-    stroke: ${({ theme }) => theme.colors.white};
+    stroke: ${({ theme }) => theme.colors.background};
     stroke-width: 3px;
   }
 `;
