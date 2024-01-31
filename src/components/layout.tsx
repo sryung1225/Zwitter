@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import SCREEN_SIZE from '@const/screen-size.tsx';
 import LeftSideMenu from '@compo/left-side-menu.tsx';
 import RightSideMenu from '@compo/right-side-menu.tsx';
+import NavToggle from '@compo/nav-toggle.tsx';
 import Wrapper from '@style/layout.ts';
 
 export default function Layout() {
@@ -23,7 +24,7 @@ export default function Layout() {
   }, []);
   return (
     <Wrapper>
-      {isShowLeftSide && <LeftSideMenu />}
+      {isShowLeftSide ? <LeftSideMenu /> : <NavToggle />}
       <Outlet />
       {isShowRightSide && <RightSideMenu />}
     </Wrapper>

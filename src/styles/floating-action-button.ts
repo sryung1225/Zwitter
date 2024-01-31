@@ -1,11 +1,10 @@
 import { styled } from 'styled-components';
 import media from '@style/media.ts';
 
-const ModeToggleButton = styled.button`
+const FloatingActionButton = styled.button`
   z-index: 50;
   position: fixed;
-  bottom: 50px;
-  right: 50px;
+  right: 55px;
   width: 50px;
   height: 50px;
   padding: 10px;
@@ -27,12 +26,33 @@ const ModeToggleButton = styled.button`
       fill: ${({ theme }) => theme.colors.primary};
     }
   }
-  ${media.phone} {
+  ${media.tablet} {
     & {
-      bottom: 30px;
-      right: 30px;
+      width: 40px;
+      height: 40px;
+      box-shadow: 4px 4px ${({ theme }) => theme.colors.gray};
+      svg {
+        width: 16px;
+        height: 16px;
+      }
     }
   }
 `;
 
-export default ModeToggleButton;
+export const ModeToggleButton = styled(FloatingActionButton)`
+  bottom: 50px;
+  ${media.tablet} {
+    & {
+      bottom: 40px;
+    }
+  }
+`;
+
+export const NavToggleButton = styled(FloatingActionButton)`
+  bottom: 110px;
+  ${media.tablet} {
+    & {
+      bottom: 85px;
+    }
+  }
+`;

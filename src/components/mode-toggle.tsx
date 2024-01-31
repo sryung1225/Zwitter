@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 import isDarkAtom from '@atom/is-dark.tsx';
-import ModeToggleButton from '@style/mode-toggle-button.ts';
+import { ModeToggleButton } from '@style/floating-action-button.ts';
 import { ReactComponent as IconSun } from '@img/i-sun.svg';
 import { ReactComponent as IconMoon } from '@img/i-moon.svg';
 

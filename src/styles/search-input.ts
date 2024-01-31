@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 import { Input } from '@style/button.ts';
 
 export const Form = styled.form`
@@ -12,7 +12,7 @@ export const Form = styled.form`
 
 export const FormInput = styled(Input)`
   padding-right: 50px;
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const FormButton = styled.button`

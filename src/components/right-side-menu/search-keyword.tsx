@@ -5,7 +5,7 @@ import searchKeywordAtom from '@atom/search-keyword.tsx';
 import * as S from '@style/search-input.ts';
 import { ReactComponent as IconSearch } from '@img/i-search.svg';
 
-export default function SearchKeyword() {
+export default function SearchKeyword({ onSearchSubmit = () => {} }) {
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState('');
   const setSearchKeyword = useSetRecoilState(searchKeywordAtom);
@@ -17,6 +17,7 @@ export default function SearchKeyword() {
     setSearchKeyword(searchValue);
     setSearchValue('');
     navigate(`/search?query=${searchValue}`);
+    onSearchSubmit();
   };
   return (
     <S.Form onSubmit={onSubmit}>
