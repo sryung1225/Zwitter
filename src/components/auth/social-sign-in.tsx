@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { AuthProvider, signInWithPopup } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '@/firebase.ts';
 import currentUserAtom from '@atom/current-user.tsx';
 import useErrorMessage from '@hook/useErrorMessage.tsx';
@@ -24,11 +24,14 @@ export default function SocialSignIn({ provider, icon, text }: ISocialButton) {
     try {
       const credentials = await signInWithPopup(auth, provider);
       const userRef = doc(db, 'users', credentials.user.uid);
-      await setDoc(userRef, {
-        userName: credentials.user.displayName || '미지의 Z세대',
-        userId: credentials.user.uid,
-        userAvatar: credentials.user.photoURL || null,
-      });
+      const docSnap = await getDoc(userRef);
+      if (!docSnap.exists()) {
+        await setDoc(userRef, {
+          userName: credentials.user.displayName || '미지의 Z세대',
+          userId: credentials.user.uid,
+          userAvatar: credentials.user.photoURL || null,
+        });
+      }
       await FetchCurrentUser({
         userId: credentials.user.uid || '',
         setCurrentUser,

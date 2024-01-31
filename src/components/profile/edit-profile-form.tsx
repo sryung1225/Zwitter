@@ -65,8 +65,14 @@ export default function EditProfileForm({ onClose }: IEditProfileForm) {
         ...prevUser,
         userName: name,
       }));
-      const locationRef = ref(storage, `avatars/${currentUser.userId}`);
+
+      const isFirebaseHostedImage =
+        currentUser.userAvatar &&
+        currentUser.userAvatar.startsWith(
+          'https://firebasestorage.googleapis.com/',
+        );
       if (avatar) {
+        const locationRef = ref(storage, `avatars/${currentUser.userId}`);
         const result = await uploadBytes(locationRef, avatar);
         const url = await getDownloadURL(result.ref);
         await updateDoc(userDocRef, {
@@ -81,7 +87,10 @@ export default function EditProfileForm({ onClose }: IEditProfileForm) {
         currentUser.userAvatar &&
         currentUser.userAvatar !== avatarPreview
       ) {
-        await deleteObject(locationRef);
+        if (isFirebaseHostedImage) {
+          const locationRef = ref(storage, currentUser.userAvatar);
+          await deleteObject(locationRef);
+        }
         await updateDoc(userDocRef, {
           userAvatar: null,
         });
