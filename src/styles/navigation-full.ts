@@ -57,16 +57,24 @@ export const MenuList = styled(S.MenuList)`
 
 export const MenuItem = styled.li`
   line-height: 30px;
-  cursor: pointer;
-  a {
+  a,
+  button {
     color: ${(props) => props.theme.colors.background};
     font-size: 36px;
     font-family: ${({ theme }) => theme.fonts.logo};
-    text-decoration: none;
     transition: all 0.5s ease;
   }
+  a {
+    text-decoration: none;
+    cursor: pointer;
+  }
+  button {
+    background-color: transparent;
+    border: none;
+  }
   &:hover {
-    a {
+    a,
+    button {
       color: ${({ theme }) => theme.colors.text};
     }
   }

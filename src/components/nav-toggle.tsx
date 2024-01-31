@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import currentUserAtom from '@atom/current-user.tsx';
 import useEscClose from '@hook/useEscClose.tsx';
 import SearchKeyword from '@compo/right-side-menu/search-keyword.tsx';
+import LogoutPopup from '@compo/logout-popup.tsx';
 import { NavToggleButton } from '@style/floating-action-button.ts';
 import * as S from '@style/navigation-full.ts';
 import ImageComputer from '@img/logo-small.png';
@@ -13,6 +14,10 @@ export default function NavToggle() {
   const currentUser = useRecoilValue(currentUserAtom);
   const [openNav, setOpenNav] = useState(false);
   const [openNavAni, setOpenNavAni] = useState(false);
+  const [logoutPopup, setLogoutPopup] = useState(false);
+  const toggleLogoutPopup = () => {
+    setLogoutPopup(!logoutPopup);
+  };
   const toggleNav = () => {
     if (openNav) {
       setOpenNavAni(false);
@@ -57,10 +62,18 @@ export default function NavToggle() {
                 프로필
               </Link>
             </S.MenuItem>
+            <S.MenuItem>
+              <button type="button" onClick={toggleLogoutPopup}>
+                로그아웃
+              </button>
+            </S.MenuItem>
           </S.MenuList>
           <SearchKeyword onSearchSubmit={toggleNav} />
         </S.NavigationWrapper>
       )}
+      {logoutPopup ? (
+        <LogoutPopup toggleLogoutPopup={toggleLogoutPopup} />
+      ) : null}
     </>
   );
 }
