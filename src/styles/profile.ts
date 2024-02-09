@@ -1,5 +1,4 @@
-import { styled } from 'styled-components';
-import { grayColor } from '@style/global.ts';
+import styled from 'styled-components';
 import { LineButton, SolidButton } from '@style/button.ts';
 
 export const Profile = styled.article`
@@ -18,7 +17,7 @@ export const Profile = styled.article`
     right: -10px;
     width: calc(100% + 20px);
     height: 2px;
-    background-color: #070707;
+    background-color: ${({ theme }) => theme.colors.text};
   }
 `;
 
@@ -33,7 +32,7 @@ export const Avatar = styled.div`
   overflow: hidden;
   svg {
     width: 40px;
-    stroke: ${grayColor};
+    stroke: ${({ theme }) => theme.colors.gray};
   }
   &::before {
     content: '';
@@ -44,7 +43,7 @@ export const Avatar = styled.div`
     right: 0;
     width: 116px;
     height: 116px;
-    border: 2px dashed ${grayColor};
+    border: 2px dashed ${({ theme }) => theme.colors.gray};
     border-radius: 50%;
   }
 `;

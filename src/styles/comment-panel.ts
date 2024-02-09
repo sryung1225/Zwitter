@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom';
-import { styled } from 'styled-components';
-import { blackColor, whiteColor } from '@style/global.ts';
+import styled from 'styled-components';
 import { Input, SolidButton } from '@style/button.ts';
 import { Avatar, AvatarImage } from '@style/tweet.ts';
 
 export const CommentPanel = styled.div`
   margin-top: 10px;
   padding: 10px;
-  border: 1px solid ${blackColor};
+  border: 1px solid ${({ theme }) => theme.colors.text};
   border-radius: 20px;
   position: relative;
   &::before {
@@ -17,9 +16,9 @@ export const CommentPanel = styled.div`
     left: 62px;
     width: 10px;
     height: 10px;
-    background-color: ${whiteColor};
-    border-top: 1px solid ${blackColor};
-    border-left: 1px solid ${blackColor};
+    background-color: ${({ theme }) => theme.colors.background};
+    border-top: 1px solid ${({ theme }) => theme.colors.text};
+    border-left: 1px solid ${({ theme }) => theme.colors.text};
     transform: rotate(45deg);
   }
 `;

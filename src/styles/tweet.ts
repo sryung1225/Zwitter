@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
-import { styled } from 'styled-components';
-import { grayColor, primaryColor } from '@style/global.ts';
-import { ReactComponent as IconHeart } from '@img/i-heart.svg';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import media from '@style/media.ts';
+import { ReactComponent as IconHeart } from '@img/i-heart.svg';
 
 export const Wrapper = styled.li`
   position: relative;
@@ -10,7 +10,7 @@ export const Wrapper = styled.li`
   flex-direction: column;
   padding: 20px 20px 20px 60px;
   &:not(:last-child) {
-    border-bottom: 1px dashed ${grayColor};
+    border-bottom: 1px dashed ${({ theme }) => theme.colors.gray};
   }
 `;
 
@@ -40,13 +40,13 @@ export const Avatar = styled(Link)`
     right: 0;
     width: 36px;
     height: 36px;
-    border: 2px dashed ${grayColor};
+    border: 2px dashed ${({ theme }) => theme.colors.gray};
     border-radius: 50%;
   }
   svg {
     width: 26px;
     height: 26px;
-    stroke: ${grayColor};
+    stroke: ${({ theme }) => theme.colors.gray};
   }
 `;
 
@@ -64,7 +64,7 @@ export const Username = styled(Link)`
 `;
 
 export const Date = styled.span`
-  color: ${grayColor};
+  color: ${({ theme }) => theme.colors.gray};
   font-size: 10px;
 `;
 
@@ -78,6 +78,12 @@ export const Photo = styled.img`
   height: 300px;
   border-radius: 15px;
   object-fit: cover;
+  ${media.tablet} {
+    width: 100%;
+    max-width: 300px;
+    height: 100%;
+    max-height: 300px;
+  }
 `;
 
 export const WatchStats = styled.span`
@@ -103,7 +109,8 @@ interface IStyledHeart extends React.SVGProps<SVGSVGElement> {
 }
 
 export const StyledHeart = styled(IconHeart)<IStyledHeart>`
-  fill: ${(props) => (props.$active ? primaryColor : 'transparent')};
+  fill: ${(props) =>
+    props.$active ? props.theme.colors.primary : 'transparent'};
 `;
 
 export const DeleteButton = styled.button`
@@ -122,7 +129,7 @@ export const DeleteButton = styled.button`
     left: 6px;
     width: 13px;
     height: 2px;
-    background-color: ${primaryColor};
+    background-color: ${({ theme }) => theme.colors.primary};
   }
   &::before {
     transform: rotate(45deg);
@@ -143,7 +150,7 @@ export const EditButton = styled.button`
   svg {
     width: 16px;
     height: 16px;
-    stroke: ${primaryColor};
+    stroke: ${({ theme }) => theme.colors.primary};
     stroke-width: 2;
   }
 `;

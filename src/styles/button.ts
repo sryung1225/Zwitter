@@ -1,10 +1,4 @@
-import { styled } from 'styled-components';
-import {
-  blackColor,
-  grayColor,
-  primaryColor,
-  whiteColor,
-} from '@style/global.ts';
+import styled from 'styled-components';
 
 const Button = styled.button`
   width: 100%;
@@ -20,24 +14,25 @@ const Button = styled.button`
 `;
 
 export const LineButton = styled(Button)`
-  background-color: ${whiteColor};
-  border: 1px solid ${grayColor};
-  color: ${blackColor};
+  background-color: ${({ theme }) => theme.colors.background};
+  border: 1px solid ${({ theme }) => theme.colors.gray};
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const SolidButton = styled(Button)`
-  background-color: ${primaryColor};
-  border: 1px solid ${primaryColor};
-  color: ${whiteColor};
+  background-color: ${({ theme }) => theme.colors.primary};
+  border: 1px solid ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 export const Input = styled.input`
   width: 100%;
   padding: 10px 20px;
+  background-color: transparent;
   border-radius: 50px;
   border: 1px solid #a7a7a7;
   font-size: 16px;
   &::placeholder {
-    color: ${grayColor};
+    color: ${({ theme }) => theme.colors.gray};
   }
 `;

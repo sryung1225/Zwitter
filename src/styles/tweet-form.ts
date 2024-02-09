@@ -1,10 +1,4 @@
 import styled from 'styled-components';
-import {
-  blackColor,
-  grayColor,
-  primaryColor,
-  whiteColor,
-} from '@style/global.ts';
 import { SolidButton } from '@style/button.ts';
 
 export const Form = styled.form`
@@ -26,7 +20,7 @@ export const PostForm = styled(Form)`
     right: -10px;
     width: calc(100% + 20px);
     height: 2px;
-    background-color: ${blackColor};
+    background-color: ${({ theme }) => theme.colors.text};
   }
 `;
 
@@ -37,7 +31,7 @@ export const TextArea = styled.textarea`
   padding: 20px;
   background: transparent;
   border: transparent;
-  color: ${blackColor};
+  color: ${({ theme }) => theme.colors.text};
   font-size: 16px;
   resize: none;
   &::placeholder {
@@ -45,7 +39,7 @@ export const TextArea = styled.textarea`
   }
   &:focus {
     outline: none;
-    border-color: ${primaryColor};
+    border-color: ${({ theme }) => theme.colors.primary};
   }
 `;
 
@@ -65,8 +59,8 @@ export const AttachImageDelete = styled.button`
   right: 105px;
   width: 25px;
   height: 25px;
-  background-color: ${primaryColor};
-  border: 2px solid ${whiteColor};
+  background-color: ${({ theme }) => theme.colors.primary};
+  border: 2px solid ${({ theme }) => theme.colors.background};
   border-radius: 50%;
   &::before,
   &::after {
@@ -76,7 +70,7 @@ export const AttachImageDelete = styled.button`
     left: 4px;
     width: 13px;
     height: 2px;
-    background-color: ${whiteColor};
+    background-color: ${({ theme }) => theme.colors.background};
   }
   &::before {
     transform: rotate(45deg);
@@ -92,7 +86,7 @@ export const AttachImageButton = styled.label`
   right: 0;
   width: 120px;
   height: 120px;
-  border: 2px dashed ${grayColor};
+  border: 2px dashed ${({ theme }) => theme.colors.gray};
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.5s ease;
@@ -102,14 +96,14 @@ export const AttachImageButton = styled.label`
     left: calc(50% - 15px);
     width: 30px;
     height: 30px;
-    stroke: ${grayColor};
+    stroke: ${({ theme }) => theme.colors.gray};
     transition: all 0.5s ease;
   }
   &:hover,
   &:active {
-    border: 2px dashed ${primaryColor};
+    border: 2px dashed ${({ theme }) => theme.colors.primary};
     svg {
-      stroke: ${primaryColor};
+      stroke: ${({ theme }) => theme.colors.primary};
     }
   }
 `;

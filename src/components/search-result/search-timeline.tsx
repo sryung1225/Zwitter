@@ -3,8 +3,8 @@ import { orderBy, where } from 'firebase/firestore';
 import { useRecoilValue } from 'recoil';
 import Tweet from '@compo/home/tweet.tsx';
 import searchKeywordAtom from '@atom/search-keyword.tsx';
-import * as S from '@style/timeline.ts';
 import useTimeline from '@hook/useTimeline.tsx';
+import * as S from '@style/timeline.ts';
 
 export default function SearchTimeline() {
   const location = useLocation();
