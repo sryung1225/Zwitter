@@ -39,7 +39,7 @@
 
 ### 📍 로그인 및 회원가입
 
-<img src="./assets/login.gif" />
+<img src="./assets/auth.gif" />
 
 Firebase의 Authentication을 이용하여 구현된 **로그인 및 회원가입** 창입니다.
 
@@ -73,34 +73,34 @@ export default function ProtectedRoute({
 작성 중...
 
 <br />
-<!-- 
+
 ### 📍 좋아요 및 댓글 작성
 
-<img src="./assets/timeline.gif" />
+<img src="./assets/like-comment.gif" />
 
 <br />
 
 ### 📍 포스팅 작성
 
-<img src="./assets/timeline.gif" />
+<img src="./assets/tweet-post.gif" />
 
 <br />
 
 ### 📍 포스팅 수정
 
-<img src="./assets/timeline.gif" />
+<img src="./assets/tweet-edit.gif" />
 
 <br />
 
 ### 📍 포스팅 삭제
 
-<img src="./assets/timeline.gif" />
+<img src="./assets/tweet-delete.gif" />
 
 <br />
 
 ### 📍 프로필
 
-<img src="./assets/timeline.gif" />
+<img src="./assets/profile.gif" />
 
 내 프로필 가기 & 상대방 프로필 가기
 
@@ -108,7 +108,7 @@ export default function ProtectedRoute({
 
 ### 📍 프로필 수정
 
-<img src="./assets/timeline.gif" />
+<img src="./assets/profile-edit.gif" />
 
 내 프로필 사진, 이름 수정하기
 
@@ -116,33 +116,33 @@ export default function ProtectedRoute({
 
 ### 📍 포스팅 검색
 
-<img src="./assets/timeline.gif" />
+<img src="./assets/search.gif" />
 
 <br />
 
 ### 📍 로그아웃
 
-<img src="./assets/timeline.gif" />
+<img src="./assets/logout.gif" />
 
 <br />
 
 ### 📍 회원 탈퇴
 
-<img src="./assets/timeline.gif" />
+<img src="./assets/withdraw.gif" />
 
 <br />
 
 ### 📍 테마 모드 전환
 
-<img src="./assets/timeline.gif" />
+<img src="./assets/theme.gif" />
 
 <br />
 
 ### 📍 반응형 레이아웃
 
-<img src="./assets/timeline.gif" />
+<img src="./assets/responsive.gif" />
 
-<br />
+<!-- <br />
 
 ## 💎 성능 최적화
 
@@ -152,12 +152,12 @@ export default function ProtectedRoute({
 
 ### 🔎 이미지 최적화
 
-### 🔎 SEO 최적화
+### 🔎 SEO 최적화 -->
 
 <br />
 
 ## 🧨 바로 가기
 
-- [프로토타입 디자인]()
-- [백로그]()
-- [개발 회고]() -->
+- [프로토타입 디자인](https://www.figma.com/file/lGfHRx9UZ6bpdiYaG1YTWC/Zwitter?type=design&node-id=0%3A1&mode=design&t=IbcMGsDoEQOQu4DW-1)
+- [백로그](https://github.com/users/sryung1225/projects/4)
+- [개발 회고 일지](https://s-ryung.tistory.com/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8)
